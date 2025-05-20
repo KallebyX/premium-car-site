@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -10,15 +11,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rotas públicas
 app.use('/api/carros', carrosRoutes);
 
-// Página inicial
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Painel CRUD (protegido futuramente)
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'src', 'admin', 'painel.html'));
 });
