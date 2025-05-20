@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+.env
+.DS_Store
+*.log
+
+# Editor configs
+.vscode/
+.idea/
+
+# Sistema operacional
+Thumbs.db
+*.swp
+
+# Vercel (caso use CLI)
+.vercel/
+
+# Logs e debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backup do sistema (macOS/Linux)
+*.bak
+*.old
+
+# Uploads temporários
+/tmp/
+.cache/
+dist/
