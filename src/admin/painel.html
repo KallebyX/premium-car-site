@@ -21,12 +21,12 @@
       <label class="form-label">Descrição</label>
       <textarea class="form-control" id="descricao" rows="2" required></textarea>
     </div>
-    <div class="row mb-3">
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
       <div class="col"><input type="text" class="form-control" id="marca" placeholder="Marca" required></div>
       <div class="col"><input type="text" class="form-control" id="modelo" placeholder="Modelo" required></div>
       <div class="col"><input type="number" class="form-control" id="ano" placeholder="Ano" required></div>
     </div>
-    <div class="row mb-3">
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
       <div class="col"><input type="number" class="form-control" id="preco" placeholder="Preço R$" required></div>
       <div class="col"><input type="number" class="form-control" id="nota" placeholder="Nota" min="1" max="10" required></div>
       <div class="col"><input type="url" class="form-control" id="video" placeholder="URL YouTube" required></div>
@@ -34,9 +34,10 @@
     <div class="mb-3">
       <label class="form-label">Imagem do carro</label>
       <input type="file" class="form-control" id="imagem" accept="image/*">
+      <img id="previewImagem" src="#" alt="Pré-visualização" class="img-fluid mt-2 d-none" style="max-height: 200px;">
       <input type="hidden" id="imagem_url">
     </div>
-    <button type="submit" class="btn btn-success">Salvar Avaliação</button>
+    <button type="submit" class="btn btn-success" id="btnSalvar">Salvar Avaliação</button>
   </form>
 
   <div id="statusMsg" class="text-center mb-4"></div>
@@ -69,6 +70,8 @@ const form = document.getElementById('carroForm');
 const msg = document.getElementById('statusMsg');
 const inputFile = document.getElementById('imagem');
 const imagem_url = document.getElementById('imagem_url');
+const btnSalvar = document.getElementById('btnSalvar');
+const previewImagem = document.getElementById('previewImagem');
 
 async function listarCarros() {
   const res = await fetch('/api/carros', {
@@ -144,6 +147,9 @@ async function uploadImagem() {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  btnSalvar.disabled = true;
+  btnSalvar.innerHTML = 'Salvando...';
+
   let urlImagem = imagem_url.value;
   if (inputFile.files.length > 0) {
     urlImagem = await uploadImagem();
@@ -179,10 +185,26 @@ form.addEventListener('submit', async (e) => {
     msg.innerHTML = `<div class='alert alert-success'>${id ? 'Atualizado' : 'Cadastrado'} com sucesso!</div>`;
     form.reset();
     form.id.value = '';
+    btnSalvar.disabled = false;
+    btnSalvar.innerHTML = 'Salvar Avaliação';
+    previewImagem.classList.add('d-none');
+    setTimeout(() => { msg.innerHTML = ''; }, 3000);
     listarCarros();
   } else {
     const erro = await res.json();
     msg.innerHTML = `<div class='alert alert-danger'>Erro: ${erro.error}</div>`;
+    btnSalvar.disabled = false;
+    btnSalvar.innerHTML = 'Salvar Avaliação';
+  }
+});
+
+inputFile.addEventListener('change', () => {
+  const file = inputFile.files[0];
+  if (file) {
+    previewImagem.src = URL.createObjectURL(file);
+    previewImagem.classList.remove('d-none');
+  } else {
+    previewImagem.classList.add('d-none');
   }
 });
 
