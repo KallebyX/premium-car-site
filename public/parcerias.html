@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Torne-se parceiro da Premium Car. Divulgue seu veículo com estilo e credibilidade através de nossas avaliações em vídeo para YouTube, TikTok e Instagram." />
+  <meta name="keywords" content="Premium Car, parcerias automotivas, divulgação de carros, avaliação de veículos, revendas, concessionárias" />
+  <title>Parcerias - Premium Car</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 120px 0;
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background-color: #dc3545;
+    }
+    
+    .process-step {
+      position: relative;
+      padding-left: 80px;
+      margin-bottom: 40px;
+    }
+    
+    .process-step:before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      background-color: #dc3545;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .process-step:after {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 60px;
+      width: 2px;
+      height: calc(100% - 30px);
+      background-color: #dc3545;
+      display: none;
+    }
+    
+    .process-step:not(:last-child):after {
+      display: block;
+    }
+    
+    .benefit-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .benefit-card .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #dc3545;
+    }
+    
+    .testimonial {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .testimonial:before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 5rem;
+      color: rgba(220, 53, 69, 0.1);
+      font-family: Georgia, serif;
+    }
+    
+    .cta-section {
+      background-color: #212529;
+      color: white;
+      padding: 80px 0;
+      margin: 60px 0;
+    }
+    
+    .btn-primary {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: #bb2d3b;
+      border-color: #bb2d3b;
+    }
+    
+    .btn-outline-light:hover {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div id="injected-header"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-4">Parcerias Premium Car</h1>
+      <p class="lead mb-4">Quer divulgar seu carro com estilo e credibilidade?</p>
+      <a href="#parceria" class="btn btn-danger btn-lg px-5 py-3 mt-3">Quero ser parceiro</a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container my-5">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="section-title">Por que se tornar um parceiro?</h2>
+        <p class="lead mb-4">Transformamos a maneira como os veículos são apresentados ao público, combinando análise técnica com storytelling envolvente.</p>
+        <p>Na Premium Car, não fazemos apenas avaliações — criamos experiências que conectam pessoas e veículos através de conteúdo autêntico e de alta qualidade. Seja você uma revenda, concessionária ou proprietário particular, nossa parceria oferece uma plataforma única para destacar seu veículo no competitivo mercado automotivo.</p>
+        <p>Com milhares de visualizações em nossas plataformas e um público altamente engajado e qualificado, garantimos que seu veículo receba a atenção que merece, apresentado com o profissionalismo e a credibilidade que só a Premium Car pode oferecer.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1560253023-fa94d53e1f12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Parceria Premium Car" class="img-fluid rounded shadow">
+      </div>
+    </div>
+
+    <!-- Process Section -->
+    <div class="row my-5 pt-5">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-5 fw-bold">Como funciona o processo</h2>
+        <p class="lead">Do primeiro contato à publicação final, garantimos uma experiência simples e profissional</p>
+      </div>
+      
+      <div class="col-lg-8 mx-auto">
+        <div class="process-step" data-step="1">
+          <h3>Agendamento</h3>
+          <p>Entre em contato conosco através do formulário ou WhatsApp. Nossa equipe irá avaliar a disponibilidade e agendar a melhor data para a gravação do seu veículo.</p>
+        </div>
+        
+        <div class="process-step" data-step="2">
+          <h3>Gravação</h3>
+          <p>Nossa equipe profissional realizará a gravação completa do veículo, destacando seus principais atributos, tecnologias e diferenciais. Todo o processo é conduzido com equipamentos de alta qualidade.</p>
+        </div>
+        
+        <div class="process-step" data-step="3">
+          <h3>Análise Técnica</h3>
+          <p>Realizamos uma avaliação detalhada do veículo, considerando aspectos mecânicos, conforto, tecnologia, design e custo-benefício. Nossa abordagem é sempre honesta e imparcial.</p>
+        </div>
+        
+        <div class="process-step" data-step="4">
+          <h3>Edição e Produção</h3>
+          <p>O material é editado por nossa equipe especializada, garantindo um conteúdo dinâmico, informativo e visualmente atraente, alinhado aos mais altos padrões de qualidade.</p>
+        </div>
+        
+        <div class="process-step" data-step="5">
+          <h3>Publicação e Divulgação</h3>
+          <p>O conteúdo é publicado em nossas plataformas (YouTube, Instagram e TikTok) e promovido para nossa audiência qualificada, gerando visibilidade imediata para o seu veículo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="row my-5 pt-5">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-5 fw-bold">Benefícios para nossos parceiros</h2>
+        <p class="lead">Muito mais do que uma simples avaliação</p>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-graph-up fs-2"></i>
+          </div>
+          <h3 class="h4">Visibilidade Ampliada</h3>
+          <p>Acesso a uma audiência qualificada e interessada em automóveis, com potencial de milhares de visualizações em múltiplas plataformas.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-award fs-2"></i>
+          </div>
+          <h3 class="h4">Credibilidade e Confiança</h3>
+          <p>Associe sua marca ou veículo a uma fonte respeitada no mercado automotivo, construindo confiança com potenciais compradores.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-camera-video fs-2"></i>
+          </div>
+          <h3 class="h4">Conteúdo Profissional</h3>
+          <p>Material audiovisual de alta qualidade que pode ser compartilhado em suas próprias redes sociais e canais de marketing.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-speedometer2 fs-2"></i>
+          </div>
+          <h3 class="h4">Velocidade de Venda</h3>
+          <p>Veículos avaliados pela Premium Car tendem a despertar maior interesse e são vendidos mais rapidamente.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-people fs-2"></i>
+          </div>
+          <h3 class="h4">Alcance Qualificado</h3>
+          <p>Acesso direto a um público interessado em automóveis e com potencial de compra, reduzindo o tempo de prospecção.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center p-4">
+          <div class="feature-icon">
+            <i class="bi bi-star fs-2"></i>
+          </div>
+          <h3 class="h4">Diferenciação no Mercado</h3>
+          <p>Destaque-se da concorrência com uma abordagem moderna e transparente na divulgação de seus veículos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="row my-5 pt-3">
+      <div class="col-12 mb-4">
+        <h2 class="section-title">O que nossos parceiros dizem</h2>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <div class="testimonial">
+          <p>"Após a avaliação da Premium Car, nosso showroom recebeu um aumento significativo de visitas. O vídeo destacou características que nem mesmo sabíamos como valorizar. O carro foi vendido em apenas 3 dias após a publicação."</p>
+          <div class="d-flex align-items-center mt-3">
+            <div>
+              <h5 class="mb-0">Carlos Mendes</h5>
+              <small class="text-muted">Gerente de Vendas - AutoPrime Multimarcas</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <div class="testimonial">
+          <p>"Como proprietário particular, estava tendo dificuldades para vender meu carro. A avaliação profissional e honesta da Premium Car não só atraiu compradores sérios, como também me ajudou a valorizar corretamente o veículo."</p>
+          <div class="d-flex align-items-center mt-3">
+            <div>
+              <h5 class="mb-0">Mariana Costa</h5>
+              <small class="text-muted">Proprietária particular</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="parceria">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+          <h2 class="display-5 fw-bold mb-3">Pronto para destacar seu veículo?</h2>
+          <p class="lead mb-0">Entre em contato agora mesmo e descubra como podemos criar uma parceria de sucesso.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="https://wa.me/5500000000000" class="btn btn-light btn-lg px-4 me-md-2" target="_blank">
+            <i class="bi bi-whatsapp me-2"></i> Falar pelo WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow">
+          <div class="card-body p-5">
+            <h3 class="mb-4 text-center">Solicite uma avaliação</h3>
+            <form id="partnershipForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name" class="form-label">Nome completo*</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">E-mail*</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label">Telefone*</label>
+                  <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="partnerType" class="form-label">Tipo de parceiro*</label>
+                  <select class="form-select" id="partnerType" name="partnerType" required>
+                    <option value="" selected disabled>Selecione uma opção</option>
+                    <option value="Revenda">Revenda</option>
+                    <option value="Concessionária">Concessionária</option>
+                    <option value="Proprietário particular">Proprietário particular</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="carBrand" class="form-label">Marca do veículo*</label>
+                  <input type="text" class="form-control" id="carBrand" name="carBrand" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="carModel" class="form-label">Modelo do veículo*</label>
+                  <input type="text" class="form-control" id="carModel" name="carModel" required>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="message" class="form-label">Informações adicionais</label>
+                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Conte-nos mais sobre o veículo e suas expectativas..."></textarea>
+              </div>
+              
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary py-3">Solicitar avaliação</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="section-title">Perguntas frequentes</h2>
+        
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Quanto custa uma avaliação da Premium Car?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Os valores variam de acordo com o tipo de veículo, localização e pacote de serviços escolhido. Trabalhamos com pacotes personalizados para atender às necessidades específicas de cada parceiro. Entre em contato conosco para receber uma proposta detalhada.
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Vocês avaliam qualquer tipo de veículo?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Avaliamos diversos tipos de veículos, desde carros populares até modelos de luxo e esportivos. No entanto, reservamos o direito de selecionar os veículos com base em critérios técnicos e editoriais, considerando o interesse de nossa audiência e a qualidade do conteúdo que podemos produzir.
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Quanto tempo leva para o vídeo ser publicado?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                O processo completo, desde a gravação até a publicação, geralmente leva de 7 a 14 dias. Este prazo pode variar de acordo com nossa agenda de produção e a complexidade do conteúdo. Sempre informamos o prazo estimado no momento do agendamento.
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                E se eu não gostar da avaliação?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Nossa abordagem é sempre honesta e imparcial, destacando tanto os pontos positivos quanto os aspectos que podem ser melhorados em cada veículo. Antes da publicação, compartilhamos uma prévia do conteúdo com nossos parceiros para alinhamento, mas mantemos nossa independência editorial para garantir a credibilidade que nos diferencia no mercado.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="injected-footer"></div>
+
+  <script>
+    async function carregarHeaderFooter() {
+      const base = await fetch('/base.html').then(res => res.text());
+      const temp = document.createElement('div');
+      temp.innerHTML = base;
+
+      const header = temp.querySelector('header');
+      const footer = temp.querySelector('footer');
+
+      if (header) document.getElementById('injected-header').appendChild(header);
+      if (footer) document.getElementById('injected-footer').appendChild(footer);
+    }
+
+    carregarHeaderFooter();
+    
+    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const partnershipForm = document.getElementById('partnershipForm');
+      
+      if (partnershipForm) {
+        partnershipForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Show loading state
+          const submitButton = partnershipForm.querySelector('button[type="submit"]');
+          const originalButtonText = submitButton.textContent;
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
+          
+          try {
+            // Simulate API call (replace with actual Supabase integration)
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Show success message
+            alert('Sua solicitação foi enviada com sucesso! Em breve, nossa equipe entrará em contato.');
+            
+            // Reset form
+            partnershipForm.reset();
+          } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.');
+          } finally {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Entre em contato com a Premium Car. Envie sua mensagem, dúvida ou proposta de parceria através do nosso formulário ou redes sociais." />
+  <meta name="keywords" content="Premium Car, contato, avaliações automotivas, formulário de contato, WhatsApp, Instagram, YouTube" />
+  <title>Fale Conosco - Premium Car</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 0;
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background-color: #dc3545;
+    }
+    
+    .contact-form {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    
+    .form-control:focus {
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+      border-color: #dc3545;
+    }
+    
+    .btn-primary {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: #bb2d3b;
+      border-color: #bb2d3b;
+    }
+    
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      color: #212529;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .social-link:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .social-link.whatsapp {
+      background-color: #25D366;
+      color: white;
+    }
+    
+    .social-link.instagram {
+      background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+      color: white;
+    }
+    
+    .social-link.youtube {
+      background-color: #FF0000;
+      color: white;
+    }
+    
+    .contact-info-card {
+      border-left: 3px solid #dc3545;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .thank-you-message {
+      display: none;
+      background-color: #d4edda;
+      color: #155724;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .loading-spinner {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div id="injected-header"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-4">Fale Conosco</h1>
+      <p class="lead mb-4">Estamos à disposição para ouvir suas dúvidas, sugestões e propostas</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container my-5">
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-lg-7 mb-5 mb-lg-0">
+        <h2 class="section-title">Envie sua mensagem</h2>
+        <p class="mb-4">Preencha o formulário abaixo e entraremos em contato o mais breve possível.</p>
+        
+        <div class="contact-form" id="contact-form">
+          <form id="contactForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nome completo*</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail*</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="phone" class="form-label">Telefone (opcional)</label>
+              <input type="tel" class="form-control" id="phone" name="phone">
+            </div>
+            
+            <div class="mb-3">
+              <label for="subject" class="form-label">Assunto*</label>
+              <select class="form-select" id="subject" name="subject" required>
+                <option value="" selected disabled>Selecione uma opção</option>
+                <option value="Avaliação de carro">Avaliação de carro</option>
+                <option value="Parceria">Parceria</option>
+                <option value="Sugestão">Sugestão</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="message" class="form-label">Mensagem*</label>
+              <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary py-2" id="submitButton">
+                <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true" id="loadingSpinner"></span>
+                <span id="submitText">Enviar mensagem</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Thank You Message -->
+        <div class="thank-you-message mt-4" id="thankYouMessage">
+          <i class="bi bi-check-circle-fill text-success fs-1 mb-3"></i>
+          <h3>Mensagem enviada com sucesso!</h3>
+          <p class="mb-0">Agradecemos seu contato. Nossa equipe responderá o mais breve possível.</p>
+        </div>
+      </div>
+      
+      <!-- Contact Info -->
+      <div class="col-lg-5">
+        <div class="ps-lg-4">
+          <h2 class="section-title">Informações de contato</h2>
+          <p class="mb-4">Você também pode nos encontrar através dos seguintes canais:</p>
+          
+          <div class="contact-info-card">
+            <h5><i class="bi bi-clock me-2"></i> Horário de atendimento</h5>
+            <p class="mb-0">Segunda a sexta: 9h às 18h<br>Sábado: 9h às 13h</p>
+          </div>
+          
+          <div class="contact-info-card">
+            <h5><i class="bi bi-geo-alt me-2"></i> Localização</h5>
+            <p class="mb-0">Atendemos em todo o Brasil através de nossos canais digitais.</p>
+          </div>
+          
+          <h4 class="mt-5 mb-4">Redes sociais</h4>
+          <div class="d-flex mb-4">
+            <a href="https://wa.me/5500000000000" class="social-link whatsapp" target="_blank">
+              <i class="bi bi-whatsapp fs-4"></i>
+            </a>
+            <a href="https://instagram.com/premiumcar" class="social-link instagram" target="_blank">
+              <i class="bi bi-instagram fs-4"></i>
+            </a>
+            <a href="https://youtube.com/premiumcar" class="social-link youtube" target="_blank">
+              <i class="bi bi-youtube fs-4"></i>
+            </a>
+          </div>
+          
+          <div class="mt-5">
+            <h4 class="mb-3">Quer uma avaliação rápida?</h4>
+            <p>Entre em contato diretamente pelo WhatsApp para um atendimento mais ágil.</p>
+            <a href="https://wa.me/5500000000000" class="btn btn-success d-inline-flex align-items-center" target="_blank">
+              <i class="bi bi-whatsapp me-2"></i> Falar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="injected-footer"></div>
+
+  <script>
+    async function carregarHeaderFooter() {
+      const base = await fetch('/base.html').then(res => res.text());
+      const temp = document.createElement('div');
+      temp.innerHTML = base;
+
+      const header = temp.querySelector('header');
+      const footer = temp.querySelector('footer');
+
+      if (header) document.getElementById('injected-header').appendChild(header);
+      if (footer) document.getElementById('injected-footer').appendChild(footer);
+    }
+
+    carregarHeaderFooter();
+    
+    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contactForm');
+      const thankYouMessage = document.getElementById('thankYouMessage');
+      const formContainer = document.getElementById('contact-form');
+      const submitButton = document.getElementById('submitButton');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const submitText = document.getElementById('submitText');
+      
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        submitButton.disabled = true;
+        loadingSpinner.style.display = 'inline-block';
+        submitText.textContent = 'Enviando...';
+        
+        // Collect form data
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value,
+          created_at: new Date().toISOString()
+        };
+        
+        try {
+          // Simulate API call (replace with actual Supabase integration)
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          
+          // For demonstration - in production, use actual Supabase client
+          // const { data, error } = await supabase
+          //   .from('contacts')
+          //   .insert([formData]);
+          
+          // if (error) throw error;
+          
+          // Show success message
+          formContainer.style.display = 'none';
+          thankYouMessage.style.display = 'block';
+          
+          // Reset form
+          contactForm.reset();
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+        } finally {
+          // Reset button state
+          submitButton.disabled = false;
+          loadingSpinner.style.display = 'none';
+          submitText.textContent = 'Enviar mensagem';
+        }
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
