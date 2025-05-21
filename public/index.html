@@ -1,1 +1,69 @@
-<!DOCTYPE html><html><head><title>Premium Car</title></head><body><h1>Bem-vindo à Premium Car!</h1></body></html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premium Car - Avaliações</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div id="injected-header"></div>
+
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center text-primary">Últimos Carros Avaliados</h1>
+    <div id="carrosContainer" class="row g-4"></div>
+  </div>
+
+  <div id="injected-footer"></div>
+  <script>
+    async function carregarHeaderFooter() {
+      const base = await fetch('/base.html').then(res => res.text());
+      const temp = document.createElement('div');
+      temp.innerHTML = base;
+
+      const header = temp.querySelector('header');
+      const footer = temp.querySelector('footer');
+
+      if (header) document.getElementById('injected-header').appendChild(header);
+      if (footer) document.getElementById('injected-footer').appendChild(footer);
+    }
+
+    carregarHeaderFooter();
+  </script>
+
+  <script>
+    async function carregarCarros() {
+      const container = document.getElementById('carrosContainer');
+      container.innerHTML = '<p>Carregando...</p>';
+
+      try {
+        const res = await fetch('/api/carros');
+        const carros = await res.json();
+
+        if (!Array.isArray(carros) || carros.length === 0) {
+          container.innerHTML = '<p class="text-center">Nenhum carro encontrado.</p>';
+          return;
+        }
+
+        container.innerHTML = carros.map(carro => `
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="${carro.imagem_url || 'https://via.placeholder.com/400x200?text=Sem+Imagem'}" class="card-img-top" alt="${carro.modelo}" style="height: 200px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title">${carro.titulo}</h5>
+                <p class="card-text">${carro.marca} - ${carro.modelo} (${carro.ano})</p>
+                <p class="text-muted">Nota: <strong>${carro.nota_geral}/10</strong></p>
+                <a href="/detalhe.html?id=${carro.id}" class="btn btn-primary">Ver Detalhes</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = '<p class="text-danger">Erro ao carregar os carros.</p>';
+      }
+    }
+
+    carregarCarros();
+  </script>
+</body>
+</html>

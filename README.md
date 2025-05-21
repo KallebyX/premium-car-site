@@ -39,7 +39,7 @@ Aqui o cliente encontra análises completas dos veículos avaliados, com vídeos
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/premium-car-site.git
+git clone https://github.com/KallebyX/premium-car-site.git
 cd premium-car-site
 
 # Instale as dependências
@@ -48,8 +48,12 @@ npm install
 # Crie um arquivo .env e adicione suas chaves do Supabase
 touch .env
 # Edite o arquivo e insira:
-# SUPABASE_URL=https://xxxxx.supabase.co
-# SUPABASE_KEY=your-secret-key
+SUPABASE_URL=https://zfdygzdtufhvhzwtvuma.supabase.co
+SUPABASE_KEY=your-service-role-key-aqui
 
 # Inicie o servidor local
 node server.js
+
+# Acesse o projeto no navegador
+http://localhost:3000
+```
