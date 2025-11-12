@@ -54,8 +54,14 @@ router.post('/', async (req, res) => {
   res.status(201).json(data);
 });
 
-// PUT - Atualizar avaliação por ID
+// PUT - Atualizar avaliação por ID (requer autenticação)
 router.put('/:id', async (req, res) => {
+  const token = req.headers.authorization?.split('Bearer ')[1];
+  if (!token) return res.status(401).json({ error: 'Token ausente' });
+
+  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
+  if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
+
   const { id } = req.params;
   const {
     titulo,
@@ -88,8 +94,14 @@ router.put('/:id', async (req, res) => {
   res.json(data);
 });
 
-// DELETE - Excluir avaliação por ID
+// DELETE - Excluir avaliação por ID (requer autenticação)
 router.delete('/:id', async (req, res) => {
+  const token = req.headers.authorization?.split('Bearer ')[1];
+  if (!token) return res.status(401).json({ error: 'Token ausente' });
+
+  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
+  if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
+
   const { id } = req.params;
 
   const { error } = await supabase
