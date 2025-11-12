@@ -1,14 +1,36 @@
 <header class="bg-dark text-white py-3 shadow-sm">
   <div class="container d-flex justify-content-between align-items-center flex-column flex-md-row gap-3 text-center text-md-start">
     <h1 class="h4 m-0">🚗 Premium Car</h1>
-    <nav class="d-flex gap-2">
+    <nav class="d-flex gap-2 align-items-center flex-wrap justify-content-center">
       <a href="/" class="btn btn-outline-light btn-sm">Home</a>
       <a href="/sobre-nos.html" class="btn btn-outline-light btn-sm">Sobre Nós</a>
       <a href="/parcerias.html" class="btn btn-outline-light btn-sm">Parcerias</a>
       <a href="/fale-conosco.html" class="btn btn-outline-light btn-sm">Fale Conosco</a>
+      <span id="auth-buttons"></span>
     </nav>
   </div>
 </header>
+<script>
+  // Verificar autenticação e exibir botões adequados
+  (function() {
+    const token = localStorage.getItem('token');
+    const authButtons = document.getElementById('auth-buttons');
+
+    if (token && authButtons) {
+      authButtons.innerHTML = `
+        <a href="/admin" class="btn btn-success btn-sm">Painel Admin</a>
+        <button onclick="logout()" class="btn btn-danger btn-sm">Sair</button>
+      `;
+    }
+  })();
+
+  function logout() {
+    if (confirm('Deseja realmente sair?')) {
+      localStorage.removeItem('token');
+      window.location.href = '/login.html';
+    }
+  }
+</script>
 
 <footer class="bg-dark text-white text-center py-4 mt-5 border-top small">
   <div class="container">
@@ -38,8 +60,17 @@
     <hr class="my-3">
     <p class="mb-1">© 2025 Premium Car. Todos os direitos reservados.</p>
     <small class="text-muted">Desenvolvido com paixão por carros e código.</small>
-    <div class="mt-2 d-flex justify-content-center">
-      <a href="/login.html" class="btn btn-outline-light btn-sm">Login</a>
-    </div>
+    <div class="mt-2 d-flex justify-content-center" id="footer-auth"></div>
   </div>
 </footer>
+<script>
+  // Verificar autenticação e exibir botão de login no footer
+  (function() {
+    const token = localStorage.getItem('token');
+    const footerAuth = document.getElementById('footer-auth');
+
+    if (!token && footerAuth) {
+      footerAuth.innerHTML = '<a href="/login.html" class="btn btn-outline-light btn-sm">Login</a>';
+    }
+  })();
+</script>

@@ -273,20 +273,25 @@
         };
         
         try {
-          // Simulate API call (replace with actual Supabase integration)
-          await new Promise(resolve => setTimeout(resolve, 1500));
-          
-          // For demonstration - in production, use actual Supabase client
-          // const { data, error } = await supabase
-          //   .from('contacts')
-          //   .insert([formData]);
-          
-          // if (error) throw error;
-          
+          // Enviar para a API do backend
+          const response = await fetch('/api/contacts', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || 'Erro ao enviar mensagem');
+          }
+
           // Show success message
           formContainer.style.display = 'none';
           thankYouMessage.style.display = 'block';
-          
+
           // Reset form
           contactForm.reset();
         } catch (error) {

@@ -3,15 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Premium Car - Avaliações</title>
+  <meta name="description" content="Premium Car - Avaliações automotivas profissionais e imparciais. Encontre análises detalhadas dos melhores carros do mercado."/>
+  <meta name="keywords" content="carros, avaliações, review, automóveis, premium car, análise automotiva"/>
+  <title>Premium Car - Avaliações Automotivas Profissionais</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 120px 0 80px;
+      margin-bottom: 60px;
+    }
+
+    .search-filter-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 25px;
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .car-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .car-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .car-card img {
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .car-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .badge-nota {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.1rem;
+      padding: 8px 15px;
+      border-radius: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%);
+      color: white;
+      padding: 50px 0;
+      margin: 60px 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .filter-btn {
+      margin: 5px;
+    }
+
+    .price-badge {
+      background: #f8f9fa;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #dc3545;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+
+    .no-results i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+  </style>
 </head>
 <body class="bg-light">
   <div id="injected-header"></div>
 
-  <div class="container mt-5">
-    <h1 class="mb-4 text-center text-primary">Últimos Carros Avaliados</h1>
-    <div id="carrosContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4"></div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-3 fw-bold mb-4">Premium Car</h1>
+      <p class="lead fs-4 mb-4">Avaliações automotivas profissionais e imparciais</p>
+      <p class="fs-5">Análises detalhadas dos melhores carros do mercado</p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <div class="container">
+    <div class="search-filter-card">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label fw-semibold"><i class="bi bi-search me-2"></i>Buscar</label>
+          <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Digite marca, modelo ou título...">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold"><i class="bi bi-filter me-2"></i>Marca</label>
+          <select id="filterMarca" class="form-select form-select-lg">
+            <option value="">Todas as marcas</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold"><i class="bi bi-star me-2"></i>Nota Mínima</label>
+          <select id="filterNota" class="form-select form-select-lg">
+            <option value="">Todas as notas</option>
+            <option value="9">9+ (Excelente)</option>
+            <option value="7">7+ (Muito Bom)</option>
+            <option value="5">5+ (Bom)</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button id="clearFilters" class="btn btn-outline-secondary w-100 btn-lg">
+            <i class="bi bi-x-circle me-2"></i>Limpar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 stat-card">
+          <span class="stat-number" id="totalCarros">0</span>
+          <span class="stat-label">Carros Avaliados</span>
+        </div>
+        <div class="col-md-4 stat-card">
+          <span class="stat-number" id="notaMedia">0</span>
+          <span class="stat-label">Nota Média</span>
+        </div>
+        <div class="col-md-4 stat-card">
+          <span class="stat-number" id="marcasTotal">0</span>
+          <span class="stat-label">Marcas Analisadas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cars Grid -->
+  <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="h3 mb-0"><i class="bi bi-car-front-fill me-2 text-danger"></i>Avaliações Recentes</h2>
+      <span id="resultCount" class="text-muted"></span>
+    </div>
+    <div id="carrosContainer" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4"></div>
   </div>
 
   <div id="injected-footer"></div>
@@ -32,11 +201,14 @@
   </script>
 
   <script>
+    let todosCarros = [];
+    let carrosFiltrados = [];
+
     async function carregarCarros() {
       const container = document.getElementById('carrosContainer');
       container.innerHTML = `
-        <div class="d-flex justify-content-center my-5">
-          <div class="spinner-border text-primary" role="status">
+        <div class="col-12 d-flex justify-content-center my-5">
+          <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
             <span class="visually-hidden">Carregando...</span>
           </div>
         </div>
@@ -44,37 +216,139 @@
 
       try {
         const res = await fetch('/api/carros');
-        const carros = await res.json();
+        todosCarros = await res.json();
+        carrosFiltrados = todosCarros;
 
-        if (!Array.isArray(carros) || carros.length === 0) {
-          container.innerHTML = '<p class="text-center">Nenhum carro encontrado.</p>';
+        if (!Array.isArray(todosCarros) || todosCarros.length === 0) {
+          container.innerHTML = `
+            <div class="col-12 no-results">
+              <i class="bi bi-car-front"></i>
+              <h3>Nenhum carro encontrado</h3>
+              <p>Ainda não há avaliações disponíveis.</p>
+            </div>
+          `;
           return;
         }
 
-        container.innerHTML = carros.map(carro => `
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-              <img src="${carro.imagem_url || 'https://via.placeholder.com/400x200?text=Sem+Imagem'}" class="card-img-top" alt="${carro.modelo}" style="height: 200px; object-fit: cover;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">${carro.titulo}</h5>
-                <p class="card-text">${carro.marca} - ${carro.modelo} (${carro.ano})</p>
-                <p class="text-muted">Nota:
-                  <span class="badge bg-${carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning' : 'danger'}">
-                    ${carro.nota_geral}/10
-                  </span>
-                </p>
-                <p class="fw-semibold text-secondary">Preço: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(carro.preco_estimado)}</p>
-                <a href="/detalhe.html?id=${carro.id}" class="btn btn-primary mt-auto">Ver Detalhes</a>
-              </div>
-            </div>
-          </div>
-        `).join('');
+        // Preencher filtro de marcas
+        const marcas = [...new Set(todosCarros.map(c => c.marca))].sort();
+        document.getElementById('filterMarca').innerHTML = '<option value="">Todas as marcas</option>' +
+          marcas.map(m => `<option value="${m}">${m}</option>`).join('');
+
+        // Atualizar estatísticas
+        atualizarEstatisticas();
+
+        // Renderizar carros
+        renderizarCarros();
       } catch (err) {
-        container.innerHTML = '<p class="text-danger">Erro ao carregar os carros.</p>';
+        console.error(err);
+        container.innerHTML = `
+          <div class="col-12 no-results">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            <h3>Erro ao carregar</h3>
+            <p>Não foi possível carregar as avaliações.</p>
+          </div>
+        `;
       }
     }
 
-    carregarCarros();
+    function renderizarCarros() {
+      const container = document.getElementById('carrosContainer');
+      const resultCount = document.getElementById('resultCount');
+
+      if (carrosFiltrados.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 no-results">
+            <i class="bi bi-search"></i>
+            <h3>Nenhum resultado encontrado</h3>
+            <p>Tente ajustar os filtros de busca.</p>
+          </div>
+        `;
+        resultCount.textContent = '0 resultados';
+        return;
+      }
+
+      resultCount.textContent = `${carrosFiltrados.length} ${carrosFiltrados.length === 1 ? 'resultado' : 'resultados'}`;
+
+      container.innerHTML = carrosFiltrados.map(carro => `
+        <div class="col">
+          <div class="card car-card shadow-sm h-100">
+            <div class="position-relative">
+              <img src="${carro.imagem_url || 'https://via.placeholder.com/400x220?text=Sem+Imagem'}"
+                   class="card-img-top"
+                   alt="${carro.modelo}"
+                   loading="lazy">
+              <span class="badge badge-nota bg-${carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning text-dark' : 'danger'}">
+                ${carro.nota_geral}/10
+              </span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold">${carro.titulo}</h5>
+              <p class="text-muted mb-2">
+                <i class="bi bi-tag me-1"></i>${carro.marca} ${carro.modelo}
+                <span class="ms-2"><i class="bi bi-calendar me-1"></i>${carro.ano}</span>
+              </p>
+              <p class="price-badge mb-3">
+                <i class="bi bi-cash me-1"></i>${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(carro.preco_estimado)}
+              </p>
+              <p class="card-text small text-muted mb-3" style="flex-grow: 1;">${carro.descricao.substring(0, 100)}${carro.descricao.length > 100 ? '...' : ''}</p>
+              <a href="/detalhe.html?id=${carro.id}" class="btn btn-danger w-100">
+                <i class="bi bi-eye me-2"></i>Ver Análise Completa
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function atualizarEstatisticas() {
+      const total = todosCarros.length;
+      const notaMedia = (todosCarros.reduce((acc, c) => acc + c.nota_geral, 0) / total).toFixed(1);
+      const marcasUnicas = new Set(todosCarros.map(c => c.marca)).size;
+
+      document.getElementById('totalCarros').textContent = total;
+      document.getElementById('notaMedia').textContent = notaMedia;
+      document.getElementById('marcasTotal').textContent = marcasUnicas;
+    }
+
+    function aplicarFiltros() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const marcaSelecionada = document.getElementById('filterMarca').value;
+      const notaMinima = document.getElementById('filterNota').value;
+
+      carrosFiltrados = todosCarros.filter(carro => {
+        const matchSearch = !searchTerm ||
+          carro.titulo.toLowerCase().includes(searchTerm) ||
+          carro.marca.toLowerCase().includes(searchTerm) ||
+          carro.modelo.toLowerCase().includes(searchTerm) ||
+          carro.descricao.toLowerCase().includes(searchTerm);
+
+        const matchMarca = !marcaSelecionada || carro.marca === marcaSelecionada;
+        const matchNota = !notaMinima || carro.nota_geral >= parseInt(notaMinima);
+
+        return matchSearch && matchMarca && matchNota;
+      });
+
+      renderizarCarros();
+    }
+
+    function limparFiltros() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterMarca').value = '';
+      document.getElementById('filterNota').value = '';
+      carrosFiltrados = todosCarros;
+      renderizarCarros();
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      carregarCarros();
+
+      document.getElementById('searchInput').addEventListener('input', aplicarFiltros);
+      document.getElementById('filterMarca').addEventListener('change', aplicarFiltros);
+      document.getElementById('filterNota').addEventListener('change', aplicarFiltros);
+      document.getElementById('clearFilters').addEventListener('click', limparFiltros);
+    });
   </script>
 </body>
 </html>

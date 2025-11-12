@@ -9,9 +9,14 @@
 <body class="bg-light">
 <div id="injected-header"></div>
 <div class="container mt-5">
-  <h1 class="mb-4 text-center text-primary">Painel de Avaliações</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0 text-danger"><i class="bi bi-speedometer2 me-2"></i>Painel Administrativo</h1>
+    <div>
+      <span class="badge bg-success fs-6 me-2" id="totalAvaliacoes">0 avaliações</span>
+    </div>
+  </div>
 
-  <form id="carroForm" class="card p-4 shadow mb-5">
+  <form id="carroForm" class="card p-4 shadow mb-5 border-0">
     <input type="hidden" id="id">
     <div class="mb-3">
       <label class="form-label">Título</label>
@@ -42,29 +47,53 @@
 
   <div id="statusMsg" class="text-center mb-4"></div>
 
+  <!-- Busca e filtros -->
+  <div class="card p-3 shadow-sm mb-4 border-0">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input type="text" id="searchTable" class="form-control" placeholder="🔍 Buscar por título, marca ou modelo...">
+      </div>
+      <div class="col-md-3">
+        <select id="filterMarcaTable" class="form-select">
+          <option value="">Todas as marcas</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button id="clearTableFilters" class="btn btn-outline-secondary w-100">
+          <i class="bi bi-x-circle me-1"></i>Limpar Filtros
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="table-responsive">
-    <table class="table table-bordered" id="tabelaCarros">
+    <table class="table table-hover align-middle" id="tabelaCarros">
       <thead class="table-dark">
         <tr>
+          <th style="width: 80px;">Imagem</th>
           <th>Título</th>
-          <th>Modelo</th>
-          <th>Ano</th>
-          <th>Nota</th>
-          <th>Ações</th>
+          <th>Marca/Modelo</th>
+          <th style="width: 80px;">Ano</th>
+          <th style="width: 100px;">Preço</th>
+          <th style="width: 80px;">Nota</th>
+          <th style="width: 180px;">Ações</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
-  <!-- Sair button removido, agora será incorporado via header/base.html -->
+
+  <!-- Paginação -->
+  <nav aria-label="Navegação de páginas">
+    <ul class="pagination justify-content-center" id="pagination"></ul>
+  </nav>
 </div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <script>
-    if (!localStorage.getItem('token')) {
+if (!localStorage.getItem('token')) {
   window.location.href = '/login.html';
 }
-const supabaseUrl = 'https://zfdygzdtufhvhzwtvuma.supabase.co';
-const bucket = 'imagens';
 const tabela = document.querySelector('#tabelaCarros tbody');
 const form = document.getElementById('carroForm');
 const msg = document.getElementById('statusMsg');
@@ -73,36 +102,167 @@ const imagem_url = document.getElementById('imagem_url');
 const btnSalvar = document.getElementById('btnSalvar');
 const previewImagem = document.getElementById('previewImagem');
 
+let todosOsCarros = [];
+let carrosFiltradosTable = [];
+let paginaAtual = 1;
+const itensPorPagina = 10;
+
 async function listarCarros() {
   const res = await fetch('/api/carros', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   });
-  const carros = await res.json();
-  tabela.innerHTML = '';
-  carros.forEach(carro => {
-    tabela.innerHTML += `
+  todosOsCarros = await res.json();
+  carrosFiltradosTable = todosOsCarros;
+
+  // Atualizar contador
+  document.getElementById('totalAvaliacoes').textContent = `${todosOsCarros.length} ${todosOsCarros.length === 1 ? 'avaliação' : 'avaliações'}`;
+
+  // Preencher filtro de marcas
+  const marcas = [...new Set(todosOsCarros.map(c => c.marca))].sort();
+  document.getElementById('filterMarcaTable').innerHTML = '<option value="">Todas as marcas</option>' +
+    marcas.map(m => `<option value="${m}">${m}</option>`).join('');
+
+  renderizarTabela();
+}
+
+function renderizarTabela() {
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const carrosPagina = carrosFiltradosTable.slice(inicio, fim);
+
+  if (carrosPagina.length === 0) {
+    tabela.innerHTML = `
       <tr>
-        <td>${carro.titulo}</td>
-        <td>${carro.modelo}</td>
-        <td>${carro.ano}</td>
-        <td>${carro.nota_geral}</td>
-        <td>
-          <button onclick='editar(${JSON.stringify(carro)})' class='btn btn-sm btn-warning me-2'>Editar</button>
-          <button onclick='excluir("${carro.id}")' class='btn btn-sm btn-danger'>Excluir</button>
+        <td colspan="7" class="text-center text-muted py-4">
+          <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+          Nenhuma avaliação encontrada
         </td>
       </tr>
     `;
+  } else {
+    tabela.innerHTML = carrosPagina.map(carro => `
+      <tr>
+        <td>
+          <img src="${carro.imagem_url || 'https://via.placeholder.com/80x60?text=Sem+Imagem'}"
+               alt="${carro.modelo}"
+               class="img-thumbnail"
+               style="width: 60px; height: 45px; object-fit: cover;">
+        </td>
+        <td class="fw-semibold">${carro.titulo}</td>
+        <td>${carro.marca} ${carro.modelo}</td>
+        <td>${carro.ano}</td>
+        <td class="text-nowrap">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(carro.preco_estimado)}</td>
+        <td>
+          <span class="badge bg-${carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning text-dark' : 'danger'}">
+            ${carro.nota_geral}/10
+          </span>
+        </td>
+        <td>
+          <button onclick='editar(${JSON.stringify(carro).replace(/'/g, "&#39;")})'
+                  class='btn btn-sm btn-warning me-1'
+                  title="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button onclick='excluir("${carro.id}")'
+                  class='btn btn-sm btn-danger'
+                  title="Excluir">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  renderizarPaginacao();
+}
+
+function renderizarPaginacao() {
+  const totalPaginas = Math.ceil(carrosFiltradosTable.length / itensPorPagina);
+  const pagination = document.getElementById('pagination');
+
+  if (totalPaginas <= 1) {
+    pagination.innerHTML = '';
+    return;
+  }
+
+  let html = `
+    <li class="page-item ${paginaAtual === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual - 1}); return false;">Anterior</a>
+    </li>
+  `;
+
+  for (let i = 1; i <= totalPaginas; i++) {
+    if (i === 1 || i === totalPaginas || (i >= paginaAtual - 2 && i <= paginaAtual + 2)) {
+      html += `
+        <li class="page-item ${i === paginaAtual ? 'active' : ''}">
+          <a class="page-link" href="#" onclick="mudarPagina(${i}); return false;">${i}</a>
+        </li>
+      `;
+    } else if (i === paginaAtual - 3 || i === paginaAtual + 3) {
+      html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+    }
+  }
+
+  html += `
+    <li class="page-item ${paginaAtual === totalPaginas ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual + 1}); return false;">Próxima</a>
+    </li>
+  `;
+
+  pagination.innerHTML = html;
+}
+
+function mudarPagina(novaPagina) {
+  const totalPaginas = Math.ceil(carrosFiltradosTable.length / itensPorPagina);
+  if (novaPagina < 1 || novaPagina > totalPaginas) return;
+  paginaAtual = novaPagina;
+  renderizarTabela();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function aplicarFiltrosTable() {
+  const searchTerm = document.getElementById('searchTable').value.toLowerCase();
+  const marcaSelecionada = document.getElementById('filterMarcaTable').value;
+
+  carrosFiltradosTable = todosOsCarros.filter(carro => {
+    const matchSearch = !searchTerm ||
+      carro.titulo.toLowerCase().includes(searchTerm) ||
+      carro.marca.toLowerCase().includes(searchTerm) ||
+      carro.modelo.toLowerCase().includes(searchTerm);
+
+    const matchMarca = !marcaSelecionada || carro.marca === marcaSelecionada;
+
+    return matchSearch && matchMarca;
   });
+
+  paginaAtual = 1;
+  renderizarTabela();
+}
+
+function limparFiltrosTable() {
+  document.getElementById('searchTable').value = '';
+  document.getElementById('filterMarcaTable').value = '';
+  carrosFiltradosTable = todosOsCarros;
+  paginaAtual = 1;
+  renderizarTabela();
 }
 
 async function excluir(id) {
   if (!confirm("Confirma excluir?")) return;
-  const res = await fetch(`/api/carros/${id}`, { method: 'DELETE' });
+  const res = await fetch(`/api/carros/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  });
   if (res.ok) {
     msg.innerHTML = "<div class='alert alert-warning'>Avaliação excluída.</div>";
+    setTimeout(() => { msg.innerHTML = ''; }, 3000);
     listarCarros();
+  } else {
+    msg.innerHTML = "<div class='alert alert-danger'>Erro ao excluir avaliação.</div>";
   }
 }
 
@@ -123,25 +283,58 @@ async function uploadImagem() {
   const file = inputFile.files[0];
   if (!file) return null;
 
-  const filename = Date.now() + "-" + file.name.replace(/\s+/g, '_');
-
-  const response = await fetch(`${supabaseUrl}/storage/v1/object/${bucket}/${filename}`, {
-    method: 'PUT',
-    headers: {
-      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZHlnemR0dWZodmh6d3R2dW1hIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0Nzc4MjU1OCwiZXhwIjoyMDYzMzU4NTU4fQ.La505ZEBesJGn5mWcrFwVCH-s8a3R3nI8u-fx4qJWQo',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZHlnemR0dWZodmh6d3R2dW1hIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0Nzc4MjU1OCwiZXhwIjoyMDYzMzU4NTU4fQ.La505ZEBesJGn5mWcrFwVCH-s8a3R3nI8u-fx4qJWQo',
-      'Content-Type': file.type
-    },
-    body: file
-  });
-
-  if (response.ok) {
-    return `${supabaseUrl}/storage/v1/object/public/${bucket}/${filename}`;
-  } else {
-    const error = await response.text();
-    console.error(error);
+  // Validar tipo de arquivo
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+  if (!allowedTypes.includes(file.type)) {
+    msg.innerHTML = "<div class='alert alert-danger'>Apenas imagens JPG, PNG ou WEBP são permitidas.</div>";
     return null;
   }
+
+  // Validar tamanho (máximo 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    msg.innerHTML = "<div class='alert alert-danger'>A imagem deve ter no máximo 5MB.</div>";
+    return null;
+  }
+
+  // Converter para base64
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            filename: file.name,
+            contentType: file.type,
+            fileData: reader.result
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          resolve(data.url);
+        } else {
+          const error = await response.json();
+          console.error(error);
+          msg.innerHTML = `<div class='alert alert-danger'>Erro no upload: ${error.error}</div>`;
+          resolve(null);
+        }
+      } catch (error) {
+        console.error(error);
+        msg.innerHTML = "<div class='alert alert-danger'>Erro ao fazer upload da imagem.</div>";
+        resolve(null);
+      }
+    };
+    reader.onerror = () => {
+      console.error('Erro ao ler arquivo');
+      reject(null);
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 form.addEventListener('submit', async (e) => {
@@ -208,7 +401,13 @@ inputFile.addEventListener('change', () => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', listarCarros);
+document.addEventListener('DOMContentLoaded', () => {
+  listarCarros();
+
+  document.getElementById('searchTable').addEventListener('input', aplicarFiltrosTable);
+  document.getElementById('filterMarcaTable').addEventListener('change', aplicarFiltrosTable);
+  document.getElementById('clearTableFilters').addEventListener('click', limparFiltrosTable);
+});
 
 </script>
 <script>
