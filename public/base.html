@@ -1,26 +1,104 @@
-<header class="bg-dark text-white py-3 shadow-sm">
-  <div class="container d-flex justify-content-between align-items-center flex-column flex-md-row gap-3 text-center text-md-start">
-    <h1 class="h4 m-0">🚗 Premium Car</h1>
-    <nav class="d-flex gap-2 align-items-center flex-wrap justify-content-center">
-      <a href="/" class="btn btn-outline-light btn-sm">Home</a>
-      <a href="/sobre-nos.html" class="btn btn-outline-light btn-sm">Sobre Nós</a>
-      <a href="/parcerias.html" class="btn btn-outline-light btn-sm">Parcerias</a>
-      <a href="/fale-conosco.html" class="btn btn-outline-light btn-sm">Fale Conosco</a>
-      <span id="auth-buttons"></span>
-    </nav>
+<header class="bg-dark text-white py-3 shadow-lg">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-6 col-md-4">
+        <a href="/" class="text-decoration-none text-white">
+          <h1 class="h4 m-0 d-flex align-items-center">
+            <i class="bi bi-car-front-fill me-2 text-danger"></i>
+            <span class="d-none d-sm-inline">Premium Car</span>
+            <span class="d-inline d-sm-none">PC</span>
+          </h1>
+        </a>
+      </div>
+      <div class="col-6 col-md-8">
+        <nav class="d-flex gap-2 align-items-center flex-wrap justify-content-end">
+          <a href="/" class="btn btn-outline-light btn-sm d-none d-md-inline-flex">
+            <i class="bi bi-house-door me-1"></i>Home
+          </a>
+          <a href="/sobre-nos.html" class="btn btn-outline-light btn-sm d-none d-lg-inline-flex">
+            <i class="bi bi-info-circle me-1"></i>Sobre
+          </a>
+          <a href="/parcerias.html" class="btn btn-outline-light btn-sm d-none d-lg-inline-flex">
+            <i class="bi bi-handshake me-1"></i>Parcerias
+          </a>
+          <a href="/fale-conosco.html" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-envelope me-1"></i><span class="d-none d-sm-inline">Contato</span>
+          </a>
+          <span id="auth-buttons"></span>
+          
+          <!-- Menu Mobile -->
+          <button class="btn btn-outline-light btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+            <i class="bi bi-list"></i>
+          </button>
+        </nav>
+      </div>
+    </div>
   </div>
 </header>
+
+<!-- Offcanvas Menu Mobile -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title"><i class="bi bi-car-front-fill me-2 text-danger"></i>Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="d-flex flex-column gap-2">
+      <a href="/" class="btn btn-outline-dark">
+        <i class="bi bi-house-door me-2"></i>Home
+      </a>
+      <a href="/sobre-nos.html" class="btn btn-outline-dark">
+        <i class="bi bi-info-circle me-2"></i>Sobre Nós
+      </a>
+      <a href="/parcerias.html" class="btn btn-outline-dark">
+        <i class="bi bi-handshake me-2"></i>Parcerias
+      </a>
+      <a href="/fale-conosco.html" class="btn btn-outline-dark">
+        <i class="bi bi-envelope me-2"></i>Fale Conosco
+      </a>
+      <hr>
+      <span id="auth-buttons-mobile"></span>
+    </div>
+  </div>
+</div>
+
 <script>
   // Verificar autenticação e exibir botões adequados
   (function() {
     const token = localStorage.getItem('token');
     const authButtons = document.getElementById('auth-buttons');
+    const authButtonsMobile = document.getElementById('auth-buttons-mobile');
 
-    if (token && authButtons) {
-      authButtons.innerHTML = `
-        <a href="/admin" class="btn btn-success btn-sm">Painel Admin</a>
-        <button onclick="logout()" class="btn btn-danger btn-sm">Sair</button>
+    if (token) {
+      const desktopButtons = `
+        <a href="/admin" class="btn btn-success btn-sm">
+          <i class="bi bi-speedometer2 me-1"></i><span class="d-none d-sm-inline">Admin</span>
+        </a>
+        <button onclick="logout()" class="btn btn-danger btn-sm">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
       `;
+      const mobileButtons = `
+        <a href="/admin" class="btn btn-success">
+          <i class="bi bi-speedometer2 me-2"></i>Painel Admin
+        </a>
+        <button onclick="logout()" class="btn btn-danger">
+          <i class="bi bi-box-arrow-right me-2"></i>Sair
+        </button>
+      `;
+      
+      if (authButtons) authButtons.innerHTML = desktopButtons;
+      if (authButtonsMobile) authButtonsMobile.innerHTML = mobileButtons;
+    } else {
+      const loginBtn = `
+        <a href="/login.html" class="btn btn-outline-light btn-sm">
+          <i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-sm-inline">Login</span>
+        </a>
+      `;
+      if (authButtons) authButtons.innerHTML = loginBtn;
+      if (authButtonsMobile) {
+        authButtonsMobile.innerHTML = `<a href="/login.html" class="btn btn-primary"><i class="bi bi-box-arrow-in-right me-2"></i>Login Admin</a>`;
+      }
     }
   })();
 
@@ -32,37 +110,76 @@
   }
 </script>
 
-<footer class="bg-dark text-white text-center py-4 mt-5 border-top small">
+<footer class="bg-dark text-white py-5 mt-5 border-top">
   <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3 mb-md-0 text-md-start">
-        <h5>Premium Car</h5>
-        <p class="mb-0">Avaliações automotivas com credibilidade e transparência.</p>
-      </div>
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h5>Links Rápidos</h5>
-        <ul class="list-unstyled">
-          <li><a href="/" class="text-white">Home</a></li>
-          <li><a href="/sobre-nos.html" class="text-white">Sobre Nós</a></li>
-          <li><a href="/parcerias.html" class="text-white">Parcerias</a></li>
-          <li><a href="/fale-conosco.html" class="text-white">Fale Conosco</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4 text-md-end">
-        <h5>Redes Sociais</h5>
-        <div class="d-flex justify-content-center justify-content-md-end gap-3">
-          <a href="https://instagram.com/premiumcar" class="text-white" target="_blank"><i class="bi bi-instagram fs-4"></i></a>
-          <a href="https://youtube.com/premiumcar" class="text-white" target="_blank"><i class="bi bi-youtube fs-4"></i></a>
-          <a href="https://tiktok.com/@premiumcar" class="text-white" target="_blank"><i class="bi bi-tiktok fs-4"></i></a>
+    <div class="row g-4">
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <h5><i class="bi bi-car-front-fill me-2"></i>Premium Car</h5>
+        <p class="mb-3 text-muted">Avaliações automotivas com credibilidade e transparência desde 2024.</p>
+        <div class="d-flex justify-content-center justify-content-md-start gap-3 mb-3">
+          <a href="https://instagram.com/premiumcar" class="text-white" target="_blank" title="Instagram">
+            <i class="bi bi-instagram fs-4"></i>
+          </a>
+          <a href="https://youtube.com/premiumcar" class="text-white" target="_blank" title="YouTube">
+            <i class="bi bi-youtube fs-4"></i>
+          </a>
+          <a href="https://tiktok.com/@premiumcar" class="text-white" target="_blank" title="TikTok">
+            <i class="bi bi-tiktok fs-4"></i>
+          </a>
+          <a href="https://twitter.com/premiumcar" class="text-white" target="_blank" title="Twitter">
+            <i class="bi bi-twitter fs-4"></i>
+          </a>
         </div>
       </div>
+      
+      <div class="col-6 col-md-4 text-center text-md-start">
+        <h5><i class="bi bi-link-45deg me-2"></i>Links Rápidos</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">
+            <i class="bi bi-chevron-right me-1"></i>Home
+          </a></li>
+          <li class="mb-2"><a href="/sobre-nos.html" class="text-white-50 text-decoration-none">
+            <i class="bi bi-chevron-right me-1"></i>Sobre Nós
+          </a></li>
+          <li class="mb-2"><a href="/parcerias.html" class="text-white-50 text-decoration-none">
+            <i class="bi bi-chevron-right me-1"></i>Parcerias
+          </a></li>
+          <li class="mb-2"><a href="/fale-conosco.html" class="text-white-50 text-decoration-none">
+            <i class="bi bi-chevron-right me-1"></i>Fale Conosco
+          </a></li>
+        </ul>
+      </div>
+      
+      <div class="col-6 col-md-4 text-center text-md-start">
+        <h5><i class="bi bi-envelope me-2"></i>Contato</h5>
+        <ul class="list-unstyled text-white-50">
+          <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>São Paulo, SP</li>
+          <li class="mb-2"><i class="bi bi-envelope me-2"></i>contato@premiumcar.com</li>
+          <li class="mb-2"><i class="bi bi-phone me-2"></i>(11) 99999-9999</li>
+        </ul>
+        <div class="mt-3" id="footer-auth"></div>
+      </div>
     </div>
-    <hr class="my-3">
-    <p class="mb-1">© 2025 Premium Car. Todos os direitos reservados.</p>
-    <small class="text-muted">Desenvolvido com paixão por carros e código.</small>
-    <div class="mt-2 d-flex justify-content-center" id="footer-auth"></div>
+    
+    <hr class="my-4 border-secondary">
+    
+    <div class="row">
+      <div class="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <p class="mb-0 text-white-50">
+          <i class="bi bi-c-circle me-1"></i>
+          2024-2025 Premium Car. Todos os direitos reservados.
+        </p>
+      </div>
+      <div class="col-12 col-md-6 text-center text-md-end">
+        <small class="text-white-50">
+          <i class="bi bi-heart-fill text-danger me-1"></i>
+          Desenvolvido com paixão por carros e código
+        </small>
+      </div>
+    </div>
   </div>
 </footer>
+
 <script>
   // Verificar autenticação e exibir botão de login no footer
   (function() {
@@ -70,7 +187,7 @@
     const footerAuth = document.getElementById('footer-auth');
 
     if (!token && footerAuth) {
-      footerAuth.innerHTML = '<a href="/login.html" class="btn btn-outline-light btn-sm">Login</a>';
+      footerAuth.innerHTML = '<a href="/login.html" class="btn btn-outline-light btn-sm w-100"><i class="bi bi-box-arrow-in-right me-2"></i>Login Admin</a>';
     }
   })();
 </script>

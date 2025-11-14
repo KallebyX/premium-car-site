@@ -1,21 +1,43 @@
 {
   "name": "premium-car-site",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Sistema completo de avaliações automotivas com painel administrativo, autenticação e interface responsiva",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "vercel-build": "echo 'Build completo'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "carros",
+    "avaliações",
+    "automotivo",
+    "nodejs",
+    "express",
+    "supabase",
+    "bootstrap"
+  ],
+  "author": "Premium Car Team <contato@premiumcar.com>",
   "license": "ISC",
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KallebyX/premium-car-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KallebyX/premium-car-site/issues"
+  },
+  "homepage": "https://github.com/KallebyX/premium-car-site#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.56.1",
     "axios": "^1.11.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }

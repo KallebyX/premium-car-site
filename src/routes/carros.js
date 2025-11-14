@@ -1,83 +1,50 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../../supabase');
-const { createClient } = require('@supabase/supabase-js');
-const supabaseAuth = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const { authenticateToken, validateCarData } = require('../middleware/auth');
 
-// GET - Listar todos os carros avaliados
-router.get('/', async (req, res) => {
-  const { data, error } = await supabase
-    .from('carros_avaliados')
-    .select('*')
-    .order('data_postagem', { ascending: false });
+// GET - Listar todos os carros avaliados (público)
+router.get('/', async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('carros_avaliados')
+      .select('*')
+      .order('data_postagem', { ascending: false });
 
-  if (error) return res.status(500).json({ error: error.message });
-  res.json(data);
+    if (error) throw error;
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
 });
 
-// POST - Criar nova avaliação de carro
-router.post('/', async (req, res) => {
-  const token = req.headers.authorization?.split('Bearer ')[1];
-  if (!token) return res.status(401).json({ error: 'Token ausente' });
+// GET - Obter um carro específico por ID (público)
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    const { data, error } = await supabase
+      .from('carros_avaliados')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
-  if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
+    if (error) throw error;
+    
+    if (!data) {
+      return res.status(404).json({ error: 'Carro não encontrado' });
+    }
 
-  const {
-    titulo,
-    descricao,
-    marca,
-    modelo,
-    ano,
-    preco_estimado,
-    nota_geral,
-    video_url,
-    imagem_url
-  } = req.body;
-
-  const { data, error } = await supabase
-    .from('carros_avaliados')
-    .insert([{
-      titulo,
-      descricao,
-      marca,
-      modelo,
-      ano,
-      preco_estimado,
-      nota_geral,
-      video_url,
-      imagem_url,
-      autor_email: user.email
-    }]);
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(201).json(data);
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
 });
 
-// PUT - Atualizar avaliação por ID (requer autenticação)
-router.put('/:id', async (req, res) => {
-  const token = req.headers.authorization?.split('Bearer ')[1];
-  if (!token) return res.status(401).json({ error: 'Token ausente' });
-
-  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
-  if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
-
-  const { id } = req.params;
-  const {
-    titulo,
-    descricao,
-    marca,
-    modelo,
-    ano,
-    preco_estimado,
-    nota_geral,
-    video_url,
-    imagem_url
-  } = req.body;
-
-  const { data, error } = await supabase
-    .from('carros_avaliados')
-    .update({
+// POST - Criar nova avaliação de carro (requer autenticação)
+router.post('/', authenticateToken, validateCarData, async (req, res, next) => {
+  try {
+    const {
       titulo,
       descricao,
       marca,
@@ -87,30 +54,90 @@ router.put('/:id', async (req, res) => {
       nota_geral,
       video_url,
       imagem_url
-    })
-    .eq('id', id);
+    } = req.body;
 
-  if (error) return res.status(500).json({ error: error.message });
-  res.json(data);
+    const { data, error } = await supabase
+      .from('carros_avaliados')
+      .insert([{
+        titulo,
+        descricao,
+        marca,
+        modelo,
+        ano,
+        preco_estimado,
+        nota_geral,
+        video_url: video_url || null,
+        imagem_url: imagem_url || null,
+        autor_email: req.user.email
+      }])
+      .select();
+
+    if (error) throw error;
+    res.status(201).json(data[0]);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT - Atualizar avaliação por ID (requer autenticação)
+router.put('/:id', authenticateToken, validateCarData, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const {
+      titulo,
+      descricao,
+      marca,
+      modelo,
+      ano,
+      preco_estimado,
+      nota_geral,
+      video_url,
+      imagem_url
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from('carros_avaliados')
+      .update({
+        titulo,
+        descricao,
+        marca,
+        modelo,
+        ano,
+        preco_estimado,
+        nota_geral,
+        video_url: video_url || null,
+        imagem_url: imagem_url || null
+      })
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
+    
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'Carro não encontrado' });
+    }
+
+    res.json(data[0]);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // DELETE - Excluir avaliação por ID (requer autenticação)
-router.delete('/:id', async (req, res) => {
-  const token = req.headers.authorization?.split('Bearer ')[1];
-  if (!token) return res.status(401).json({ error: 'Token ausente' });
+router.delete('/:id', authenticateToken, async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
-  if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
+    const { error } = await supabase
+      .from('carros_avaliados')
+      .delete()
+      .eq('id', id);
 
-  const { id } = req.params;
-
-  const { error } = await supabase
-    .from('carros_avaliados')
-    .delete()
-    .eq('id', id);
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(204).send(); // sucesso sem conteúdo
+    if (error) throw error;
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

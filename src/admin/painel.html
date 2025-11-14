@@ -4,180 +4,462 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Painel Admin – Premium Car</title>
+  <meta name="description" content="Painel administrativo do Premium Car para gerenciar avaliações de carros">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
-<body class="bg-light">
+<body>
 <div id="injected-header"></div>
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0 text-danger"><i class="bi bi-speedometer2 me-2"></i>Painel Administrativo</h1>
-    <div>
-      <span class="badge bg-success fs-6 me-2" id="totalAvaliacoes">0 avaliações</span>
+
+<!-- Admin Header -->
+<div class="admin-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <h1><i class="bi bi-speedometer2"></i>Painel Administrativo</h1>
+      <div class="admin-stats">
+        <div class="stat-badge">
+          <i class="bi bi-car-front-fill"></i>
+          <span id="totalAvaliacoes">0</span> avaliações
+        </div>
+        <div class="stat-badge">
+          <i class="bi bi-tag-fill"></i>
+          <span id="totalMarcas">0</span> marcas
+        </div>
+        <button onclick="logout()" class="btn btn-light btn-sm">
+          <i class="bi bi-box-arrow-right"></i> Sair
+        </button>
+      </div>
     </div>
   </div>
+</div>
 
-  <form id="carroForm" class="card p-4 shadow mb-5 border-0">
+<div class="container my-5">
+  <!-- Mensagem de Status -->
+  <div id="statusMsg" class="mb-4"></div>
+
+  <!-- Formulário -->
+  <form id="carroForm" class="form-card fade-in">
+    <h3>
+      <i class="bi bi-plus-circle-fill text-danger"></i>
+      <span id="formTitle">Nova Avaliação</span>
+    </h3>
     <input type="hidden" id="id">
+    
+    <div class="row g-3 mb-3">
+      <div class="col-12">
+        <label class="form-label">
+          <i class="bi bi-card-heading me-2"></i>Título da Avaliação *
+        </label>
+        <input type="text" class="form-control" id="titulo" 
+               placeholder="Ex: Porsche 911 GT3 - O carro dos sonhos" required>
+      </div>
+    </div>
+
     <div class="mb-3">
-      <label class="form-label">Título</label>
-      <input type="text" class="form-control" id="titulo" required>
+      <label class="form-label">
+        <i class="bi bi-text-paragraph me-2"></i>Descrição Completa *
+      </label>
+      <textarea class="form-control" id="descricao" rows="4" 
+                placeholder="Descreva sua análise detalhada do veículo..." required></textarea>
+      <small class="text-muted">Mínimo 100 caracteres</small>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Descrição</label>
-      <textarea class="form-control" id="descricao" rows="2" required></textarea>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-tag me-2"></i>Marca *
+        </label>
+        <input type="text" class="form-control" id="marca" 
+               placeholder="Ex: Porsche" list="marcasList" required>
+        <datalist id="marcasList"></datalist>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-car-front me-2"></i>Modelo *
+        </label>
+        <input type="text" class="form-control" id="modelo" 
+               placeholder="Ex: 911 GT3" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-calendar-event me-2"></i>Ano *
+        </label>
+        <input type="number" class="form-control" id="ano" 
+               placeholder="2024" min="1900" max="2030" required>
+      </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
-      <div class="col"><input type="text" class="form-control" id="marca" placeholder="Marca" required></div>
-      <div class="col"><input type="text" class="form-control" id="modelo" placeholder="Modelo" required></div>
-      <div class="col"><input type="number" class="form-control" id="ano" placeholder="Ano" required></div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-cash-stack me-2"></i>Preço Estimado (R$) *
+        </label>
+        <input type="number" class="form-control" id="preco" 
+               placeholder="350000" min="0" step="1000" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-star-fill me-2"></i>Nota (1-10) *
+        </label>
+        <input type="number" class="form-control" id="nota" 
+               placeholder="9" min="1" max="10" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">
+          <i class="bi bi-youtube me-2"></i>URL do Vídeo (YouTube)
+        </label>
+        <input type="url" class="form-control" id="video" 
+               placeholder="https://www.youtube.com/embed/...">
+      </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
-      <div class="col"><input type="number" class="form-control" id="preco" placeholder="Preço R$" required></div>
-      <div class="col"><input type="number" class="form-control" id="nota" placeholder="Nota" min="1" max="10" required></div>
-      <div class="col"><input type="url" class="form-control" id="video" placeholder="URL YouTube" required></div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Imagem do carro</label>
+
+    <div class="mb-4">
+      <label class="form-label">
+        <i class="bi bi-image me-2"></i>Imagem do Carro
+      </label>
       <input type="file" class="form-control" id="imagem" accept="image/*">
-      <img id="previewImagem" src="#" alt="Pré-visualização" class="img-fluid mt-2 d-none" style="max-height: 200px;">
+      <small class="text-muted">Formatos: JPG, PNG, WEBP. Tamanho máximo: 5MB</small>
+      
+      <div id="previewContainer" class="image-preview-container d-none">
+        <img id="previewImagem" src="#" alt="Pré-visualização" class="image-preview img-fluid">
+        <button type="button" class="remove-image-btn" onclick="removerPreview()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
       <input type="hidden" id="imagem_url">
     </div>
-    <button type="submit" class="btn btn-success" id="btnSalvar">Salvar Avaliação</button>
+
+    <div class="d-flex gap-3 flex-wrap">
+      <button type="submit" class="btn btn-success btn-lg" id="btnSalvar">
+        <i class="bi bi-check-circle"></i>
+        <span id="btnText">Salvar Avaliação</span>
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-lg" onclick="limparFormulario()">
+        <i class="bi bi-x-circle"></i> Cancelar
+      </button>
+    </div>
   </form>
 
-  <div id="statusMsg" class="text-center mb-4"></div>
-
-  <!-- Busca e filtros -->
-  <div class="card p-3 shadow-sm mb-4 border-0">
+  <!-- Busca e Filtros -->
+  <div class="filter-card slide-up">
+    <h5>
+      <i class="bi bi-funnel-fill text-danger"></i>
+      Filtros e Busca
+    </h5>
     <div class="row g-3">
-      <div class="col-md-6">
-        <input type="text" id="searchTable" class="form-control" placeholder="🔍 Buscar por título, marca ou modelo...">
+      <div class="col-md-5">
+        <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" id="searchTable" class="form-control" 
+                 placeholder="Buscar por título, marca ou modelo...">
+        </div>
       </div>
       <div class="col-md-3">
         <select id="filterMarcaTable" class="form-select">
           <option value="">Todas as marcas</option>
         </select>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
+        <select id="filterNotaTable" class="form-select">
+          <option value="">Todas as notas</option>
+          <option value="9">9+ Excelente</option>
+          <option value="7">7+ Muito Bom</option>
+          <option value="5">5+ Bom</option>
+        </select>
+      </div>
+      <div class="col-md-2">
         <button id="clearTableFilters" class="btn btn-outline-secondary w-100">
-          <i class="bi bi-x-circle me-1"></i>Limpar Filtros
+          <i class="bi bi-x-circle"></i> Limpar
         </button>
       </div>
     </div>
+    <div class="mt-3 d-flex justify-content-between align-items-center">
+      <small class="text-muted" id="tableResultCount">0 resultados</small>
+      <small class="text-muted">
+        <i class="bi bi-info-circle me-1"></i>
+        Mostrando <span id="currentPageInfo">0</span> de <span id="totalCarrosInfo">0</span>
+      </small>
+    </div>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-hover align-middle" id="tabelaCarros">
-      <thead class="table-dark">
-        <tr>
-          <th style="width: 80px;">Imagem</th>
-          <th>Título</th>
-          <th>Marca/Modelo</th>
-          <th style="width: 80px;">Ano</th>
-          <th style="width: 100px;">Preço</th>
-          <th style="width: 80px;">Nota</th>
-          <th style="width: 180px;">Ações</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <!-- Tabela -->
+  <div class="table-container slide-up">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle" id="tabelaCarros">
+        <thead>
+          <tr>
+            <th style="width: 80px;">Imagem</th>
+            <th>Título</th>
+            <th>Marca/Modelo</th>
+            <th style="width: 80px;">Ano</th>
+            <th style="width: 120px;">Preço</th>
+            <th style="width: 80px;">Nota</th>
+            <th style="width: 200px;" class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <!-- Paginação -->
-  <nav aria-label="Navegação de páginas">
-    <ul class="pagination justify-content-center" id="pagination"></ul>
-  </nav>
+    <!-- Paginação -->
+    <nav aria-label="Navegação de páginas">
+      <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+  </div>
 </div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<div id="injected-footer"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+// ============================================
+// VERIFICAÇÃO DE AUTENTICAÇÃO
+// ============================================
 if (!localStorage.getItem('token')) {
   window.location.href = '/login.html';
 }
+
+// ============================================
+// VARIÁVEIS GLOBAIS
+// ============================================
 const tabela = document.querySelector('#tabelaCarros tbody');
 const form = document.getElementById('carroForm');
 const msg = document.getElementById('statusMsg');
 const inputFile = document.getElementById('imagem');
 const imagem_url = document.getElementById('imagem_url');
 const btnSalvar = document.getElementById('btnSalvar');
+const btnText = document.getElementById('btnText');
 const previewImagem = document.getElementById('previewImagem');
+const previewContainer = document.getElementById('previewContainer');
 
 let todosOsCarros = [];
 let carrosFiltradosTable = [];
 let paginaAtual = 1;
 const itensPorPagina = 10;
 
-async function listarCarros() {
-  const res = await fetch('/api/carros', {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  });
-  todosOsCarros = await res.json();
-  carrosFiltradosTable = todosOsCarros;
-
-  // Atualizar contador
-  document.getElementById('totalAvaliacoes').textContent = `${todosOsCarros.length} ${todosOsCarros.length === 1 ? 'avaliação' : 'avaliações'}`;
-
-  // Preencher filtro de marcas
-  const marcas = [...new Set(todosOsCarros.map(c => c.marca))].sort();
-  document.getElementById('filterMarcaTable').innerHTML = '<option value="">Todas as marcas</option>' +
-    marcas.map(m => `<option value="${m}">${m}</option>`).join('');
-
-  renderizarTabela();
+// ============================================
+// FUNÇÕES AUXILIARES
+// ============================================
+function mostrarMensagem(texto, tipo = 'success') {
+  msg.innerHTML = `
+    <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+      <i class="bi bi-${tipo === 'success' ? 'check-circle' : tipo === 'danger' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
+      ${texto}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+  setTimeout(() => { msg.innerHTML = ''; }, 5000);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function mostrarLoading(show = true) {
+  if (show) {
+    const overlay = document.createElement('div');
+    overlay.id = 'loadingOverlay';
+    overlay.className = 'loading-overlay';
+    overlay.innerHTML = '<div class="spinner-custom"></div>';
+    document.body.appendChild(overlay);
+  } else {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.remove();
+  }
+}
+
+function formatarMoeda(valor) {
+  return new Intl.NumberFormat('pt-BR', { 
+    style: 'currency', 
+    currency: 'BRL' 
+  }).format(valor);
+}
+
+function validarFormulario() {
+  const titulo = form.titulo.value.trim();
+  const descricao = form.descricao.value.trim();
+  const marca = form.marca.value.trim();
+  const modelo = form.modelo.value.trim();
+  const ano = parseInt(form.ano.value);
+  const preco = parseFloat(form.preco.value);
+  const nota = parseInt(form.nota.value);
+
+  if (titulo.length < 10) {
+    mostrarMensagem('O título deve ter pelo menos 10 caracteres', 'danger');
+    return false;
+  }
+
+  if (descricao.length < 100) {
+    mostrarMensagem('A descrição deve ter pelo menos 100 caracteres', 'danger');
+    return false;
+  }
+
+  if (!marca || !modelo) {
+    mostrarMensagem('Marca e modelo são obrigatórios', 'danger');
+    return false;
+  }
+
+  if (ano < 1900 || ano > 2030) {
+    mostrarMensagem('Ano inválido', 'danger');
+    return false;
+  }
+
+  if (preco < 0) {
+    mostrarMensagem('Preço inválido', 'danger');
+    return false;
+  }
+
+  if (nota < 1 || nota > 10) {
+    mostrarMensagem('Nota deve estar entre 1 e 10', 'danger');
+    return false;
+  }
+
+  return true;
+}
+
+function limparFormulario() {
+  form.reset();
+  form.id.value = '';
+  document.getElementById('formTitle').textContent = 'Nova Avaliação';
+  btnText.textContent = 'Salvar Avaliação';
+  previewContainer.classList.add('d-none');
+  imagem_url.value = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function removerPreview() {
+  inputFile.value = '';
+  previewContainer.classList.add('d-none');
+  imagem_url.value = '';
+}
+
+// ============================================
+// CARREGAR MARCAS PARA DATALIST
+// ============================================
+function atualizarMarcasDatalist() {
+  const marcas = [...new Set(todosOsCarros.map(c => c.marca))].sort();
+  const datalist = document.getElementById('marcasList');
+  datalist.innerHTML = marcas.map(m => `<option value="${m}">`).join('');
+}
+
+// ============================================
+// LISTAR CARROS
+// ============================================
+async function listarCarros() {
+  mostrarLoading(true);
+  try {
+    const res = await fetch('/api/carros', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if (!res.ok) throw new Error('Erro ao carregar carros');
+
+    todosOsCarros = await res.json();
+    carrosFiltradosTable = todosOsCarros;
+
+    // Atualizar estatísticas
+    document.getElementById('totalAvaliacoes').textContent = todosOsCarros.length;
+    document.getElementById('totalMarcas').textContent = [...new Set(todosOsCarros.map(c => c.marca))].size;
+    document.getElementById('totalCarrosInfo').textContent = todosOsCarros.length;
+
+    // Preencher filtro de marcas
+    const marcas = [...new Set(todosOsCarros.map(c => c.marca))].sort();
+    document.getElementById('filterMarcaTable').innerHTML = '<option value="">Todas as marcas</option>' +
+      marcas.map(m => `<option value="${m}">${m}</option>`).join('');
+
+    atualizarMarcasDatalist();
+    renderizarTabela();
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem('Erro ao carregar avaliações', 'danger');
+  } finally {
+    mostrarLoading(false);
+  }
+}
+
+// ============================================
+// RENDERIZAR TABELA
+// ============================================
 function renderizarTabela() {
   const inicio = (paginaAtual - 1) * itensPorPagina;
   const fim = inicio + itensPorPagina;
   const carrosPagina = carrosFiltradosTable.slice(inicio, fim);
 
+  // Atualizar contador
+  document.getElementById('tableResultCount').textContent = 
+    `${carrosFiltradosTable.length} ${carrosFiltradosTable.length === 1 ? 'resultado' : 'resultados'}`;
+  
+  document.getElementById('currentPageInfo').textContent = 
+    carrosPagina.length > 0 ? `${inicio + 1}-${Math.min(fim, carrosFiltradosTable.length)}` : '0';
+
   if (carrosPagina.length === 0) {
     tabela.innerHTML = `
       <tr>
-        <td colspan="7" class="text-center text-muted py-4">
-          <i class="bi bi-inbox fs-1 d-block mb-2"></i>
-          Nenhuma avaliação encontrada
+        <td colspan="7" class="text-center py-5">
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h3>Nenhuma avaliação encontrada</h3>
+            <p>Tente ajustar os filtros ou adicione uma nova avaliação</p>
+          </div>
         </td>
       </tr>
     `;
   } else {
-    tabela.innerHTML = carrosPagina.map(carro => `
-      <tr>
-        <td>
-          <img src="${carro.imagem_url || 'https://via.placeholder.com/80x60?text=Sem+Imagem'}"
-               alt="${carro.modelo}"
-               class="img-thumbnail"
-               style="width: 60px; height: 45px; object-fit: cover;">
-        </td>
-        <td class="fw-semibold">${carro.titulo}</td>
-        <td>${carro.marca} ${carro.modelo}</td>
-        <td>${carro.ano}</td>
-        <td class="text-nowrap">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(carro.preco_estimado)}</td>
-        <td>
-          <span class="badge bg-${carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning text-dark' : 'danger'}">
-            ${carro.nota_geral}/10
-          </span>
-        </td>
-        <td>
-          <button onclick='editar(${JSON.stringify(carro).replace(/'/g, "&#39;")})'
-                  class='btn btn-sm btn-warning me-1'
-                  title="Editar">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button onclick='excluir("${carro.id}")'
-                  class='btn btn-sm btn-danger'
-                  title="Excluir">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      </tr>
-    `).join('');
+    tabela.innerHTML = carrosPagina.map(carro => {
+      const notaClass = carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning text-dark' : 'danger';
+      return `
+        <tr class="fade-in">
+          <td>
+            <img src="${carro.imagem_url || 'https://via.placeholder.com/80x60?text=Sem+Imagem'}"
+                 alt="${carro.modelo}"
+                 class="table-img"
+                 loading="lazy">
+          </td>
+          <td>
+            <strong>${carro.titulo}</strong>
+            ${carro.descricao ? `<br><small class="text-muted">${carro.descricao.substring(0, 50)}...</small>` : ''}
+          </td>
+          <td>
+            <span class="badge bg-light text-dark">${carro.marca}</span><br>
+            <small class="text-muted">${carro.modelo}</small>
+          </td>
+          <td class="text-center"><strong>${carro.ano}</strong></td>
+          <td class="text-nowrap"><strong class="text-danger">${formatarMoeda(carro.preco_estimado)}</strong></td>
+          <td class="text-center">
+            <span class="badge bg-${notaClass} fs-6">${carro.nota_geral}/10</span>
+          </td>
+          <td class="text-center">
+            <div class="btn-group btn-group-sm" role="group">
+              <button onclick='editarCarro(${JSON.stringify(carro).replace(/'/g, "&#39;")})' 
+                      class="btn btn-warning" 
+                      title="Editar">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <a href="/detalhe.html?id=${carro.id}" 
+                 target="_blank"
+                 class="btn btn-info text-white" 
+                 title="Visualizar">
+                <i class="bi bi-eye-fill"></i>
+              </a>
+              <button onclick='excluirCarro("${carro.id}", "${carro.titulo}")' 
+                      class="btn btn-danger" 
+                      title="Excluir">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
   renderizarPaginacao();
 }
 
+// ============================================
+// PAGINAÇÃO
+// ============================================
 function renderizarPaginacao() {
   const totalPaginas = Math.ceil(carrosFiltradosTable.length / itensPorPagina);
   const pagination = document.getElementById('pagination');
@@ -189,7 +471,9 @@ function renderizarPaginacao() {
 
   let html = `
     <li class="page-item ${paginaAtual === 1 ? 'disabled' : ''}">
-      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual - 1}); return false;">Anterior</a>
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual - 1}); return false;">
+        <i class="bi bi-chevron-left"></i>
+      </a>
     </li>
   `;
 
@@ -207,7 +491,9 @@ function renderizarPaginacao() {
 
   html += `
     <li class="page-item ${paginaAtual === totalPaginas ? 'disabled' : ''}">
-      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual + 1}); return false;">Próxima</a>
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual + 1}); return false;">
+        <i class="bi bi-chevron-right"></i>
+      </a>
     </li>
   `;
 
@@ -219,22 +505,29 @@ function mudarPagina(novaPagina) {
   if (novaPagina < 1 || novaPagina > totalPaginas) return;
   paginaAtual = novaPagina;
   renderizarTabela();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
 }
 
+
+// ============================================
+// FILTROS
+// ============================================
 function aplicarFiltrosTable() {
   const searchTerm = document.getElementById('searchTable').value.toLowerCase();
   const marcaSelecionada = document.getElementById('filterMarcaTable').value;
+  const notaMinima = document.getElementById('filterNotaTable').value;
 
   carrosFiltradosTable = todosOsCarros.filter(carro => {
     const matchSearch = !searchTerm ||
       carro.titulo.toLowerCase().includes(searchTerm) ||
       carro.marca.toLowerCase().includes(searchTerm) ||
-      carro.modelo.toLowerCase().includes(searchTerm);
+      carro.modelo.toLowerCase().includes(searchTerm) ||
+      carro.descricao.toLowerCase().includes(searchTerm);
 
     const matchMarca = !marcaSelecionada || carro.marca === marcaSelecionada;
+    const matchNota = !notaMinima || carro.nota_geral >= parseInt(notaMinima);
 
-    return matchSearch && matchMarca;
+    return matchSearch && matchMarca && matchNota;
   });
 
   paginaAtual = 1;
@@ -244,29 +537,16 @@ function aplicarFiltrosTable() {
 function limparFiltrosTable() {
   document.getElementById('searchTable').value = '';
   document.getElementById('filterMarcaTable').value = '';
+  document.getElementById('filterNotaTable').value = '';
   carrosFiltradosTable = todosOsCarros;
   paginaAtual = 1;
   renderizarTabela();
 }
 
-async function excluir(id) {
-  if (!confirm("Confirma excluir?")) return;
-  const res = await fetch(`/api/carros/${id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  });
-  if (res.ok) {
-    msg.innerHTML = "<div class='alert alert-warning'>Avaliação excluída.</div>";
-    setTimeout(() => { msg.innerHTML = ''; }, 3000);
-    listarCarros();
-  } else {
-    msg.innerHTML = "<div class='alert alert-danger'>Erro ao excluir avaliação.</div>";
-  }
-}
-
-function editar(carro) {
+// ============================================
+// EDITAR CARRO
+// ============================================
+function editarCarro(carro) {
   document.getElementById('id').value = carro.id;
   document.getElementById('titulo').value = carro.titulo;
   document.getElementById('descricao').value = carro.descricao;
@@ -275,10 +555,55 @@ function editar(carro) {
   document.getElementById('ano').value = carro.ano;
   document.getElementById('preco').value = carro.preco_estimado;
   document.getElementById('nota').value = carro.nota_geral;
-  document.getElementById('video').value = carro.video_url;
-  document.getElementById('imagem_url').value = carro.imagem_url;
+  document.getElementById('video').value = carro.video_url || '';
+  document.getElementById('imagem_url').value = carro.imagem_url || '';
+  
+  document.getElementById('formTitle').textContent = 'Editar Avaliação';
+  btnText.textContent = 'Atualizar Avaliação';
+  
+  if (carro.imagem_url) {
+    previewImagem.src = carro.imagem_url;
+    previewContainer.classList.remove('d-none');
+  }
+  
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ============================================
+// EXCLUIR CARRO
+// ============================================
+async function excluirCarro(id, titulo) {
+  if (!confirm(`Tem certeza que deseja excluir a avaliação "${titulo}"?\n\nEsta ação não pode ser desfeita.`)) {
+    return;
+  }
+
+  mostrarLoading(true);
+  
+  try {
+    const res = await fetch(`/api/carros/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if (res.ok) {
+      mostrarMensagem('Avaliação excluída com sucesso!', 'warning');
+      listarCarros();
+    } else {
+      throw new Error('Erro ao excluir');
+    }
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem('Erro ao excluir avaliação. Tente novamente.', 'danger');
+  } finally {
+    mostrarLoading(false);
+  }
+}
+
+// ============================================
+// UPLOAD DE IMAGEM
+// ============================================
 async function uploadImagem() {
   const file = inputFile.files[0];
   if (!file) return null;
@@ -286,17 +611,16 @@ async function uploadImagem() {
   // Validar tipo de arquivo
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
   if (!allowedTypes.includes(file.type)) {
-    msg.innerHTML = "<div class='alert alert-danger'>Apenas imagens JPG, PNG ou WEBP são permitidas.</div>";
+    mostrarMensagem('Apenas imagens JPG, PNG ou WEBP são permitidas.', 'danger');
     return null;
   }
 
   // Validar tamanho (máximo 5MB)
   if (file.size > 5 * 1024 * 1024) {
-    msg.innerHTML = "<div class='alert alert-danger'>A imagem deve ter no máximo 5MB.</div>";
+    mostrarMensagem('A imagem deve ter no máximo 5MB.', 'danger');
     return null;
   }
 
-  // Converter para base64
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = async () => {
@@ -320,12 +644,12 @@ async function uploadImagem() {
         } else {
           const error = await response.json();
           console.error(error);
-          msg.innerHTML = `<div class='alert alert-danger'>Erro no upload: ${error.error}</div>`;
+          mostrarMensagem(`Erro no upload: ${error.error}`, 'danger');
           resolve(null);
         }
       } catch (error) {
         console.error(error);
-        msg.innerHTML = "<div class='alert alert-danger'>Erro ao fazer upload da imagem.</div>";
+        mostrarMensagem('Erro ao fazer upload da imagem.', 'danger');
         resolve(null);
       }
     };
@@ -337,89 +661,128 @@ async function uploadImagem() {
   });
 }
 
+// ============================================
+// SUBMIT FORMULÁRIO
+// ============================================
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  if (!validarFormulario()) return;
+
   btnSalvar.disabled = true;
-  btnSalvar.innerHTML = 'Salvando...';
+  btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Salvando...';
+  mostrarLoading(true);
 
-  let urlImagem = imagem_url.value;
-  if (inputFile.files.length > 0) {
-    urlImagem = await uploadImagem();
-    imagem_url.value = urlImagem;
-  }
+  try {
+    let urlImagem = imagem_url.value;
+    if (inputFile.files.length > 0) {
+      urlImagem = await uploadImagem();
+      if (!urlImagem) {
+        throw new Error('Falha no upload da imagem');
+      }
+      imagem_url.value = urlImagem;
+    }
 
-  const dados = {
-    titulo: form.titulo.value,
-    descricao: form.descricao.value,
-    marca: form.marca.value,
-    modelo: form.modelo.value,
-    ano: parseInt(form.ano.value),
-    preco_estimado: parseFloat(form.preco.value),
-    nota_geral: parseInt(form.nota.value),
-    video_url: form.video.value,
-    imagem_url: urlImagem
-  };
+    const dados = {
+      titulo: form.titulo.value.trim(),
+      descricao: form.descricao.value.trim(),
+      marca: form.marca.value.trim(),
+      modelo: form.modelo.value.trim(),
+      ano: parseInt(form.ano.value),
+      preco_estimado: parseFloat(form.preco.value),
+      nota_geral: parseInt(form.nota.value),
+      video_url: form.video.value.trim() || null,
+      imagem_url: urlImagem
+    };
 
-  const id = form.id.value;
-  const metodo = id ? 'PUT' : 'POST';
-  const endpoint = id ? `/api/carros/${id}` : '/api/carros';
+    const id = form.id.value;
+    const metodo = id ? 'PUT' : 'POST';
+    const endpoint = id ? `/api/carros/${id}` : '/api/carros';
 
-  const res = await fetch(endpoint, {
-    method: metodo,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    },
-    body: JSON.stringify(dados)
-  });
+    const res = await fetch(endpoint, {
+      method: metodo,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(dados)
+    });
 
-  if (res.ok) {
-    msg.innerHTML = `<div class='alert alert-success'>${id ? 'Atualizado' : 'Cadastrado'} com sucesso!</div>`;
-    form.reset();
-    form.id.value = '';
+    if (res.ok) {
+      mostrarMensagem(
+        `Avaliação ${id ? 'atualizada' : 'criada'} com sucesso!`,
+        'success'
+      );
+      limparFormulario();
+      listarCarros();
+    } else {
+      const erro = await res.json();
+      throw new Error(erro.error || 'Erro desconhecido');
+    }
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem(`Erro: ${error.message}`, 'danger');
+  } finally {
     btnSalvar.disabled = false;
-    btnSalvar.innerHTML = 'Salvar Avaliação';
-    previewImagem.classList.add('d-none');
-    setTimeout(() => { msg.innerHTML = ''; }, 3000);
-    listarCarros();
-  } else {
-    const erro = await res.json();
-    msg.innerHTML = `<div class='alert alert-danger'>Erro: ${erro.error}</div>`;
-    btnSalvar.disabled = false;
-    btnSalvar.innerHTML = 'Salvar Avaliação';
+    btnText.textContent = form.id.value ? 'Atualizar Avaliação' : 'Salvar Avaliação';
+    mostrarLoading(false);
   }
 });
 
+// ============================================
+// PREVIEW DE IMAGEM
+// ============================================
 inputFile.addEventListener('change', () => {
   const file = inputFile.files[0];
   if (file) {
+    // Validação prévia
+    if (!['image/jpeg', 'image/png', 'image/jpg', 'image/webp'].includes(file.type)) {
+      mostrarMensagem('Formato de imagem inválido', 'danger');
+      inputFile.value = '';
+      return;
+    }
+    
+    if (file.size > 5 * 1024 * 1024) {
+      mostrarMensagem('Imagem muito grande (máx 5MB)', 'danger');
+      inputFile.value = '';
+      return;
+    }
+    
     previewImagem.src = URL.createObjectURL(file);
-    previewImagem.classList.remove('d-none');
+    previewContainer.classList.remove('d-none');
   } else {
-    previewImagem.classList.add('d-none');
+    previewContainer.classList.add('d-none');
   }
 });
 
+// ============================================
+// LOGOUT
+// ============================================
+function logout() {
+  if (confirm('Deseja realmente sair do painel administrativo?')) {
+    localStorage.removeItem('token');
+    window.location.href = '/login.html';
+  }
+}
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
   listarCarros();
 
+  // Event Listeners dos Filtros
   document.getElementById('searchTable').addEventListener('input', aplicarFiltrosTable);
   document.getElementById('filterMarcaTable').addEventListener('change', aplicarFiltrosTable);
+  document.getElementById('filterNotaTable').addEventListener('change', aplicarFiltrosTable);
   document.getElementById('clearTableFilters').addEventListener('click', limparFiltrosTable);
 });
+</script>
 
-</script>
+<!-- Carregar Header e Footer -->
 <script>
-function logout() {
-  localStorage.removeItem('token');
-  window.location.href = '/login.html';
-}
-</script>
-</div>
-<div id="injected-footer"></div>
-<script>
-  async function carregarHeaderFooter() {
+async function carregarHeaderFooter() {
+  try {
     const base = await fetch('/base.html').then(res => res.text());
     const temp = document.createElement('div');
     temp.innerHTML = base;
@@ -429,9 +792,12 @@ function logout() {
 
     if (header) document.getElementById('injected-header').appendChild(header);
     if (footer) document.getElementById('injected-footer').appendChild(footer);
+  } catch (error) {
+    console.error('Erro ao carregar header/footer:', error);
   }
+}
 
-  carregarHeaderFooter();
+carregarHeaderFooter();
 </script>
 </body>
 </html>
