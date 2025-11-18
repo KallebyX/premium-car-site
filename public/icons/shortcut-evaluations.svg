@@ -1,0 +1,16 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shortcut icon for evaluations -->
+  <rect width="96" height="96" rx="20" fill="#dc3545"/>
+
+  <g transform="translate(48, 48)">
+    <!-- Car silhouette -->
+    <path d="M-24,-8 L-28,-2 L-30,4 L-30,12 L-26,14 L26,14 L30,12 L30,4 L28,-2 L24,-8 Z"
+          fill="white" opacity="0.9"/>
+    <path d="M-18,-8 L-20,-2 L-16,0 L16,0 L20,-2 L18,-8 Z"
+          fill="white" opacity="0.9"/>
+
+    <!-- Star for evaluation -->
+    <path d="M0,-32 L4,-20 L16,-20 L6,-12 L10,0 L0,-8 L-10,0 L-6,-12 L-16,-20 L-4,-20 Z"
+          fill="#ffc107"/>
+  </g>
+</svg>

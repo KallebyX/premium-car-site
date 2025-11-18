@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Análise detalhada e avaliação profissional de carros - Premium Car"/>
-  <title>Detalhes da Avaliação - Premium Car</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags - Will be dynamically updated -->
+  <title id="page-title">Avaliação Completa - Premium Car</title>
+  <meta name="title" content="Avaliação Completa - Premium Car" id="meta-title">
+  <meta name="description" content="Avaliação completa e detalhada com ficha técnica, prós e contras, vídeo review e nossa nota. Descubra se vale a pena!" id="meta-description">
+  <meta name="keywords" content="avaliação, review, ficha técnica, análise automotiva" id="meta-keywords">
+  <meta name="author" content="Premium Car">
+  <meta name="language" content="Portuguese">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+  <!-- Open Graph / Facebook - Will be dynamically updated -->
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://premiumcar.com/detalhe.html" id="og-url">
+  <meta property="og:title" content="Avaliação Completa - Premium Car" id="og-title">
+  <meta property="og:description" content="Avaliação completa e detalhada" id="og-description">
+  <meta property="og:image" content="https://premiumcar.com/icons/icon-512x512.png" id="og-image">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Foto do veículo" id="og-image-alt">
+  <meta property="og:site_name" content="Premium Car">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card - Will be dynamically updated -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://premiumcar.com/detalhe.html" id="twitter-url">
+  <meta name="twitter:title" content="Avaliação Completa - Premium Car" id="twitter-title">
+  <meta name="twitter:description" content="Avaliação completa e detalhada" id="twitter-description">
+  <meta name="twitter:image" content="https://premiumcar.com/icons/icon-512x512.png" id="twitter-image">
+  <meta name="twitter:image:alt" content="Foto do veículo" id="twitter-image-alt">
+  <meta name="twitter:creator" content="@premiumcar">
+  <meta name="twitter:site" content="@premiumcar">
+
+  <!-- Icons and PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#dc3545">
+
+  <!-- Canonical URL - Will be dynamically updated -->
+  <link rel="canonical" href="https://premiumcar.com/detalhe.html" id="canonical-url">
+
+  <!-- Structured Data (JSON-LD) - Will be dynamically updated via JavaScript -->
+  <script type="application/ld+json" id="structured-data">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Avaliação de Veículo",
+    "description": "Avaliação completa e detalhada",
+    "image": "https://premiumcar.com/icons/icon-512x512.png",
+    "brand": {
+      "@type": "Brand",
+      "name": "Premium Car"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "0",
+      "reviewCount": "1"
+    }
+  }
+  </script>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <style>
@@ -163,14 +230,88 @@
           return;
         }
 
-        // Atualizar título da página
-        document.title = `${carro.titulo} - Premium Car`;
+        // ========================================
+        // UPDATE SEO META TAGS DYNAMICALLY
+        // ========================================
+        const carTitle = `${carro.marca} ${carro.modelo} - Avaliação Completa`;
+        const carDescription = `Avaliação completa do ${carro.marca} ${carro.modelo} ${carro.ano}. Ficha técnica, prós e contras, vídeo review e nossa nota ${carro.nota_geral}/10. ${carro.descricao.substring(0, 100)}...`;
+        const carKeywords = `${carro.marca}, ${carro.modelo}, ${carro.ano}, avaliação, review, ficha técnica, ${carro.combustivel}, ${carro.transmissao}`;
+        const carImage = carro.imagem_url || 'https://premiumcar.com/icons/icon-512x512.png';
+        const carUrl = `https://premiumcar.com/detalhe.html?id=${carro.id}`;
 
-        // Atualizar meta description
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-          metaDesc.setAttribute('content', `${carro.titulo} - ${carro.descricao.substring(0, 150)}`);
-        }
+        // Update page title
+        document.title = `${carTitle} - Premium Car`;
+        document.getElementById('page-title').textContent = `${carTitle} - Premium Car`;
+
+        // Update primary meta tags
+        document.getElementById('meta-title').setAttribute('content', `${carTitle} - Premium Car`);
+        document.getElementById('meta-description').setAttribute('content', carDescription);
+        document.getElementById('meta-keywords').setAttribute('content', carKeywords);
+
+        // Update Open Graph tags
+        document.getElementById('og-url').setAttribute('content', carUrl);
+        document.getElementById('og-title').setAttribute('content', `${carTitle} - Premium Car`);
+        document.getElementById('og-description').setAttribute('content', carDescription);
+        document.getElementById('og-image').setAttribute('content', carImage);
+        document.getElementById('og-image-alt').setAttribute('content', `${carro.marca} ${carro.modelo} ${carro.ano}`);
+
+        // Update Twitter Card tags
+        document.getElementById('twitter-url').setAttribute('content', carUrl);
+        document.getElementById('twitter-title').setAttribute('content', `${carTitle} - Premium Car`);
+        document.getElementById('twitter-description').setAttribute('content', carDescription);
+        document.getElementById('twitter-image').setAttribute('content', carImage);
+        document.getElementById('twitter-image-alt').setAttribute('content', `${carro.marca} ${carro.modelo} ${carro.ano}`);
+
+        // Update canonical URL
+        document.getElementById('canonical-url').setAttribute('href', carUrl);
+
+        // Update structured data (JSON-LD)
+        const structuredData = {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": `${carro.marca} ${carro.modelo} ${carro.ano}`,
+          "description": carro.descricao,
+          "image": carImage,
+          "brand": {
+            "@type": "Brand",
+            "name": carro.marca
+          },
+          "model": carro.modelo,
+          "productionDate": carro.ano.toString(),
+          "vehicleEngine": {
+            "@type": "EngineSpecification",
+            "fuelType": carro.combustivel
+          },
+          "vehicleTransmission": carro.transmissao,
+          "offers": {
+            "@type": "Offer",
+            "price": carro.preco_estimado,
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": carro.nota_geral,
+            "bestRating": "10",
+            "worstRating": "0",
+            "reviewCount": "1"
+          },
+          "review": {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": carro.nota_geral,
+              "bestRating": "10"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "Premium Car"
+            },
+            "reviewBody": carro.descricao
+          }
+        };
+
+        document.getElementById('structured-data').textContent = JSON.stringify(structuredData, null, 2);
 
         // URLs para compartilhamento
         const pageUrl = encodeURIComponent(window.location.href);

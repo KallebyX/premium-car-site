@@ -1,0 +1,46 @@
+# Robots.txt - Premium Car
+# https://www.robotstxt.org/
+
+# Permitir todos os crawlers
+User-agent: *
+Allow: /
+
+# Páginas específicas permitidas
+Allow: /index.html
+Allow: /sobre-nos.html
+Allow: /parcerias.html
+Allow: /fale-conosco.html
+Allow: /detalhe.html
+
+# Bloquear áreas administrativas
+Disallow: /src/admin/
+Disallow: /login.html
+
+# Bloquear arquivos e diretórios técnicos
+Disallow: /*.json$
+Disallow: /*.sql$
+Disallow: /database/
+
+# Sitemap
+Sitemap: https://premiumcar.com/sitemap.xml
+
+# Crawl-delay para bots específicos (em segundos)
+# Previne sobrecarga do servidor
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 1
+
+User-agent: Slurp
+Crawl-delay: 1
+
+# Bloquear bots mal-intencionados
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Monochrome version for Safari pinned tab -->
+  <g transform="translate(256, 256)">
+    <!-- Car body -->
+    <path d="M-120,-40 L-140,-10 L-150,20 L-150,60 L-130,70 L130,70 L150,60 L150,20 L140,-10 L120,-40 Z"
+          fill="currentColor"/>
+
+    <!-- Car top/roof -->
+    <path d="M-90,-40 L-100,-10 L-80,0 L80,0 L100,-10 L90,-40 Z"
+          fill="currentColor"/>
+
+    <!-- Wheels -->
+    <circle cx="-90" cy="70" r="25" fill="currentColor"/>
+    <circle cx="90" cy="70" r="25" fill="currentColor"/>
+  </g>
+</svg>
