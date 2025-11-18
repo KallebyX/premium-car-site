@@ -654,6 +654,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inicializa botão voltar ao topo
   BackToTop.init();
 
+  // Inicializa sistema de favoritos
+  Favorites.init();
+
   // Adiciona skip link se não existir
   if (!document.querySelector('.skip-link')) {
     const skipLink = document.createElement('a');
@@ -671,6 +674,216 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ============================================
+// MÓDULO DE FAVORITOS
+// ============================================
+const Favorites = {
+  STORAGE_KEY: 'premium_car_favorites',
+
+  /**
+   * Obtém todos os favoritos do localStorage
+   * @returns {Array<string>} Array de IDs dos carros favoritos
+   */
+  getAll() {
+    const favorites = localStorage.getItem(this.STORAGE_KEY);
+    return favorites ? JSON.parse(favorites) : [];
+  },
+
+  /**
+   * Adiciona um carro aos favoritos
+   * @param {string|number} carId - ID do carro
+   * @returns {boolean} True se adicionado, false se já existia
+   */
+  add(carId) {
+    const favorites = this.getAll();
+    const id = String(carId);
+
+    if (favorites.includes(id)) {
+      return false;
+    }
+
+    favorites.push(id);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
+    this.updateCounter();
+
+    // Dispatch custom event para outras partes da página reagirem
+    window.dispatchEvent(new CustomEvent('favoritesChanged', {
+      detail: { action: 'add', carId: id, total: favorites.length }
+    }));
+
+    return true;
+  },
+
+  /**
+   * Remove um carro dos favoritos
+   * @param {string|number} carId - ID do carro
+   * @returns {boolean} True se removido, false se não existia
+   */
+  remove(carId) {
+    const favorites = this.getAll();
+    const id = String(carId);
+    const index = favorites.indexOf(id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    favorites.splice(index, 1);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
+    this.updateCounter();
+
+    // Dispatch custom event
+    window.dispatchEvent(new CustomEvent('favoritesChanged', {
+      detail: { action: 'remove', carId: id, total: favorites.length }
+    }));
+
+    return true;
+  },
+
+  /**
+   * Alterna o status de favorito de um carro
+   * @param {string|number} carId - ID do carro
+   * @returns {boolean} True se agora é favorito, false se foi removido
+   */
+  toggle(carId) {
+    if (this.isFavorite(carId)) {
+      this.remove(carId);
+      return false;
+    } else {
+      this.add(carId);
+      return true;
+    }
+  },
+
+  /**
+   * Verifica se um carro está nos favoritos
+   * @param {string|number} carId - ID do carro
+   * @returns {boolean}
+   */
+  isFavorite(carId) {
+    const favorites = this.getAll();
+    return favorites.includes(String(carId));
+  },
+
+  /**
+   * Obtém a contagem de favoritos
+   * @returns {number}
+   */
+  getCount() {
+    return this.getAll().length;
+  },
+
+  /**
+   * Limpa todos os favoritos
+   */
+  clear() {
+    if (confirm('Tem certeza que deseja remover todos os favoritos?')) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      this.updateCounter();
+
+      window.dispatchEvent(new CustomEvent('favoritesChanged', {
+        detail: { action: 'clear', total: 0 }
+      }));
+
+      Toast.success('Todos os favoritos foram removidos');
+    }
+  },
+
+  /**
+   * Atualiza o contador de favoritos na UI
+   */
+  updateCounter() {
+    const count = this.getCount();
+    const counters = document.querySelectorAll('.favorites-counter');
+
+    counters.forEach(counter => {
+      counter.textContent = count;
+
+      // Mostra/esconde badge baseado na contagem
+      if (count > 0) {
+        counter.style.display = 'flex';
+      } else {
+        counter.style.display = 'none';
+      }
+    });
+  },
+
+  /**
+   * Inicializa o sistema de favoritos
+   * - Atualiza contadores
+   * - Adiciona event listeners
+   */
+  init() {
+    // Atualiza contadores ao carregar
+    this.updateCounter();
+
+    // Atualiza status dos botões de favoritos na página
+    this.updateFavoriteButtons();
+
+    // Escuta mudanças em outras abas
+    window.addEventListener('storage', (e) => {
+      if (e.key === this.STORAGE_KEY) {
+        this.updateCounter();
+        this.updateFavoriteButtons();
+      }
+    });
+  },
+
+  /**
+   * Atualiza o estado visual dos botões de favoritos
+   */
+  updateFavoriteButtons() {
+    const buttons = document.querySelectorAll('[data-favorite-id]');
+
+    buttons.forEach(button => {
+      const carId = button.getAttribute('data-favorite-id');
+      const isFav = this.isFavorite(carId);
+
+      if (isFav) {
+        button.classList.add('active');
+        button.querySelector('i')?.classList.replace('bi-heart', 'bi-heart-fill');
+        button.setAttribute('aria-label', 'Remover dos favoritos');
+      } else {
+        button.classList.remove('active');
+        button.querySelector('i')?.classList.replace('bi-heart-fill', 'bi-heart');
+        button.setAttribute('aria-label', 'Adicionar aos favoritos');
+      }
+    });
+  },
+
+  /**
+   * Handler para clique em botão de favorito
+   * @param {string|number} carId - ID do carro
+   * @param {HTMLElement} button - Elemento do botão (opcional)
+   */
+  handleToggle(carId, button = null) {
+    const isFavorite = this.toggle(carId);
+
+    // Atualiza o botão específico se fornecido
+    if (button) {
+      if (isFavorite) {
+        button.classList.add('active');
+        button.querySelector('i')?.classList.replace('bi-heart', 'bi-heart-fill');
+        button.setAttribute('aria-label', 'Remover dos favoritos');
+      } else {
+        button.classList.remove('active');
+        button.querySelector('i')?.classList.replace('bi-heart-fill', 'bi-heart');
+        button.setAttribute('aria-label', 'Adicionar aos favoritos');
+      }
+    } else {
+      // Atualiza todos os botões do mesmo carro
+      this.updateFavoriteButtons();
+    }
+
+    // Mostra toast
+    if (isFavorite) {
+      Toast.success('Carro adicionado aos favoritos!');
+    } else {
+      Toast.info('Carro removido dos favoritos');
+    }
+  }
+};
+
 // Exporta módulos para uso global
 window.Auth = Auth;
 window.Layout = Layout;
@@ -680,3 +893,4 @@ window.Loading = Loading;
 window.Validation = Validation;
 window.Utils = Utils;
 window.BackToTop = BackToTop;
+window.Favorites = Favorites;

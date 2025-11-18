@@ -1207,7 +1207,10 @@
               <span class="car-card-badge bg-${badgeColor}">
                 ${carro.nota_geral}/10
               </span>
-              <button class="car-card-favorite" onclick="toggleFavorite(${carro.id})" aria-label="Adicionar aos favoritos">
+              <button class="car-card-favorite"
+                      data-favorite-id="${carro.id}"
+                      onclick="Favorites.handleToggle(${carro.id}, this)"
+                      aria-label="Adicionar aos favoritos">
                 <i class="bi bi-heart"></i>
               </button>
             </div>
@@ -1390,22 +1393,6 @@
           </div>
         </div>
       `;
-    }
-
-    // ========================================
-    // FAVORITES (placeholder for future implementation)
-    // ========================================
-    function toggleFavorite(carId) {
-      const button = event.currentTarget;
-      button.classList.toggle('active');
-
-      if (button.classList.contains('active')) {
-        button.querySelector('i').classList.replace('bi-heart', 'bi-heart-fill');
-        Toast.success('Carro adicionado aos favoritos!');
-      } else {
-        button.querySelector('i').classList.replace('bi-heart-fill', 'bi-heart');
-        Toast.info('Carro removido dos favoritos');
-      }
     }
 
     // ========================================

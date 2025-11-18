@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Meus Favoritos - Premium Car</title>
+  <meta name="title" content="Meus Favoritos - Premium Car">
+  <meta name="description" content="Seus carros favoritos salvos no Premium Car. Acesse rapidamente as avaliações dos veículos que você mais gosta.">
+  <meta name="keywords" content="favoritos, carros salvos, wishlist, premium car">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Icons and PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#dc3545">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+  <style>
+    /* Hero Section */
+    .favorites-hero {
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+      color: white;
+      padding: var(--space-20) 0 var(--space-12);
+      margin-bottom: var(--space-12);
+    }
+
+    .favorites-hero-title {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--space-4);
+    }
+
+    .favorites-hero-description {
+      font-size: var(--font-size-lg);
+      opacity: 0.95;
+      max-width: 600px;
+    }
+
+    .favorites-actions {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    /* Car Cards (reusing from index.html) */
+    .car-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-base);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--color-primary-300);
+    }
+
+    .car-card-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-tertiary);
+      aspect-ratio: 16/9;
+    }
+
+    .car-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-base);
+    }
+
+    .car-card:hover .car-card-image {
+      transform: scale(1.08);
+    }
+
+    .car-card-badge {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(8px);
+    }
+
+    .car-card-favorite {
+      position: absolute;
+      top: var(--space-4);
+      left: var(--space-4);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-base);
+      box-shadow: var(--shadow-md);
+    }
+
+    .car-card-favorite:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+
+    .car-card-favorite i {
+      font-size: var(--font-size-lg);
+      color: var(--color-danger-600);
+      transition: var(--transition-fast);
+    }
+
+    .car-card-favorite.active i {
+      color: var(--color-danger-600);
+    }
+
+    .car-card-body {
+      padding: var(--space-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+      line-height: var(--line-height-tight);
+    }
+
+    .car-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .car-card-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .car-card-price {
+      background: linear-gradient(135deg, var(--color-primary-50), var(--color-primary-100));
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary-700);
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-4);
+      text-align: center;
+    }
+
+    .car-card-description {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-6);
+      flex: 1;
+    }
+
+    .car-card-button {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-base);
+      cursor: pointer;
+      transition: var(--transition-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      text-decoration: none;
+    }
+
+    .car-card-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-primary);
+      color: white;
+    }
+
+    /* Empty State */
+    .empty-favorites {
+      text-align: center;
+      padding: var(--space-24) var(--space-6);
+      background: white;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .empty-favorites-icon {
+      font-size: var(--font-size-6xl);
+      color: var(--color-neutral-300);
+      margin-bottom: var(--space-6);
+    }
+
+    .empty-favorites-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .empty-favorites-description {
+      font-size: var(--font-size-lg);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-8);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .empty-favorites-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-8);
+      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
+      color: white;
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+      transition: var(--transition-base);
+    }
+
+    .empty-favorites-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-primary);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .favorites-hero-title {
+        font-size: var(--font-size-3xl);
+      }
+
+      .favorites-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="injected-header"></div>
+
+  <!-- Hero Section -->
+  <section class="favorites-hero">
+    <div class="container">
+      <h1 class="favorites-hero-title">
+        <i class="bi bi-heart-fill me-3"></i>Meus Favoritos
+      </h1>
+      <p class="favorites-hero-description">
+        Seus carros favoritos em um só lugar. Salve os veículos que você mais gosta e acesse rapidamente suas avaliações.
+      </p>
+      <div class="favorites-actions">
+        <a href="/" class="btn btn-light">
+          <i class="bi bi-arrow-left me-2"></i>
+          Voltar para Home
+        </a>
+        <button id="clearAllFavorites" class="btn btn-outline-light" style="display: none;">
+          <i class="bi bi-trash me-2"></i>
+          Limpar Todos
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Favorites Grid -->
+  <div class="container my-5">
+    <div class="mb-4">
+      <h2 class="h4 mb-0">
+        <span id="favoritesCount">0 favoritos</span>
+      </h2>
+    </div>
+    <div id="favoritesContainer" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4"></div>
+  </div>
+
+  <div id="injected-footer"></div>
+
+  <!-- Common JS & Bootstrap -->
+  <script src="/js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ========================================
+    // LOAD AND DISPLAY FAVORITES
+    // ========================================
+    async function loadFavorites() {
+      const container = document.getElementById('favoritesContainer');
+      const countElement = document.getElementById('favoritesCount');
+      const clearButton = document.getElementById('clearAllFavorites');
+
+      // Get favorite IDs from localStorage
+      const favoriteIds = Favorites.getAll();
+
+      if (favoriteIds.length === 0) {
+        showEmptyState();
+        countElement.textContent = '0 favoritos';
+        clearButton.style.display = 'none';
+        return;
+      }
+
+      // Show loading
+      container.innerHTML = `
+        <div class="col-12 d-flex justify-content-center my-5">
+          <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Carregando...</span>
+          </div>
+        </div>
+      `;
+
+      try {
+        // Fetch all cars
+        const res = await fetch('/api/carros');
+        const allCars = await res.json();
+
+        // Filter only favorites
+        const favoriteCars = allCars.filter(car => favoriteIds.includes(String(car.id)));
+
+        // Update count
+        countElement.textContent = `${favoriteCars.length} ${favoriteCars.length === 1 ? 'favorito' : 'favoritos'}`;
+        clearButton.style.display = favoriteCars.length > 0 ? 'inline-flex' : 'none';
+
+        // Render cars
+        if (favoriteCars.length === 0) {
+          showEmptyState();
+        } else {
+          container.innerHTML = favoriteCars.map(car => createCarCard(car)).join('');
+
+          // Initialize favorite buttons
+          Favorites.updateFavoriteButtons();
+        }
+      } catch (error) {
+        console.error('Error loading favorites:', error);
+        container.innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              Erro ao carregar favoritos. Tente novamente mais tarde.
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function createCarCard(car) {
+      const badgeColor = car.nota_geral >= 9 ? 'success' : car.nota_geral >= 7 ? 'warning' : 'danger';
+
+      return `
+        <div class="col">
+          <div class="car-card">
+            <div class="car-card-image-wrapper">
+              <img src="${car.imagem_url || 'https://via.placeholder.com/600x400?text=Sem+Imagem'}"
+                   class="car-card-image"
+                   alt="${car.modelo}"
+                   loading="lazy">
+              <span class="car-card-badge bg-${badgeColor}">
+                ${car.nota_geral}/10
+              </span>
+              <button class="car-card-favorite active"
+                      data-favorite-id="${car.id}"
+                      onclick="Favorites.handleToggle(${car.id}, this)"
+                      aria-label="Remover dos favoritos">
+                <i class="bi bi-heart-fill"></i>
+              </button>
+            </div>
+            <div class="car-card-body">
+              <h3 class="car-card-title">${car.titulo}</h3>
+              <div class="car-card-meta">
+                <span class="car-card-meta-item">
+                  <i class="bi bi-tag-fill"></i>
+                  ${car.marca} ${car.modelo}
+                </span>
+                <span class="car-card-meta-item">
+                  <i class="bi bi-calendar3"></i>
+                  ${car.ano}
+                </span>
+              </div>
+              <div class="car-card-price">
+                <i class="bi bi-cash me-2"></i>${Format.currency(car.preco_estimado)}
+              </div>
+              <p class="car-card-description">${car.descricao.substring(0, 120)}${car.descricao.length > 120 ? '...' : ''}</p>
+              <a href="/detalhe.html?id=${car.id}" class="car-card-button">
+                <i class="bi bi-eye-fill"></i>
+                <span>Ver Análise Completa</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function showEmptyState() {
+      const container = document.getElementById('favoritesContainer');
+      container.innerHTML = `
+        <div class="col-12">
+          <div class="empty-favorites">
+            <div class="empty-favorites-icon">
+              <i class="bi bi-heart"></i>
+            </div>
+            <h2 class="empty-favorites-title">Nenhum favorito ainda</h2>
+            <p class="empty-favorites-description">
+              Você ainda não salvou nenhum carro como favorito. Explore nossas avaliações e clique no coração para salvar seus carros preferidos!
+            </p>
+            <a href="/" class="empty-favorites-button">
+              <i class="bi bi-search"></i>
+              <span>Explorar Avaliações</span>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    // ========================================
+    // EVENT LISTENERS
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFavorites();
+
+      // Clear all favorites button
+      document.getElementById('clearAllFavorites').addEventListener('click', () => {
+        Favorites.clear();
+      });
+
+      // Listen for favorites changes (from removing on this page)
+      window.addEventListener('favoritesChanged', () => {
+        loadFavorites();
+      });
+    });
+  </script>
+</body>
+</html>
