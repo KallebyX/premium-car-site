@@ -7,6 +7,7 @@
     "start": "node server.js",
     "dev": "NODE_ENV=development node server.js",
     "vercel-build": "echo 'Build completo'",
+    "generate-icons": "node scripts/generate-icons.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -39,5 +40,7 @@
     "dotenv": "^16.6.1",
     "express": "^5.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
 }

@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- View action icon -->
+  <circle cx="12" cy="12" r="12" fill="#0d6efd"/>
+
+  <!-- Eye icon -->
+  <path d="M12,9 C10,9 8,10 6,12 C8,14 10,15 12,15 C14,15 16,14 18,12 C16,10 14,9 12,9 Z"
+        fill="white"/>
+  <circle cx="12" cy="12" r="2" fill="white"/>
+  <circle cx="12" cy="12" r="1" fill="#0d6efd"/>
+</svg>
