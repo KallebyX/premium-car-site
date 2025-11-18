@@ -1,40 +1,407 @@
-<header class="bg-dark text-white py-3 shadow-lg">
-  <div class="container">
-    <div class="row align-items-center g-3">
-      <div class="col-6 col-md-4">
-        <a href="/" class="text-decoration-none text-white">
-          <h1 class="h4 m-0 d-flex align-items-center">
-            <i class="bi bi-car-front-fill me-2 text-danger"></i>
-            <span class="d-none d-sm-inline">Premium Car</span>
-            <span class="d-inline d-sm-none">PC</span>
-          </h1>
+<!-- Header Moderno e Profissional -->
+<header class="premium-header" role="banner">
+  <nav class="container" aria-label="Navegação principal">
+    <div class="header-content">
+      <!-- Logo -->
+      <div class="header-logo">
+        <a href="/" class="logo-link" aria-label="Premium Car - Ir para página inicial">
+          <div class="logo-icon">
+            <i class="bi bi-car-front-fill" aria-hidden="true"></i>
+          </div>
+          <div class="logo-text">
+            <span class="logo-main">Premium Car</span>
+            <span class="logo-tagline">Avaliações Automotivas</span>
+          </div>
         </a>
       </div>
-      <div class="col-6 col-md-8">
-        <nav class="d-flex gap-2 align-items-center flex-wrap justify-content-end">
-          <a href="/" class="btn btn-outline-light btn-sm d-none d-md-inline-flex">
-            <i class="bi bi-house-door me-1"></i>Home
+
+      <!-- Navigation Desktop -->
+      <ul class="header-nav" role="menubar">
+        <li role="none">
+          <a href="/" class="nav-link" role="menuitem">
+            <i class="bi bi-house-door" aria-hidden="true"></i>
+            <span>Home</span>
           </a>
-          <a href="/sobre-nos.html" class="btn btn-outline-light btn-sm d-none d-lg-inline-flex">
-            <i class="bi bi-info-circle me-1"></i>Sobre
+        </li>
+        <li role="none">
+          <a href="/sobre-nos.html" class="nav-link" role="menuitem">
+            <i class="bi bi-info-circle" aria-hidden="true"></i>
+            <span>Sobre</span>
           </a>
-          <a href="/parcerias.html" class="btn btn-outline-light btn-sm d-none d-lg-inline-flex">
-            <i class="bi bi-handshake me-1"></i>Parcerias
+        </li>
+        <li role="none">
+          <a href="/parcerias.html" class="nav-link" role="menuitem">
+            <i class="bi bi-handshake" aria-hidden="true"></i>
+            <span>Parcerias</span>
           </a>
-          <a href="/fale-conosco.html" class="btn btn-outline-light btn-sm">
-            <i class="bi bi-envelope me-1"></i><span class="d-none d-sm-inline">Contato</span>
+        </li>
+        <li role="none">
+          <a href="/fale-conosco.html" class="nav-link" role="menuitem">
+            <i class="bi bi-envelope" aria-hidden="true"></i>
+            <span>Contato</span>
           </a>
-          <span id="auth-buttons"></span>
-          
-          <!-- Menu Mobile -->
-          <button class="btn btn-outline-light btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-            <i class="bi bi-list"></i>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <!-- Dark Mode Toggle -->
+        <button
+          id="darkModeToggle"
+          class="btn-icon"
+          aria-label="Alternar tema escuro"
+          title="Alternar tema escuro">
+          <i class="bi bi-moon-stars" aria-hidden="true"></i>
+        </button>
+
+        <!-- Auth Buttons -->
+        <div id="loginBtn" class="auth-button" style="display: none;">
+          <a href="/login.html" class="btn btn-primary" id="loginButton">
+            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+            <span>Login</span>
+          </a>
+        </div>
+
+        <div id="adminBtn" class="auth-button" style="display: none;">
+          <a href="/src/admin/painel.html" class="btn btn-success" id="adminButton">
+            <i class="bi bi-speedometer2" aria-hidden="true"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+
+        <div id="logoutBtn" class="auth-button" style="display: none;">
+          <button class="btn btn-danger" id="logoutButton" aria-label="Sair da conta">
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+            <span>Sair</span>
           </button>
-        </nav>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          class="btn-mobile-menu d-lg-none"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#mobileMenu"
+          aria-controls="mobileMenu"
+          aria-label="Abrir menu de navegação">
+          <span class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
       </div>
     </div>
-  </div>
+  </nav>
 </header>
+
+<!-- Estilos do Header -->
+<style>
+.premium-header {
+  background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+  gap: var(--space-6);
+}
+
+/* Logo */
+.header-logo {
+  flex-shrink: 0;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: white;
+  transition: var(--transition-base);
+}
+
+.logo-link:hover {
+  color: white;
+  transform: translateY(-1px);
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  box-shadow: var(--shadow-primary);
+  transition: var(--transition-base);
+}
+
+.logo-link:hover .logo-icon {
+  transform: rotate(-5deg) scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-main {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.logo-tagline {
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Navigation */
+.header-nav {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-2);
+  flex: 1;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .header-nav {
+    display: flex;
+  }
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-base);
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary-600);
+  transition: var(--transition-base);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover::before {
+  width: 80%;
+}
+
+.nav-link i {
+  font-size: 18px;
+}
+
+/* Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  color: white;
+  font-size: 18px;
+  transition: var(--transition-base);
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .btn-icon {
+    display: flex;
+  }
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.auth-button .btn {
+  min-height: 44px;
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-base);
+  border: none;
+}
+
+@media (min-width: 576px) {
+  .auth-button .btn {
+    display: inline-flex;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--color-success-600) 0%, var(--color-success-700) 100%);
+  color: white;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-success);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--color-danger-600) 0%, var(--color-danger-700) 100%);
+  color: white;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-danger);
+}
+
+/* Mobile Menu Button */
+.btn-mobile-menu {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.btn-mobile-menu:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.menu-icon {
+  width: 20px;
+  height: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-icon span {
+  width: 100%;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: var(--transition-base);
+}
+
+.btn-mobile-menu:hover .menu-icon span:nth-child(1) {
+  transform: translateX(-3px);
+}
+
+.btn-mobile-menu:hover .menu-icon span:nth-child(3) {
+  transform: translateX(3px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .logo-main {
+    font-size: var(--font-size-lg);
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-content {
+    padding: var(--space-3) 0;
+    gap: var(--space-3);
+  }
+
+  .logo-tagline {
+    display: none;
+  }
+
+  .logo-main {
+    font-size: var(--font-size-md);
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .auth-button .btn span {
+    display: none;
+  }
+
+  .auth-button .btn {
+    min-width: 44px;
+    padding: var(--space-3);
+  }
+}
+</style>
 
 <!-- Offcanvas Menu Mobile -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
