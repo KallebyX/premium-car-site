@@ -215,11 +215,10 @@
       }
 
       try {
-        const res = await fetch("/api/carros");
-        const carros = await res.json();
-        const carro = carros.find(c => c.id === id);
+        // Buscar carro específico pela API
+        const res = await fetch(`/api/carros/${id}`);
 
-        if (!carro) {
+        if (!res.ok) {
           document.getElementById("carroDetalhe").innerHTML = `
             <div class="alert alert-danger">
               <i class="bi bi-exclamation-circle me-2"></i>
@@ -229,6 +228,8 @@
           `;
           return;
         }
+
+        const carro = await res.json();
 
         // ========================================
         // UPDATE SEO META TAGS DYNAMICALLY

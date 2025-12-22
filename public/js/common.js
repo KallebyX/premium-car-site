@@ -884,6 +884,32 @@ const Favorites = {
   }
 };
 
+// ============================================
+// REGISTRO DO SERVICE WORKER (PWA)
+// ============================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('[PWA] Service Worker registrado com sucesso:', registration.scope);
+
+        // Verificar atualizações
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Nova versão disponível
+              Toast.info('Nova versão disponível! Recarregue a página para atualizar.');
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.error('[PWA] Erro ao registrar Service Worker:', error);
+      });
+  });
+}
+
 // Exporta módulos para uso global
 window.Auth = Auth;
 window.Layout = Layout;

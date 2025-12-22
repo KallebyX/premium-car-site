@@ -3,16 +3,78 @@ const router = express.Router();
 const supabase = require('../../supabase');
 const { authenticateToken, validateCarData } = require('../middleware/auth');
 
-// GET - Listar todos os carros avaliados (público)
+// GET - Listar carros avaliados com paginação e filtros (público)
 router.get('/', async (req, res, next) => {
   try {
-    const { data, error } = await supabase
+    // Parâmetros de paginação
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 10));
+    const offset = (page - 1) * limit;
+
+    // Parâmetros de ordenação
+    const sortBy = req.query.sortBy || 'data_postagem';
+    const sortOrder = req.query.sortOrder === 'asc' ? true : false;
+
+    // Parâmetros de filtro
+    const { marca, modelo, ano_min, ano_max, preco_min, preco_max, nota_min, search } = req.query;
+
+    // Construir query
+    let query = supabase
       .from('carros_avaliados')
-      .select('*')
-      .order('data_postagem', { ascending: false });
+      .select('*', { count: 'exact' });
+
+    // Aplicar filtros
+    if (marca) {
+      query = query.ilike('marca', `%${marca}%`);
+    }
+    if (modelo) {
+      query = query.ilike('modelo', `%${modelo}%`);
+    }
+    if (ano_min) {
+      query = query.gte('ano', parseInt(ano_min));
+    }
+    if (ano_max) {
+      query = query.lte('ano', parseInt(ano_max));
+    }
+    if (preco_min) {
+      query = query.gte('preco_estimado', parseFloat(preco_min));
+    }
+    if (preco_max) {
+      query = query.lte('preco_estimado', parseFloat(preco_max));
+    }
+    if (nota_min) {
+      query = query.gte('nota_geral', parseInt(nota_min));
+    }
+    if (search) {
+      query = query.or(`titulo.ilike.%${search}%,marca.ilike.%${search}%,modelo.ilike.%${search}%,descricao.ilike.%${search}%`);
+    }
+
+    // Aplicar ordenação e paginação
+    const validSortFields = ['data_postagem', 'preco_estimado', 'nota_geral', 'ano', 'marca', 'modelo'];
+    const sortField = validSortFields.includes(sortBy) ? sortBy : 'data_postagem';
+
+    query = query
+      .order(sortField, { ascending: sortOrder })
+      .range(offset, offset + limit - 1);
+
+    const { data, error, count } = await query;
 
     if (error) throw error;
-    res.json(data);
+
+    // Calcular informações de paginação
+    const totalPages = Math.ceil((count || 0) / limit);
+
+    res.json({
+      data,
+      pagination: {
+        page,
+        limit,
+        total: count || 0,
+        totalPages,
+        hasNext: page < totalPages,
+        hasPrev: page > 1
+      }
+    });
   } catch (error) {
     next(error);
   }

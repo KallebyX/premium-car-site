@@ -5,6 +5,7 @@ const cors = require('cors');
 const carrosRoutes = require('./src/routes/carros');
 const uploadRoutes = require('./src/routes/upload');
 const contactsRoutes = require('./src/routes/contacts');
+const newsletterRoutes = require('./src/routes/newsletter');
 const { rateLimiter, errorLogger, errorHandler } = require('./src/middleware/auth');
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 app.use('/api/carros', carrosRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contacts', contactsRoutes);
+app.use('/api/newsletter', newsletterRoutes);
 
 // Rota para home
 app.get('/', (req, res) => {

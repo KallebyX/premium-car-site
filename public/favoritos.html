@@ -341,8 +341,11 @@
 
       try {
         // Fetch all cars
-        const res = await fetch('/api/carros');
-        const allCars = await res.json();
+        const res = await fetch('/api/carros?limit=100');
+        const response = await res.json();
+
+        // Suporta resposta com paginação ou array direto
+        const allCars = response.data || response;
 
         // Filter only favorites
         const favoriteCars = allCars.filter(car => favoriteIds.includes(String(car.id)));
