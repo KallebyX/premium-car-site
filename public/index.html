@@ -34,8 +34,6 @@
   <meta name="twitter:description" content="Encontre as melhores avaliações de veículos com análises detalhadas, vídeos e informações completas.">
   <meta name="twitter:image" content="https://premiumcar.com/icons/icon-512x512.png">
   <meta name="twitter:image:alt" content="Premium Car - Logo">
-  <meta name="twitter:creator" content="@premiumcar">
-  <meta name="twitter:site" content="@premiumcar">
 
   <!-- Additional Meta Tags -->
   <meta name="format-detection" content="telephone=no">
@@ -80,10 +78,7 @@
     "url": "https://premiumcar.com",
     "logo": "https://premiumcar.com/icons/icon-512x512.png",
     "sameAs": [
-      "https://instagram.com/premiumcar",
-      "https://youtube.com/premiumcar",
-      "https://twitter.com/premiumcar",
-      "https://facebook.com/premiumcar"
+      "https://www.youtube.com/@PremiumCarAvaliacoes"
     ],
     "potentialAction": {
       "@type": "SearchAction",
@@ -838,6 +833,89 @@
     </section>
   </div>
 
+  <!-- YouTube Videos Section -->
+  <div class="container my-5">
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3">
+        <i class="bi bi-youtube text-danger me-2"></i>Nossos Vídeos no YouTube
+      </h2>
+      <p class="text-muted lead">Assista nossas avaliações completas e dicas exclusivas</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/BTRmsImCco8" title="Avaliação Celta" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Avaliação Celta</h5>
+            <p class="card-text text-muted small">Review completo do Celta com análise de pontos fortes e fracos</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/YMjdxXdWtsA" title="Avaliação Palio" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Avaliação Palio</h5>
+            <p class="card-text text-muted small">Review completo do Fiat Palio com teste de dirigibilidade</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/kkvy4cpU9G8" title="Avaliação Blazer" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Avaliação Blazer</h5>
+            <p class="card-text text-muted small">Review da Chevrolet Blazer com análise detalhada</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/1h-4yOOLhqI" title="Avaliação Fiesta" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Avaliação Fiesta</h5>
+            <p class="card-text text-muted small">Review do Ford Fiesta com teste completo</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/Zjqo4wrcD8Q" title="Avaliação Zafira" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Avaliação Zafira</h5>
+            <p class="card-text text-muted small">Review da Chevrolet Zafira com análise de espaço</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/jxAxpd86x1A" title="Top 5 carros até 10 mil reais" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Top 5 Carros até R$ 10 Mil</h5>
+            <p class="card-text text-muted small">Os melhores carros para quem quer gastar pouco</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-danger btn-lg px-5">
+        <i class="bi bi-youtube me-2"></i>Ver Todos os Vídeos no YouTube
+      </a>
+    </div>
+  </div>
+
   <!-- Cars Grid -->
   <div class="container my-5">
     <!-- Toolbar -->
@@ -962,8 +1040,11 @@
       mostrarSkeletonLoading();
 
       try {
-        const res = await fetch('/api/carros');
-        todosCarros = await res.json();
+        const res = await fetch('/api/carros?limit=100');
+        const response = await res.json();
+
+        // Suporta resposta com paginação ou array direto
+        todosCarros = response.data || response;
         carrosFiltrados = [...todosCarros];
 
         if (!Array.isArray(todosCarros) || todosCarros.length === 0) {

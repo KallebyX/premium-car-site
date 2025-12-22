@@ -865,25 +865,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="footer-social">
               <p class="footer-social-title">Siga-nos</p>
               <div class="social-links">
-                <a href="https://instagram.com/premiumcar" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="Instagram" title="Instagram">
-                  <i class="bi bi-instagram"></i>
-                </a>
-                <a href="https://youtube.com/premiumcar" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" rel="noopener noreferrer"
                    class="social-link" aria-label="YouTube" title="YouTube">
                   <i class="bi bi-youtube"></i>
                 </a>
-                <a href="https://tiktok.com/@premiumcar" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="TikTok" title="TikTok">
-                  <i class="bi bi-tiktok"></i>
-                </a>
-                <a href="https://twitter.com/premiumcar" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="Twitter" title="Twitter">
-                  <i class="bi bi-twitter"></i>
-                </a>
-                <a href="https://facebook.com/premiumcar" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="Facebook" title="Facebook">
-                  <i class="bi bi-facebook"></i>
+                <a href="https://wa.me/5555999837425" target="_blank" rel="noopener noreferrer"
+                   class="social-link" aria-label="WhatsApp" title="WhatsApp">
+                  <i class="bi bi-whatsapp"></i>
                 </a>
               </div>
             </div>
@@ -950,8 +938,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   <i class="bi bi-geo-alt"></i>
                 </div>
                 <div class="contact-info">
-                  <p class="contact-label">Endereço</p>
-                  <p class="contact-value">São Paulo, SP - Brasil</p>
+                  <p class="contact-label">Localização</p>
+                  <p class="contact-value">Caçapava do Sul, RS - Brasil</p>
                 </div>
               </div>
 
@@ -961,20 +949,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="contact-info">
                   <p class="contact-label">Email</p>
-                  <a href="mailto:contato@premiumcar.com" class="contact-value">
-                    contato@premiumcar.com
+                  <a href="mailto:goncalvesmarquesmoises@gmail.com" class="contact-value">
+                    goncalvesmarquesmoises@gmail.com
                   </a>
                 </div>
               </div>
 
               <div class="contact-item">
                 <div class="contact-icon">
-                  <i class="bi bi-phone"></i>
+                  <i class="bi bi-whatsapp"></i>
                 </div>
                 <div class="contact-info">
-                  <p class="contact-label">Telefone</p>
-                  <a href="tel:+5511999999999" class="contact-value">
-                    (11) 99999-9999
+                  <p class="contact-label">WhatsApp</p>
+                  <a href="https://wa.me/5555999837425" class="contact-value">
+                    (55) 99983-7425
                   </a>
                 </div>
               </div>
@@ -1448,6 +1436,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       const emailInput = newsletterForm.querySelector('.newsletter-input');
+      const submitBtn = newsletterForm.querySelector('.newsletter-btn');
       const email = emailInput.value.trim();
 
       if (!email || !Validation.isValidEmail(email)) {
@@ -1455,14 +1444,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      Loading.show('Inscrevendo...');
+      // Disable button during submission
+      submitBtn.disabled = true;
+      const originalContent = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
 
-      // Simula chamada API (substituir por integração real)
-      setTimeout(() => {
-        Loading.hide();
-        Toast.success('Inscrição realizada com sucesso!');
-        emailInput.value = '';
-      }, 1500);
+      try {
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          Toast.success('Inscrição realizada com sucesso!');
+          emailInput.value = '';
+        } else {
+          Toast.error(data.error || 'Erro ao realizar inscrição');
+        }
+      } catch (error) {
+        console.error('Erro na newsletter:', error);
+        Toast.error('Erro ao conectar com o servidor');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalContent;
+      }
     });
   }
 });
