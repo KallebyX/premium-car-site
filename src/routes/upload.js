@@ -2,14 +2,29 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../../supabase');
 const { createClient } = require('@supabase/supabase-js');
-const supabaseAuth = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+// Lazy initialization of Supabase client to avoid crashes during cold starts
+let supabaseAuth = null;
+
+function getSupabaseAuth() {
+  if (!supabaseAuth && process.env.SUPABASE_URL && process.env.SUPABASE_KEY) {
+    supabaseAuth = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+  }
+  return supabaseAuth;
+}
 
 // Middleware para verificar autenticação
 async function verificarAuth(req, res, next) {
+  const authClient = getSupabaseAuth();
+
+  if (!authClient) {
+    return res.status(500).json({ error: 'Serviço de autenticação não configurado' });
+  }
+
   const token = req.headers.authorization?.split('Bearer ')[1];
   if (!token) return res.status(401).json({ error: 'Token ausente' });
 
-  const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
+  const { data: { user }, error: authError } = await authClient.auth.getUser(token);
   if (authError || !user) return res.status(401).json({ error: 'Token inválido ou expirado' });
 
   req.user = user;
