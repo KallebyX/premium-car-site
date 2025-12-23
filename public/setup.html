@@ -372,143 +372,32 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // SQL para migracoes
-    const sqlMigrations = `-- ============================================
--- PREMIUM CAR - SCHEMA COMPLETO
--- Execute no Supabase SQL Editor
--- ============================================
+    // SQL para migracoes (carregado dinamicamente da API)
+    let sqlMigrations = '-- Carregando SQL das migracoes...';
 
--- 1. TABELA DE CARROS AVALIADOS
-CREATE TABLE IF NOT EXISTS carros_avaliados (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  titulo TEXT NOT NULL,
-  descricao TEXT NOT NULL,
-  marca TEXT NOT NULL,
-  modelo TEXT NOT NULL,
-  ano INTEGER NOT NULL,
-  preco_estimado NUMERIC NOT NULL,
-  nota_geral INTEGER NOT NULL CHECK (nota_geral >= 1 AND nota_geral <= 10),
-  video_url TEXT,
-  imagem_url TEXT,
-  autor_email TEXT,
-  data_postagem TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+    // Carregar SQL das migracoes da API
+    async function carregarMigracoes() {
+      const sqlCode = document.getElementById('sqlCode');
+      sqlCode.textContent = '-- Carregando SQL das migracoes...';
 
--- Indices
-CREATE INDEX IF NOT EXISTS idx_carros_data ON carros_avaliados(data_postagem DESC);
-CREATE INDEX IF NOT EXISTS idx_carros_marca ON carros_avaliados(marca);
+      try {
+        const response = await fetch('/api/setup/migrations');
+        const data = await response.json();
 
--- RLS
-ALTER TABLE carros_avaliados ENABLE ROW LEVEL SECURITY;
+        if (data.success && data.sql) {
+          sqlMigrations = data.sql;
+          sqlCode.textContent = sqlMigrations;
+        } else {
+          throw new Error(data.error || 'Erro ao carregar migracoes');
+        }
+      } catch (error) {
+        console.error('Erro ao carregar migracoes:', error);
+        sqlCode.textContent = '-- Erro ao carregar SQL. Verifique se o servidor esta rodando.\n-- Tente recarregar a pagina.';
+      }
+    }
 
-DROP POLICY IF EXISTS "Leitura publica carros" ON carros_avaliados;
-CREATE POLICY "Leitura publica carros" ON carros_avaliados FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Insercao autenticada carros" ON carros_avaliados;
-CREATE POLICY "Insercao autenticada carros" ON carros_avaliados FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-
-DROP POLICY IF EXISTS "Atualizacao autenticada carros" ON carros_avaliados;
-CREATE POLICY "Atualizacao autenticada carros" ON carros_avaliados FOR UPDATE USING (auth.role() = 'authenticated');
-
-DROP POLICY IF EXISTS "Delecao autenticada carros" ON carros_avaliados;
-CREATE POLICY "Delecao autenticada carros" ON carros_avaliados FOR DELETE USING (auth.role() = 'authenticated');
-
--- 2. TABELA DE PERFIS
-CREATE TABLE IF NOT EXISTS user_profiles (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  email TEXT UNIQUE NOT NULL,
-  full_name TEXT,
-  role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin', 'super_admin')),
-  avatar_url TEXT,
-  is_active BOOLEAN DEFAULT true,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_user_profiles_email ON user_profiles(email);
-CREATE INDEX IF NOT EXISTS idx_user_profiles_role ON user_profiles(role);
-
-ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Ver proprio perfil" ON user_profiles;
-CREATE POLICY "Ver proprio perfil" ON user_profiles FOR SELECT USING (auth.uid() = id);
-
-DROP POLICY IF EXISTS "Inserir perfil" ON user_profiles;
-CREATE POLICY "Inserir perfil" ON user_profiles FOR INSERT WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Atualizar proprio perfil" ON user_profiles;
-CREATE POLICY "Atualizar proprio perfil" ON user_profiles FOR UPDATE USING (auth.uid() = id);
-
--- 3. TABELA DE CONTATOS
-CREATE TABLE IF NOT EXISTS contacts (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  phone TEXT,
-  subject TEXT NOT NULL,
-  message TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  read BOOLEAN DEFAULT FALSE
-);
-
-CREATE INDEX IF NOT EXISTS idx_contacts_created_at ON contacts(created_at DESC);
-ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Inserir contato publico" ON contacts;
-CREATE POLICY "Inserir contato publico" ON contacts FOR INSERT WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Ler contatos autenticado" ON contacts;
-CREATE POLICY "Ler contatos autenticado" ON contacts FOR SELECT USING (auth.role() = 'authenticated');
-
--- 4. TABELA DE NEWSLETTER
-CREATE TABLE IF NOT EXISTS newsletter (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  is_active BOOLEAN DEFAULT TRUE,
-  source TEXT DEFAULT 'website'
-);
-
-CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter(email);
-ALTER TABLE newsletter ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Inserir newsletter publico" ON newsletter;
-CREATE POLICY "Inserir newsletter publico" ON newsletter FOR INSERT WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Ler newsletter autenticado" ON newsletter;
-CREATE POLICY "Ler newsletter autenticado" ON newsletter FOR SELECT USING (auth.role() = 'authenticated');
-
-DROP POLICY IF EXISTS "Deletar newsletter publico" ON newsletter;
-CREATE POLICY "Deletar newsletter publico" ON newsletter FOR DELETE USING (true);
-
--- 5. TRIGGER PARA CRIAR PERFIL
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.user_profiles (id, email, full_name, role)
-  VALUES (
-    NEW.id,
-    NEW.email,
-    COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
-    COALESCE(NEW.raw_user_meta_data->>'role', 'user')
-  );
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
--- FIM DO SCHEMA
-`;
-
-    document.getElementById('sqlCode').textContent = sqlMigrations;
-
-    // Verificar status ao carregar
+    // Carregar migracoes e verificar status ao iniciar
+    carregarMigracoes();
     verificarStatus();
 
     async function verificarStatus() {

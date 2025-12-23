@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
 
 // Lazy initialization of Supabase client
 let supabaseAdmin = null;
@@ -73,6 +75,109 @@ router.get('/status', async (req, res) => {
     console.error('Erro ao verificar status:', error);
     res.status(500).json({
       error: 'Erro ao verificar status do sistema'
+    });
+  }
+});
+
+// ============================================
+// GET /api/setup/migrations - Obter SQL das migracoes
+// ============================================
+router.get('/migrations', async (req, res) => {
+  try {
+    const migrationsDir = path.join(__dirname, '../../supabase/migrations');
+
+    // Check if migrations directory exists
+    if (!fs.existsSync(migrationsDir)) {
+      // Fallback to database/schema.sql
+      const schemaPath = path.join(__dirname, '../../database/schema.sql');
+      if (fs.existsSync(schemaPath)) {
+        const sql = fs.readFileSync(schemaPath, 'utf8');
+        return res.json({
+          success: true,
+          source: 'database/schema.sql',
+          sql
+        });
+      }
+      return res.status(404).json({
+        error: 'Arquivos de migracao nao encontrados'
+      });
+    }
+
+    // Read complete schema migration
+    const completeSchemaPath = path.join(migrationsDir, '00000000000000_complete_schema.sql');
+    if (fs.existsSync(completeSchemaPath)) {
+      const sql = fs.readFileSync(completeSchemaPath, 'utf8');
+      return res.json({
+        success: true,
+        source: 'supabase/migrations/00000000000000_complete_schema.sql',
+        sql
+      });
+    }
+
+    // Read all migration files and combine them
+    const files = fs.readdirSync(migrationsDir)
+      .filter(f => f.endsWith('.sql'))
+      .sort();
+
+    let combinedSql = '-- Combined migrations from supabase/migrations/\n\n';
+
+    for (const file of files) {
+      const filePath = path.join(migrationsDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      combinedSql += `-- File: ${file}\n${content}\n\n`;
+    }
+
+    res.json({
+      success: true,
+      source: 'supabase/migrations',
+      files: files,
+      sql: combinedSql
+    });
+
+  } catch (error) {
+    console.error('Erro ao ler migracoes:', error);
+    res.status(500).json({
+      error: 'Erro ao ler arquivos de migracao'
+    });
+  }
+});
+
+// ============================================
+// GET /api/setup/migrations/list - Listar arquivos de migracao
+// ============================================
+router.get('/migrations/list', async (req, res) => {
+  try {
+    const migrationsDir = path.join(__dirname, '../../supabase/migrations');
+
+    if (!fs.existsSync(migrationsDir)) {
+      return res.json({
+        success: true,
+        migrations: []
+      });
+    }
+
+    const files = fs.readdirSync(migrationsDir)
+      .filter(f => f.endsWith('.sql'))
+      .sort()
+      .map(file => {
+        const filePath = path.join(migrationsDir, file);
+        const stats = fs.statSync(filePath);
+        return {
+          name: file,
+          size: stats.size,
+          modified: stats.mtime
+        };
+      });
+
+    res.json({
+      success: true,
+      migrations: files
+    });
+
+  } catch (error) {
+    console.error('Erro ao listar migracoes:', error);
+    res.status(500).json({
+      error: 'Erro ao listar arquivos de migracao'
     });
   }
 });
