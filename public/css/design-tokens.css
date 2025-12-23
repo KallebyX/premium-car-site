@@ -389,11 +389,18 @@
   --bg-inverse: var(--color-neutral-900);
   --bg-overlay: rgba(0, 0, 0, 0.5);
 
+  /* Surface Colors (for cards, panels, etc.) */
+  --surface-primary: #ffffff;
+  --surface-secondary: var(--color-neutral-100);
+  --surface-tertiary: var(--color-neutral-200);
+
   /* Border Colors */
   --border-primary: var(--color-neutral-300);
   --border-secondary: var(--color-neutral-200);
   --border-tertiary: var(--color-neutral-100);
   --border-focus: var(--color-primary-600);
+  --border-subtle: var(--color-neutral-200);
+  --border-default: var(--color-neutral-300);
 
   /* Interactive States */
   --state-hover-opacity: 0.9;
@@ -423,8 +430,15 @@
   --bg-inverse: var(--color-neutral-50);
   --bg-overlay: rgba(0, 0, 0, 0.7);
 
+  /* Surface Colors (dark mode) */
+  --surface-primary: var(--color-neutral-800);
+  --surface-secondary: var(--color-neutral-700);
+  --surface-tertiary: var(--color-neutral-600);
+
   --border-primary: var(--color-neutral-700);
   --border-secondary: var(--color-neutral-800);
+  --border-subtle: var(--color-neutral-700);
+  --border-default: var(--color-neutral-600);
 
   --input-bg: var(--color-neutral-800);
   --input-border: var(--color-neutral-700);
