@@ -8,7 +8,13 @@ function getSupabaseAuth() {
   if (!supabaseAuth && process.env.SUPABASE_URL && process.env.SUPABASE_KEY) {
     supabaseAuth = createClient(
       process.env.SUPABASE_URL,
-      process.env.SUPABASE_KEY
+      process.env.SUPABASE_KEY,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false
+        }
+      }
     );
   }
   return supabaseAuth;
@@ -37,20 +43,74 @@ async function authenticateToken(req, res, next) {
     const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ 
-        error: 'Token inválido ou expirado' 
+      return res.status(401).json({
+        error: 'Token inválido ou expirado'
       });
     }
 
-    // Adicionar usuário ao request para uso posterior
-    req.user = user;
+    // Buscar perfil do usuário para obter role
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('role, is_active, full_name')
+      .eq('id', user.id)
+      .single();
+
+    // Verificar se usuário está ativo
+    if (profile && !profile.is_active) {
+      return res.status(403).json({
+        error: 'Conta desativada. Entre em contato com o administrador.'
+      });
+    }
+
+    // Adicionar usuário e perfil ao request para uso posterior
+    req.user = {
+      ...user,
+      role: profile?.role || 'user',
+      full_name: profile?.full_name || '',
+      is_active: profile?.is_active ?? true
+    };
+
     next();
   } catch (error) {
     console.error('Erro na autenticação:', error);
-    return res.status(500).json({ 
-      error: 'Erro ao verificar autenticação' 
+    return res.status(500).json({
+      error: 'Erro ao verificar autenticação'
     });
   }
+}
+
+// Middleware para verificar se é admin
+function requireAdmin(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({
+      error: 'Não autenticado'
+    });
+  }
+
+  if (!['admin', 'super_admin'].includes(req.user.role)) {
+    return res.status(403).json({
+      error: 'Acesso negado. Permissão de administrador necessária.'
+    });
+  }
+
+  next();
+}
+
+// Middleware para verificar se é super admin
+function requireSuperAdmin(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({
+      error: 'Não autenticado'
+    });
+  }
+
+  if (req.user.role !== 'super_admin') {
+    return res.status(403).json({
+      error: 'Acesso negado. Permissão de super administrador necessária.'
+    });
+  }
+
+  next();
 }
 
 // Middleware de validação de dados
@@ -175,6 +235,8 @@ function errorHandler(err, req, res, next) {
 
 module.exports = {
   authenticateToken,
+  requireAdmin,
+  requireSuperAdmin,
   validateCarData,
   rateLimiter,
   errorLogger,

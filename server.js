@@ -6,6 +6,8 @@ const carrosRoutes = require('./src/routes/carros');
 const uploadRoutes = require('./src/routes/upload');
 const contactsRoutes = require('./src/routes/contacts');
 const newsletterRoutes = require('./src/routes/newsletter');
+const authRoutes = require('./src/routes/auth');
+const setupRoutes = require('./src/routes/setup');
 const { rateLimiter, errorLogger, errorHandler } = require('./src/middleware/auth');
 
 const app = express();
@@ -41,6 +43,8 @@ app.use('/api/carros', carrosRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/setup', setupRoutes);
 
 // Rota para home
 app.get('/', (req, res) => {
