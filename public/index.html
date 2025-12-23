@@ -644,8 +644,17 @@
       showSkeleton();
       try {
         const res = await fetch('/api/carros?limit=100');
+
+        if (!res.ok) {
+          throw new Error(`HTTP error: ${res.status}`);
+        }
+
         const data = await res.json();
-        allCars = data.data || data;
+
+        // Handle both paginated response { data: [...] } and direct array response
+        const carsArray = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
+
+        allCars = carsArray;
         filteredCars = [...allCars];
 
         if (!allCars.length) {
@@ -658,7 +667,7 @@
         applySort();
         render();
       } catch (err) {
-        console.error(err);
+        console.error('Erro ao carregar carros:', err);
         showEmpty('Erro ao carregar', 'Tente novamente mais tarde.');
       }
     }

@@ -2,6 +2,39 @@ const { createClient } = require('@supabase/supabase-js');
 
 let supabaseInstance = null;
 
+// Create a chainable mock query builder for when Supabase is not configured
+function createMockQueryBuilder() {
+  const mockResult = { data: [], error: null, count: 0 };
+
+  const chainable = {
+    select: () => chainable,
+    insert: () => chainable,
+    update: () => chainable,
+    delete: () => chainable,
+    eq: () => chainable,
+    neq: () => chainable,
+    gt: () => chainable,
+    gte: () => chainable,
+    lt: () => chainable,
+    lte: () => chainable,
+    like: () => chainable,
+    ilike: () => chainable,
+    is: () => chainable,
+    in: () => chainable,
+    or: () => chainable,
+    and: () => chainable,
+    not: () => chainable,
+    order: () => chainable,
+    range: () => chainable,
+    limit: () => chainable,
+    single: () => Promise.resolve({ data: null, error: null }),
+    then: (resolve) => resolve(mockResult),
+    catch: () => chainable
+  };
+
+  return chainable;
+}
+
 function getSupabase() {
   if (!supabaseInstance) {
     const url = process.env.SUPABASE_URL;
@@ -9,14 +42,9 @@ function getSupabase() {
 
     if (!url || !key) {
       console.warn('Supabase credentials not configured. Set SUPABASE_URL and SUPABASE_KEY environment variables.');
-      // Return a mock object to prevent crashes during initialization
+      // Return a mock object that supports chaining to prevent crashes
       return {
-        from: () => ({
-          select: () => Promise.resolve({ data: [], error: { message: 'Supabase not configured' } }),
-          insert: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
-          update: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
-          delete: () => Promise.resolve({ error: { message: 'Supabase not configured' } })
-        })
+        from: () => createMockQueryBuilder()
       };
     }
 
