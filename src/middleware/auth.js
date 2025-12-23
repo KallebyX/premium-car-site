@@ -1,24 +1,40 @@
 // Middleware de autenticação
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseAuth = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+// Lazy initialization of Supabase client to avoid errors when env vars are not set
+let supabaseAuth = null;
+
+function getSupabaseAuth() {
+  if (!supabaseAuth && process.env.SUPABASE_URL && process.env.SUPABASE_KEY) {
+    supabaseAuth = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY
+    );
+  }
+  return supabaseAuth;
+}
 
 async function authenticateToken(req, res, next) {
   try {
+    const supabase = getSupabaseAuth();
+
+    if (!supabase) {
+      return res.status(500).json({
+        error: 'Serviço de autenticação não configurado'
+      });
+    }
+
     const authHeader = req.headers.authorization;
-    
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ 
-        error: 'Token de autenticação ausente ou inválido' 
+      return res.status(401).json({
+        error: 'Token de autenticação ausente ou inválido'
       });
     }
 
     const token = authHeader.split('Bearer ')[1];
 
-    const { data: { user }, error } = await supabaseAuth.auth.getUser(token);
+    const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {
       return res.status(401).json({ 

@@ -78,15 +78,20 @@ app.use((req, res) => {
 app.use(errorLogger);
 app.use(errorHandler);
 
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`
+// Exportar app para Vercel serverless
+module.exports = app;
+
+// Iniciar servidor apenas em desenvolvimento local
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════╗
-║     🚗 Premium Car Server 🚗          ║
+║     Premium Car Server                 ║
 ╠════════════════════════════════════════╣
 ║  Servidor: http://localhost:${PORT}${' '.repeat(10-PORT.toString().length)}║
 ║  Ambiente: ${process.env.NODE_ENV || 'development'}${' '.repeat(13-(process.env.NODE_ENV || 'development').length)}║
 ║  Data: ${new Date().toLocaleDateString('pt-BR')}${' '.repeat(17-new Date().toLocaleDateString('pt-BR').length)}║
 ╚════════════════════════════════════════╝
-  `);
-});
+    `);
+  });
+}
