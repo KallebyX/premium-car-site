@@ -83,48 +83,44 @@ const Layout = {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = html;
 
+      // Obtém todos os elementos do base.html
       const header = tempDiv.querySelector('header');
+      const mobileMenu = tempDiv.querySelector('.mobile-menu');
       const footer = tempDiv.querySelector('footer');
+      const script = tempDiv.querySelector('script');
 
-      const headerContainer = document.getElementById('injected-header');
-      const footerContainer = document.getElementById('injected-footer');
+      // Busca containers (suporta ambos os padrões de ID)
+      const headerContainer = document.getElementById('header-container') ||
+                               document.getElementById('injected-header');
+      const footerContainer = document.getElementById('footer-container') ||
+                               document.getElementById('injected-footer');
 
+      // Injeta header e mobile menu
       if (header && headerContainer) {
         headerContainer.appendChild(header);
+        if (mobileMenu) {
+          headerContainer.appendChild(mobileMenu);
+        }
       }
 
+      // Injeta footer
       if (footer && footerContainer) {
         footerContainer.appendChild(footer);
+      }
+
+      // Executa o script do base.html
+      if (script) {
+        const newScript = document.createElement('script');
+        newScript.textContent = script.textContent;
+        document.body.appendChild(newScript);
       }
 
       // Atualiza UI de autenticação após carregar header
       Auth.updateAuthUI();
 
-      // Inicializa menu mobile
-      this.initMobileMenu();
-
     } catch (error) {
       console.error('Erro ao carregar header/footer:', error);
     }
-  },
-
-  /**
-   * Inicializa comportamento do menu mobile
-   */
-  initMobileMenu() {
-    const offcanvas = document.querySelector('.offcanvas');
-    if (!offcanvas) return;
-
-    // Fecha menu ao clicar em link
-    const menuLinks = offcanvas.querySelectorAll('a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvas);
-        if (bsOffcanvas) {
-          bsOffcanvas.hide();
-        }
-      });
-    });
   }
 };
 
@@ -648,9 +644,6 @@ const BackToTop = {
 // INICIALIZAÇÃO AUTOMÁTICA
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Carrega header e footer
-  Layout.loadHeaderFooter();
-
   // Inicializa botão voltar ao topo
   BackToTop.init();
 

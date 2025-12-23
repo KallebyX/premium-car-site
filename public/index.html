@@ -8,478 +8,316 @@
   <title>Premium Car - Avaliações Automotivas Profissionais</title>
   <meta name="title" content="Premium Car - Avaliações Automotivas Profissionais">
   <meta name="description" content="Encontre as melhores avaliações de veículos com análises detalhadas, vídeos e informações completas. Premium Car - Sua referência em reviews automotivos.">
-  <meta name="keywords" content="avaliações de carros, reviews automotivos, análise de veículos, carros novos, carros usados, premium car, ficha técnica, teste drive">
+  <meta name="keywords" content="avaliações de carros, reviews automotivos, análise de veículos, carros novos, carros usados, premium car">
   <meta name="author" content="Premium Car">
-  <meta name="language" content="Portuguese">
   <meta name="robots" content="index, follow">
-  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://premiumcar.com/">
   <meta property="og:title" content="Premium Car - Avaliações Automotivas Profissionais">
-  <meta property="og:description" content="Encontre as melhores avaliações de veículos com análises detalhadas, vídeos e informações completas. Premium Car - Sua referência em reviews automotivos.">
+  <meta property="og:description" content="Encontre as melhores avaliações de veículos com análises detalhadas.">
   <meta property="og:image" content="https://premiumcar.com/icons/icon-512x512.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:image:alt" content="Premium Car - Logo">
-  <meta property="og:site_name" content="Premium Car">
-  <meta property="og:locale" content="pt_BR">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://premiumcar.com/">
-  <meta name="twitter:title" content="Premium Car - Avaliações Automotivas Profissionais">
-  <meta name="twitter:description" content="Encontre as melhores avaliações de veículos com análises detalhadas, vídeos e informações completas.">
-  <meta name="twitter:image" content="https://premiumcar.com/icons/icon-512x512.png">
-  <meta name="twitter:image:alt" content="Premium Car - Logo">
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#e03131">
 
-  <!-- Additional Meta Tags -->
-  <meta name="format-detection" content="telephone=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Premium Car">
-
-  <!-- Theme Colors -->
-  <meta name="theme-color" content="#dc3545">
-  <meta name="msapplication-TileColor" content="#dc3545">
-  <meta name="msapplication-navbutton-color" content="#dc3545">
-
-  <!-- Manifest and Icons -->
+  <!-- Icons -->
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#dc3545">
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://premiumcar.com/">
-
-  <!-- Preconnect to external domains (performance) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://images.unsplash.com">
 
-  <!-- DNS Prefetch (performance) -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Premium Car",
-    "description": "Avaliações automotivas profissionais e imparciais",
-    "url": "https://premiumcar.com",
-    "logo": "https://premiumcar.com/icons/icon-512x512.png",
-    "sameAs": [
-      "https://www.youtube.com/@PremiumCarAvaliacoes"
-    ],
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://premiumcar.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- Bootstrap & Icons (must load BEFORE custom styles) -->
+  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
-  <!-- Design System (loaded AFTER Bootstrap to override) -->
+  <!-- Design System -->
   <link rel="stylesheet" href="/css/design-tokens.css">
   <link rel="stylesheet" href="/css/global.css">
 
   <style>
-    /* ========================================
-       HERO SECTION - Modern Design
-       ======================================== */
-    .hero-section {
+    /* Hero Section */
+    .hero {
       position: relative;
-      background: linear-gradient(135deg,
-        var(--color-primary-600) 0%,
-        var(--color-primary-700) 50%,
-        var(--color-primary-800) 100%);
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 100%);
       color: white;
-      padding: calc(var(--space-24) + var(--space-12)) 0 var(--space-24);
-      margin-bottom: var(--space-16);
+      padding: var(--space-24) 0;
       overflow: hidden;
     }
 
-    .hero-section::before {
+    .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.15;
-      z-index: 0;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80') center/cover;
+      opacity: 0.12;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     .hero-title {
-      font-size: var(--font-size-6xl);
-      font-weight: var(--font-weight-extrabold);
-      line-height: var(--line-height-tight);
-      margin-bottom: var(--space-6);
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      font-size: var(--text-5xl);
+      font-weight: var(--weight-bold);
+      margin-bottom: var(--space-4);
+      letter-spacing: var(--tracking-tighter);
     }
 
     .hero-subtitle {
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-medium);
-      opacity: 0.95;
-      margin-bottom: var(--space-4);
-    }
-
-    .hero-description {
-      font-size: var(--font-size-lg);
+      font-size: var(--text-xl);
       opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto;
+      margin-bottom: 0;
     }
 
-    /* ========================================
-       FILTER SECTION - Advanced Design
-       ======================================== */
-    .filter-section {
-      margin-top: calc(var(--space-16) * -1);
-      margin-bottom: var(--space-16);
+    @media (max-width: 768px) {
+      .hero { padding: var(--space-16) 0; }
+      .hero-title { font-size: var(--text-3xl); }
+      .hero-subtitle { font-size: var(--text-lg); }
+    }
+
+    /* Search Section */
+    .search-section {
+      margin-top: calc(var(--space-12) * -1);
       position: relative;
       z-index: 10;
+      margin-bottom: var(--space-12);
     }
 
-    .filter-card {
-      background: white;
+    .search-card {
+      background: var(--surface-primary);
       border-radius: var(--radius-2xl);
-      box-shadow: var(--shadow-2xl);
-      padding: var(--space-8);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: var(--space-2);
-      margin-bottom: var(--space-6);
-      padding-bottom: var(--space-4);
-      border-bottom: 2px solid var(--border-subtle);
-    }
-
-    .filter-tab {
-      padding: var(--space-3) var(--space-6);
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      font-weight: var(--font-weight-semibold);
-      font-size: var(--font-size-sm);
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      transition: var(--transition-base);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-
-    .filter-tab:hover {
-      background: var(--surface-secondary);
-      color: var(--text-primary);
-    }
-
-    .filter-tab.active {
-      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
-      color: white;
-      box-shadow: var(--shadow-primary);
-    }
-
-    .filter-content {
-      display: none;
-    }
-
-    .filter-content.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .range-slider {
-      position: relative;
-      height: 6px;
-      background: var(--surface-tertiary);
-      border-radius: var(--radius-full);
-      margin: var(--space-6) 0;
-    }
-
-    .range-slider-track {
-      position: absolute;
-      height: 100%;
-      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
-      border-radius: var(--radius-full);
-    }
-
-    .filter-chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      margin-top: var(--space-4);
-    }
-
-    .filter-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      background: var(--surface-secondary);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-medium);
-      color: var(--text-secondary);
-      transition: var(--transition-base);
-    }
-
-    .filter-chip .chip-remove {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      border-radius: var(--radius-full);
-      background: var(--color-neutral-400);
-      color: white;
-      font-size: 10px;
-      transition: var(--transition-fast);
-    }
-
-    .filter-chip .chip-remove:hover {
-      background: var(--color-danger-600);
-    }
-
-    /* ========================================
-       STATS SECTION
-       ======================================== */
-    .stats-section {
-      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-      color: white;
-      padding: var(--space-16) 0;
-      margin: var(--space-16) 0;
-      border-radius: var(--radius-3xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stats-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      border-radius: var(--radius-full);
-    }
-
-    .stat-card {
-      text-align: center;
+      box-shadow: var(--shadow-xl);
       padding: var(--space-6);
-      position: relative;
-      z-index: 1;
+      border: 1px solid var(--border-light);
+    }
+
+    .search-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .search-grid {
+        grid-template-columns: 2fr 1fr 1fr auto;
+        align-items: end;
+      }
+    }
+
+    /* Stats Section */
+    .stats {
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-12) var(--space-6);
+      color: white;
+      margin: var(--space-12) 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      text-align: center;
     }
 
     .stat-number {
-      font-size: var(--font-size-5xl);
-      font-weight: var(--font-weight-extrabold);
-      display: block;
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-bold);
       line-height: 1;
-      margin-bottom: var(--space-3);
-      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: var(--space-2);
     }
 
     .stat-label {
-      font-size: var(--font-size-lg);
-      opacity: 0.95;
-      font-weight: var(--font-weight-medium);
+      font-size: var(--text-sm);
+      opacity: 0.9;
     }
 
-    /* ========================================
-       CAR CARDS - Premium Design
-       ======================================== */
+    @media (max-width: 768px) {
+      .stat-number { font-size: var(--text-2xl); }
+      .stat-label { font-size: var(--text-xs); }
+    }
+
+    /* Cars Grid */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .section-title {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-semibold);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .section-title i {
+      color: var(--color-primary-600);
+    }
+
+    .cars-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    @media (min-width: 640px) {
+      .cars-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .cars-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Car Card */
     .car-card {
-      background: white;
-      border-radius: var(--radius-xl);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-2xl);
       overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      transition: all var(--transition-base);
-      height: 100%;
+      transition: var(--transition-normal);
       display: flex;
       flex-direction: column;
     }
 
     .car-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-2xl);
-      border-color: var(--color-primary-300);
-    }
-
-    .car-card-image-wrapper {
-      position: relative;
-      overflow: hidden;
-      background: var(--surface-tertiary);
-      aspect-ratio: 16/9;
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
     }
 
     .car-card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: var(--surface-tertiary);
+    }
+
+    .car-card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform var(--transition-base);
+      transition: transform var(--duration-slow) var(--ease-out);
     }
 
-    .car-card:hover .car-card-image {
-      transform: scale(1.08);
+    .car-card:hover .car-card-image img {
+      transform: scale(1.05);
     }
 
     .car-card-badge {
       position: absolute;
-      top: var(--space-4);
-      right: var(--space-4);
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-bold);
-      box-shadow: var(--shadow-lg);
+      top: var(--space-3);
+      right: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      color: white;
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
     }
+
+    .car-card-badge.excellent { background: var(--color-success); }
+    .car-card-badge.good { background: var(--color-warning); }
 
     .car-card-favorite {
       position: absolute;
-      top: var(--space-4);
-      left: var(--space-4);
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.95);
+      top: var(--space-3);
+      left: var(--space-3);
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
       border: none;
+      border-radius: var(--radius-full);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: var(--transition-base);
-      box-shadow: var(--shadow-md);
+      transition: var(--transition-fast);
+      color: var(--color-neutral-500);
     }
 
     .car-card-favorite:hover {
       transform: scale(1.1);
-      background: white;
     }
 
-    .car-card-favorite i {
-      font-size: var(--font-size-lg);
-      color: var(--color-neutral-600);
-      transition: var(--transition-fast);
-    }
-
-    .car-card-favorite.active i {
-      color: var(--color-danger-600);
+    .car-card-favorite.active {
+      color: var(--color-danger);
     }
 
     .car-card-body {
-      padding: var(--space-6);
+      padding: var(--space-5);
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
     .car-card-title {
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-bold);
+      font-size: var(--text-lg);
+      font-weight: var(--weight-semibold);
+      margin-bottom: var(--space-2);
       color: var(--text-primary);
-      margin-bottom: var(--space-3);
-      line-height: var(--line-height-tight);
     }
 
     .car-card-meta {
       display: flex;
-      flex-wrap: wrap;
       gap: var(--space-4);
-      margin-bottom: var(--space-4);
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-    }
-
-    .car-card-meta-item {
-      display: flex;
-      align-items: center;
-      gap: var(--space-1);
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-3);
     }
 
     .car-card-price {
-      background: linear-gradient(135deg, var(--color-primary-50), var(--color-primary-100));
-      padding: var(--space-3) var(--space-4);
-      border-radius: var(--radius-lg);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-primary-700);
-      font-size: var(--font-size-lg);
-      margin-bottom: var(--space-4);
-      text-align: center;
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: var(--color-primary-600);
+      margin-bottom: var(--space-3);
     }
 
-    .car-card-description {
-      font-size: var(--font-size-sm);
+    .car-card-desc {
+      font-size: var(--text-sm);
       color: var(--text-secondary);
-      line-height: var(--line-height-relaxed);
-      margin-bottom: var(--space-6);
+      line-height: var(--leading-relaxed);
       flex: 1;
+      margin-bottom: var(--space-4);
     }
 
-    .car-card-button {
-      width: 100%;
-      padding: var(--space-3) var(--space-4);
-      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
-      color: white;
-      border: none;
-      border-radius: var(--radius-lg);
-      font-weight: var(--font-weight-semibold);
-      font-size: var(--font-size-base);
-      cursor: pointer;
-      transition: var(--transition-base);
+    .car-card-action {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: var(--space-2);
+      width: 100%;
+      padding: var(--space-3);
+      background: var(--color-primary-600);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      text-decoration: none;
+      transition: var(--transition-fast);
     }
 
-    .car-card-button:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-primary);
+    .car-card-action:hover {
+      background: var(--color-primary-700);
+      color: white;
     }
 
-    /* ========================================
-       SKELETON LOADING
-       ======================================== */
+    /* Skeleton */
     .skeleton {
-      background: linear-gradient(90deg,
-        var(--surface-secondary) 25%,
-        var(--surface-tertiary) 50%,
-        var(--surface-secondary) 75%);
+      background: linear-gradient(90deg, var(--surface-secondary) 25%, var(--surface-tertiary) 50%, var(--surface-secondary) 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
       border-radius: var(--radius-md);
@@ -490,1004 +328,548 @@
       100% { background-position: -200% 0; }
     }
 
-    .skeleton-card {
-      background: white;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .skeleton-image {
-      width: 100%;
-      aspect-ratio: 16/9;
-    }
-
-    .skeleton-text {
-      height: 16px;
-      margin-bottom: var(--space-2);
-    }
-
-    .skeleton-title {
-      height: 24px;
-      width: 80%;
-      margin-bottom: var(--space-3);
-    }
-
-    .skeleton-button {
-      height: 44px;
-      border-radius: var(--radius-lg);
-    }
-
-    /* ========================================
-       PAGINATION
-       ======================================== */
-    .pagination-container {
+    /* Pagination */
+    .pagination-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: var(--space-6);
-      margin-top: var(--space-12);
-      padding: var(--space-6) 0;
+      gap: var(--space-4);
+      margin-top: var(--space-10);
+      flex-wrap: wrap;
     }
 
-    .pagination {
+    .pagination-info {
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+    }
+
+    .pagination-buttons {
       display: flex;
       gap: var(--space-2);
-      align-items: center;
     }
 
-    .pagination-button {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background: white;
-      color: var(--text-secondary);
-      font-weight: var(--font-weight-semibold);
-      cursor: pointer;
-      transition: var(--transition-base);
+    .page-btn {
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition-fast);
     }
 
-    .pagination-button:hover:not(:disabled) {
-      background: var(--surface-secondary);
-      border-color: var(--border-default);
+    .page-btn:hover:not(:disabled) {
+      background: var(--surface-tertiary);
       color: var(--text-primary);
     }
 
-    .pagination-button.active {
-      background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
-      color: white;
+    .page-btn.active {
+      background: var(--color-primary-600);
       border-color: var(--color-primary-600);
-      box-shadow: var(--shadow-primary);
+      color: white;
     }
 
-    .pagination-button:disabled {
+    .page-btn:disabled {
       opacity: 0.4;
       cursor: not-allowed;
     }
 
-    .pagination-info {
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-      font-weight: var(--font-weight-medium);
-    }
-
-    /* ========================================
-       SORT & VIEW OPTIONS
-       ======================================== */
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--space-6);
-      gap: var(--space-4);
-      flex-wrap: wrap;
-    }
-
-    .toolbar-group {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-    }
-
-    .sort-select {
-      padding: var(--space-2) var(--space-4);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      background: white;
-      color: var(--text-primary);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-medium);
-      cursor: pointer;
-      transition: var(--transition-base);
-    }
-
-    .sort-select:hover {
-      border-color: var(--border-default);
-    }
-
-    .sort-select:focus {
-      outline: none;
-      border-color: var(--color-primary-600);
-      box-shadow: var(--state-focus-ring);
-    }
-
-    /* ========================================
-       EMPTY STATE
-       ======================================== */
+    /* Empty State */
     .empty-state {
       text-align: center;
-      padding: var(--space-24) var(--space-6);
-      color: var(--text-secondary);
+      padding: var(--space-16) var(--space-6);
     }
 
     .empty-state-icon {
-      font-size: var(--font-size-6xl);
-      opacity: 0.3;
-      margin-bottom: var(--space-6);
+      font-size: 4rem;
+      color: var(--color-neutral-300);
+      margin-bottom: var(--space-4);
     }
 
     .empty-state-title {
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-bold);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-semibold);
       color: var(--text-primary);
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-2);
     }
 
-    .empty-state-description {
-      font-size: var(--font-size-lg);
+    .empty-state-desc {
       color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto;
     }
 
-    /* ========================================
-       RESPONSIVE
-       ======================================== */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: var(--font-size-4xl);
-      }
+    /* Videos Section */
+    .videos-section {
+      background: var(--surface-secondary);
+      padding: var(--space-16) 0;
+      margin: var(--space-16) 0;
+    }
 
-      .hero-subtitle {
-        font-size: var(--font-size-xl);
-      }
+    .videos-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
 
-      .filter-card {
-        padding: var(--space-6);
-      }
+    @media (min-width: 640px) {
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-      .filter-tabs {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
+    @media (min-width: 1024px) {
+      .videos-grid { grid-template-columns: repeat(3, 1fr); }
+    }
 
-      .stat-number {
-        font-size: var(--font-size-4xl);
-      }
+    .video-card {
+      background: var(--surface-primary);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+    }
 
-      .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+    }
+
+    .video-card-body {
+      padding: var(--space-4);
+    }
+
+    .video-card-title {
+      font-size: var(--text-base);
+      font-weight: var(--weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .video-card-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Sort Select */
+    .sort-select {
+      height: 40px;
+      padding: 0 var(--space-10) 0 var(--space-4);
+      font-size: var(--text-sm);
+      background: var(--surface-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23636366' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--space-3) center;
     }
   </style>
 </head>
 <body>
-  <div id="injected-header"></div>
+  <div id="header-container"></div>
 
   <!-- Hero Section -->
-  <section class="hero-section">
+  <section class="hero">
     <div class="container hero-content">
-      <div class="text-center">
-        <h1 class="hero-title">Premium Car</h1>
-        <p class="hero-subtitle">Avaliações automotivas profissionais e imparciais</p>
-        <p class="hero-description">Análises detalhadas dos melhores carros do mercado com transparência e credibilidade</p>
+      <h1 class="hero-title">Premium Car</h1>
+      <p class="hero-subtitle">Avaliações automotivas profissionais e imparciais</p>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <div class="container">
+      <div class="search-card">
+        <div class="search-grid">
+          <div>
+            <label class="form-label">Buscar</label>
+            <input type="text" id="searchInput" class="form-control" placeholder="Marca, modelo ou título...">
+          </div>
+          <div>
+            <label class="form-label">Marca</label>
+            <select id="filterMarca" class="form-control form-select">
+              <option value="">Todas</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Nota Mínima</label>
+            <select id="filterNota" class="form-control form-select">
+              <option value="">Todas</option>
+              <option value="9">9+ Excelente</option>
+              <option value="7">7+ Muito Bom</option>
+              <option value="5">5+ Bom</option>
+            </select>
+          </div>
+          <button id="clearFilters" class="btn btn-secondary">
+            <i class="bi bi-x-circle"></i> Limpar
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Filter Section -->
-  <div class="container filter-section">
-    <div class="filter-card">
-      <!-- Filter Tabs -->
-      <div class="filter-tabs">
-        <button class="filter-tab active" data-tab="basic">
-          <i class="bi bi-search"></i>
-          <span>Busca Básica</span>
-        </button>
-        <button class="filter-tab" data-tab="advanced">
-          <i class="bi bi-sliders"></i>
-          <span>Filtros Avançados</span>
-        </button>
-      </div>
-
-      <!-- Basic Filter Content -->
-      <div class="filter-content active" id="basic-filter">
-        <div class="row g-3 align-items-end">
-          <div class="col-md-4">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-search me-2"></i>Buscar
-            </label>
-            <input type="text" id="searchInput" class="form-control form-control-lg"
-                   placeholder="Digite marca, modelo ou título...">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-car-front me-2"></i>Marca
-            </label>
-            <select id="filterMarca" class="form-select form-select-lg">
-              <option value="">Todas as marcas</option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-star me-2"></i>Nota Mínima
-            </label>
-            <select id="filterNota" class="form-select form-select-lg">
-              <option value="">Todas as notas</option>
-              <option value="9">9+ (Excelente)</option>
-              <option value="7">7+ (Muito Bom)</option>
-              <option value="5">5+ (Bom)</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <button id="clearFilters" class="btn btn-outline-secondary w-100 btn-lg">
-              <i class="bi bi-x-circle me-2"></i>Limpar
-            </button>
-          </div>
+  <!-- Stats Section -->
+  <section class="container">
+    <div class="stats">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number" id="totalCarros">0</div>
+          <div class="stat-label">Carros Avaliados</div>
+        </div>
+        <div>
+          <div class="stat-number" id="notaMedia">0</div>
+          <div class="stat-label">Nota Média</div>
+        </div>
+        <div>
+          <div class="stat-number" id="marcasTotal">0</div>
+          <div class="stat-label">Marcas</div>
         </div>
       </div>
-
-      <!-- Advanced Filter Content -->
-      <div class="filter-content" id="advanced-filter">
-        <div class="row g-4">
-          <!-- Price Range -->
-          <div class="col-md-6">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-cash me-2"></i>Faixa de Preço
-            </label>
-            <div class="d-flex gap-3 align-items-center">
-              <input type="number" id="priceMin" class="form-control" placeholder="Mínimo" min="0" step="5000">
-              <span class="text-muted">até</span>
-              <input type="number" id="priceMax" class="form-control" placeholder="Máximo" min="0" step="5000">
-            </div>
-          </div>
-
-          <!-- Year Range -->
-          <div class="col-md-6">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-calendar me-2"></i>Ano
-            </label>
-            <div class="d-flex gap-3 align-items-center">
-              <input type="number" id="yearMin" class="form-control" placeholder="De" min="1950" max="2025">
-              <span class="text-muted">até</span>
-              <input type="number" id="yearMax" class="form-control" placeholder="Até" min="1950" max="2025">
-            </div>
-          </div>
-
-          <!-- Fuel Type -->
-          <div class="col-md-4">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-fuel-pump me-2"></i>Combustível
-            </label>
-            <select id="filterCombustivel" class="form-select form-select-lg">
-              <option value="">Todos</option>
-              <option value="Gasolina">Gasolina</option>
-              <option value="Etanol">Etanol</option>
-              <option value="Flex">Flex</option>
-              <option value="Diesel">Diesel</option>
-              <option value="Elétrico">Elétrico</option>
-              <option value="Híbrido">Híbrido</option>
-            </select>
-          </div>
-
-          <!-- Transmission -->
-          <div class="col-md-4">
-            <label class="form-label fw-semibold">
-              <i class="bi bi-gear me-2"></i>Transmissão
-            </label>
-            <select id="filterTransmissao" class="form-select form-select-lg">
-              <option value="">Todas</option>
-              <option value="Manual">Manual</option>
-              <option value="Automática">Automática</option>
-              <option value="CVT">CVT</option>
-              <option value="Automatizada">Automatizada</option>
-            </select>
-          </div>
-
-          <!-- Apply Advanced Filters -->
-          <div class="col-md-4 d-flex align-items-end">
-            <button id="applyAdvancedFilters" class="btn btn-primary w-100 btn-lg">
-              <i class="bi bi-check-circle me-2"></i>Aplicar Filtros
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Active Filter Chips -->
-      <div id="activeFiltersChips" class="filter-chip-group" style="display: none;"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- Stats Section (inside container for border-radius) -->
-  <div class="container">
-    <section class="stats-section">
-      <div class="row">
-        <div class="col-md-4 stat-card">
-          <span class="stat-number" id="totalCarros">0</span>
-          <span class="stat-label">Carros Avaliados</span>
-        </div>
-        <div class="col-md-4 stat-card">
-          <span class="stat-number" id="notaMedia">0</span>
-          <span class="stat-label">Nota Média</span>
-        </div>
-        <div class="col-md-4 stat-card">
-          <span class="stat-number" id="marcasTotal">0</span>
-          <span class="stat-label">Marcas Analisadas</span>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- YouTube Videos Section -->
-  <div class="container my-5">
-    <div class="text-center mb-5">
-      <h2 class="display-6 fw-bold mb-3">
-        <i class="bi bi-youtube text-danger me-2"></i>Nossos Vídeos no YouTube
+  <!-- Cars Section -->
+  <section class="container py-8">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="bi bi-car-front-fill"></i>
+        <span>Avaliações Recentes</span>
+        <span id="resultCount" class="text-muted fw-regular" style="font-size: var(--text-base);"></span>
       </h2>
-      <p class="text-muted lead">Assista nossas avaliações completas e dicas exclusivas</p>
+      <select id="sortSelect" class="sort-select">
+        <option value="newest">Mais Recentes</option>
+        <option value="oldest">Mais Antigos</option>
+        <option value="price-high">Maior Preço</option>
+        <option value="price-low">Menor Preço</option>
+        <option value="rating-high">Melhor Nota</option>
+      </select>
     </div>
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/BTRmsImCco8" title="Avaliação Celta" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Avaliação Celta</h5>
-            <p class="card-text text-muted small">Review completo do Celta com análise de pontos fortes e fracos</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/YMjdxXdWtsA" title="Avaliação Palio" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Avaliação Palio</h5>
-            <p class="card-text text-muted small">Review completo do Fiat Palio com teste de dirigibilidade</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/kkvy4cpU9G8" title="Avaliação Blazer" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Avaliação Blazer</h5>
-            <p class="card-text text-muted small">Review da Chevrolet Blazer com análise detalhada</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/1h-4yOOLhqI" title="Avaliação Fiesta" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Avaliação Fiesta</h5>
-            <p class="card-text text-muted small">Review do Ford Fiesta com teste completo</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/Zjqo4wrcD8Q" title="Avaliação Zafira" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Avaliação Zafira</h5>
-            <p class="card-text text-muted small">Review da Chevrolet Zafira com análise de espaço</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/jxAxpd86x1A" title="Top 5 carros até 10 mil reais" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Top 5 Carros até R$ 10 Mil</h5>
-            <p class="card-text text-muted small">Os melhores carros para quem quer gastar pouco</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="text-center mt-5">
-      <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-danger btn-lg px-5">
-        <i class="bi bi-youtube me-2"></i>Ver Todos os Vídeos no YouTube
-      </a>
-    </div>
-  </div>
 
-  <!-- Cars Grid -->
-  <div class="container my-5">
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="toolbar-group">
-        <h2 class="h3 mb-0">
-          <i class="bi bi-car-front-fill me-2 text-danger"></i>Avaliações Recentes
+    <div id="carsContainer" class="cars-grid"></div>
+
+    <div id="paginationContainer" class="pagination-wrapper" style="display: none;">
+      <span class="pagination-info" id="paginationInfo"></span>
+      <div class="pagination-buttons" id="paginationButtons"></div>
+    </div>
+  </section>
+
+  <!-- Videos Section -->
+  <section class="videos-section">
+    <div class="container">
+      <div class="section-header" style="justify-content: center; margin-bottom: var(--space-8);">
+        <h2 class="section-title">
+          <i class="bi bi-youtube" style="color: #ff0000;"></i>
+          <span>Nossos Vídeos</span>
         </h2>
-        <span id="resultCount" class="pagination-info"></span>
       </div>
-      <div class="toolbar-group">
-        <label for="sortSelect" class="form-label mb-0 fw-semibold text-muted">
-          <i class="bi bi-sort-down me-1"></i>Ordenar por:
-        </label>
-        <select id="sortSelect" class="sort-select">
-          <option value="newest">Mais Recentes</option>
-          <option value="oldest">Mais Antigas</option>
-          <option value="price-high">Maior Preço</option>
-          <option value="price-low">Menor Preço</option>
-          <option value="rating-high">Melhor Avaliação</option>
-          <option value="rating-low">Menor Avaliação</option>
-        </select>
+
+      <div class="videos-grid">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/BTRmsImCco8" title="Avaliação Celta" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Avaliação Celta</h3>
+            <p class="video-card-desc">Review completo com análise detalhada</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/YMjdxXdWtsA" title="Avaliação Palio" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Avaliação Palio</h3>
+            <p class="video-card-desc">Teste de dirigibilidade completo</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/kkvy4cpU9G8" title="Avaliação Blazer" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Avaliação Blazer</h3>
+            <p class="video-card-desc">SUV clássico em detalhes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-lg btn-primary">
+          <i class="bi bi-youtube"></i> Ver Todos os Vídeos
+        </a>
       </div>
     </div>
+  </section>
 
-    <!-- Cars Container -->
-    <div id="carrosContainer" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4"></div>
+  <div id="footer-container"></div>
 
-    <!-- Pagination -->
-    <div id="paginationContainer" class="pagination-container" style="display: none;">
-      <div class="pagination-info" id="paginationInfo"></div>
-      <div class="pagination" id="paginationButtons"></div>
-    </div>
-  </div>
-
-  <div id="injected-footer"></div>
-
-  <!-- Common JS & Bootstrap -->
+  <!-- Scripts -->
   <script src="/js/common.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // ========================================
-    // STATE MANAGEMENT
-    // ========================================
-    let todosCarros = [];
-    let carrosFiltrados = [];
+    // State
+    let allCars = [];
+    let filteredCars = [];
     let currentPage = 1;
-    const itemsPerPage = 9;
-    let currentSort = 'newest';
-    let activeFilters = {};
+    const perPage = 9;
+    let sortBy = 'newest';
 
-    // ========================================
-    // INITIALIZATION
-    // ========================================
+    // Init
     document.addEventListener('DOMContentLoaded', () => {
-      // Load header and footer using common.js
       Layout.loadHeaderFooter();
-
-      // Load cars
-      carregarCarros();
-
-      // Setup event listeners
-      setupEventListeners();
-
-      // Setup filter tabs
-      setupFilterTabs();
+      loadCars();
+      setupListeners();
     });
 
-    // ========================================
-    // FILTER TABS
-    // ========================================
-    function setupFilterTabs() {
-      const tabs = document.querySelectorAll('.filter-tab');
-      const contents = document.querySelectorAll('.filter-content');
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const targetTab = tab.dataset.tab;
-
-          // Update active tab
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-
-          // Show corresponding content
-          contents.forEach(content => {
-            content.classList.remove('active');
-            if (content.id === `${targetTab}-filter`) {
-              content.classList.add('active');
-            }
-          });
-        });
-      });
-    }
-
-    // ========================================
-    // EVENT LISTENERS
-    // ========================================
-    function setupEventListeners() {
-      // Basic filters
-      document.getElementById('searchInput').addEventListener('input', debounce(aplicarFiltros, 300));
-      document.getElementById('filterMarca').addEventListener('change', aplicarFiltros);
-      document.getElementById('filterNota').addEventListener('change', aplicarFiltros);
-      document.getElementById('clearFilters').addEventListener('click', limparFiltros);
-
-      // Advanced filters
-      document.getElementById('applyAdvancedFilters').addEventListener('click', aplicarFiltros);
-
-      // Sort
+    // Event Listeners
+    function setupListeners() {
+      document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 300));
+      document.getElementById('filterMarca').addEventListener('change', applyFilters);
+      document.getElementById('filterNota').addEventListener('change', applyFilters);
+      document.getElementById('clearFilters').addEventListener('click', clearFilters);
       document.getElementById('sortSelect').addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        aplicarOrdenacao();
-        renderizarCarros();
+        sortBy = e.target.value;
+        applySort();
+        render();
       });
     }
 
-    // ========================================
-    // LOAD CARS
-    // ========================================
-    async function carregarCarros() {
-      const container = document.getElementById('carrosContainer');
-      mostrarSkeletonLoading();
-
+    // Load Cars
+    async function loadCars() {
+      showSkeleton();
       try {
         const res = await fetch('/api/carros?limit=100');
-        const response = await res.json();
+        const data = await res.json();
+        allCars = data.data || data;
+        filteredCars = [...allCars];
 
-        // Suporta resposta com paginação ou array direto
-        todosCarros = response.data || response;
-        carrosFiltrados = [...todosCarros];
-
-        if (!Array.isArray(todosCarros) || todosCarros.length === 0) {
-          mostrarEstadoVazio('Nenhum carro encontrado', 'Ainda não há avaliações disponíveis.');
+        if (!allCars.length) {
+          showEmpty('Nenhuma avaliação', 'Ainda não há carros cadastrados.');
           return;
         }
 
-        // Populate filters
-        popularFiltros();
-
-        // Update statistics
-        atualizarEstatisticas();
-
-        // Apply initial sort
-        aplicarOrdenacao();
-
-        // Render cars
-        renderizarCarros();
+        populateFilters();
+        updateStats();
+        applySort();
+        render();
       } catch (err) {
-        console.error('Erro ao carregar carros:', err);
-        mostrarEstadoVazio('Erro ao carregar', 'Não foi possível carregar as avaliações. Tente novamente mais tarde.', 'exclamation-triangle text-danger');
+        console.error(err);
+        showEmpty('Erro ao carregar', 'Tente novamente mais tarde.');
       }
     }
 
-    // ========================================
-    // POPULATE FILTERS
-    // ========================================
-    function popularFiltros() {
-      // Marcas
-      const marcas = [...new Set(todosCarros.map(c => c.marca))].sort();
-      document.getElementById('filterMarca').innerHTML = '<option value="">Todas as marcas</option>' +
+    // Populate Filters
+    function populateFilters() {
+      const marcas = [...new Set(allCars.map(c => c.marca))].sort();
+      const select = document.getElementById('filterMarca');
+      select.innerHTML = '<option value="">Todas</option>' +
         marcas.map(m => `<option value="${m}">${m}</option>`).join('');
     }
 
-    // ========================================
-    // FILTERS
-    // ========================================
-    function aplicarFiltros() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const marcaSelecionada = document.getElementById('filterMarca').value;
-      const notaMinima = document.getElementById('filterNota').value;
-      const priceMin = document.getElementById('priceMin').value;
-      const priceMax = document.getElementById('priceMax').value;
-      const yearMin = document.getElementById('yearMin').value;
-      const yearMax = document.getElementById('yearMax').value;
-      const combustivel = document.getElementById('filterCombustivel').value;
-      const transmissao = document.getElementById('filterTransmissao').value;
+    // Apply Filters
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const marca = document.getElementById('filterMarca').value;
+      const nota = document.getElementById('filterNota').value;
 
-      // Track active filters
-      activeFilters = {};
-
-      carrosFiltrados = todosCarros.filter(carro => {
-        // Search
-        const matchSearch = !searchTerm ||
-          carro.titulo.toLowerCase().includes(searchTerm) ||
-          carro.marca.toLowerCase().includes(searchTerm) ||
-          carro.modelo.toLowerCase().includes(searchTerm) ||
-          carro.descricao.toLowerCase().includes(searchTerm);
-
-        // Marca
-        const matchMarca = !marcaSelecionada || carro.marca === marcaSelecionada;
-        if (marcaSelecionada) activeFilters.marca = marcaSelecionada;
-
-        // Nota
-        const matchNota = !notaMinima || carro.nota_geral >= parseInt(notaMinima);
-        if (notaMinima) activeFilters.nota = `Nota ${notaMinima}+`;
-
-        // Price range
-        const matchPriceMin = !priceMin || carro.preco_estimado >= parseInt(priceMin);
-        const matchPriceMax = !priceMax || carro.preco_estimado <= parseInt(priceMax);
-        if (priceMin || priceMax) {
-          activeFilters.preco = `R$ ${Format.currency(priceMin || 0)} - ${Format.currency(priceMax || '∞')}`;
-        }
-
-        // Year range
-        const matchYearMin = !yearMin || carro.ano >= parseInt(yearMin);
-        const matchYearMax = !yearMax || carro.ano <= parseInt(yearMax);
-        if (yearMin || yearMax) {
-          activeFilters.ano = `${yearMin || '...'} - ${yearMax || '...'}`;
-        }
-
-        // Combustivel
-        const matchCombustivel = !combustivel || carro.combustivel === combustivel;
-        if (combustivel) activeFilters.combustivel = combustivel;
-
-        // Transmissao
-        const matchTransmissao = !transmissao || carro.transmissao === transmissao;
-        if (transmissao) activeFilters.transmissao = transmissao;
-
-        return matchSearch && matchMarca && matchNota &&
-               matchPriceMin && matchPriceMax &&
-               matchYearMin && matchYearMax &&
-               matchCombustivel && matchTransmissao;
+      filteredCars = allCars.filter(car => {
+        const matchSearch = !search ||
+          car.titulo.toLowerCase().includes(search) ||
+          car.marca.toLowerCase().includes(search) ||
+          car.modelo.toLowerCase().includes(search);
+        const matchMarca = !marca || car.marca === marca;
+        const matchNota = !nota || car.nota_geral >= parseInt(nota);
+        return matchSearch && matchMarca && matchNota;
       });
 
-      // Update active filter chips
-      atualizarChipsFiltros();
-
-      // Reset to first page
       currentPage = 1;
-
-      // Apply sort
-      aplicarOrdenacao();
-
-      // Render
-      renderizarCarros();
+      applySort();
+      render();
     }
 
-    function limparFiltros() {
+    // Clear Filters
+    function clearFilters() {
       document.getElementById('searchInput').value = '';
       document.getElementById('filterMarca').value = '';
       document.getElementById('filterNota').value = '';
-      document.getElementById('priceMin').value = '';
-      document.getElementById('priceMax').value = '';
-      document.getElementById('yearMin').value = '';
-      document.getElementById('yearMax').value = '';
-      document.getElementById('filterCombustivel').value = '';
-      document.getElementById('filterTransmissao').value = '';
-
-      activeFilters = {};
-      carrosFiltrados = [...todosCarros];
+      filteredCars = [...allCars];
       currentPage = 1;
-
-      atualizarChipsFiltros();
-      aplicarOrdenacao();
-      renderizarCarros();
+      applySort();
+      render();
     }
 
-    function atualizarChipsFiltros() {
-      const container = document.getElementById('activeFiltersChips');
-      const chips = Object.entries(activeFilters).map(([key, value]) => `
-        <div class="filter-chip">
-          <span>${value}</span>
-          <span class="chip-remove" onclick="removerFiltro('${key}')">
-            <i class="bi bi-x"></i>
-          </span>
-        </div>
-      `).join('');
-
-      if (chips) {
-        container.innerHTML = chips;
-        container.style.display = 'flex';
-      } else {
-        container.style.display = 'none';
+    // Sort
+    function applySort() {
+      switch (sortBy) {
+        case 'newest': filteredCars.sort((a, b) => b.id - a.id); break;
+        case 'oldest': filteredCars.sort((a, b) => a.id - b.id); break;
+        case 'price-high': filteredCars.sort((a, b) => b.preco_estimado - a.preco_estimado); break;
+        case 'price-low': filteredCars.sort((a, b) => a.preco_estimado - b.preco_estimado); break;
+        case 'rating-high': filteredCars.sort((a, b) => b.nota_geral - a.nota_geral); break;
       }
     }
 
-    function removerFiltro(filterKey) {
-      // Clear specific filter
-      const filterMap = {
-        marca: 'filterMarca',
-        nota: 'filterNota',
-        preco: ['priceMin', 'priceMax'],
-        ano: ['yearMin', 'yearMax'],
-        combustivel: 'filterCombustivel',
-        transmissao: 'filterTransmissao'
-      };
-
-      const elementId = filterMap[filterKey];
-      if (Array.isArray(elementId)) {
-        elementId.forEach(id => document.getElementById(id).value = '');
-      } else {
-        document.getElementById(elementId).value = '';
-      }
-
-      aplicarFiltros();
-    }
-
-    // ========================================
-    // SORTING
-    // ========================================
-    function aplicarOrdenacao() {
-      switch (currentSort) {
-        case 'newest':
-          carrosFiltrados.sort((a, b) => b.id - a.id);
-          break;
-        case 'oldest':
-          carrosFiltrados.sort((a, b) => a.id - b.id);
-          break;
-        case 'price-high':
-          carrosFiltrados.sort((a, b) => b.preco_estimado - a.preco_estimado);
-          break;
-        case 'price-low':
-          carrosFiltrados.sort((a, b) => a.preco_estimado - b.preco_estimado);
-          break;
-        case 'rating-high':
-          carrosFiltrados.sort((a, b) => b.nota_geral - a.nota_geral);
-          break;
-        case 'rating-low':
-          carrosFiltrados.sort((a, b) => a.nota_geral - b.nota_geral);
-          break;
-      }
-    }
-
-    // ========================================
-    // RENDER CARS
-    // ========================================
-    function renderizarCarros() {
-      const container = document.getElementById('carrosContainer');
+    // Render
+    function render() {
+      const container = document.getElementById('carsContainer');
       const resultCount = document.getElementById('resultCount');
 
-      if (carrosFiltrados.length === 0) {
-        mostrarEstadoVazio('Nenhum resultado encontrado', 'Tente ajustar os filtros de busca.');
-        resultCount.textContent = '0 resultados';
+      if (!filteredCars.length) {
+        showEmpty('Nenhum resultado', 'Tente ajustar os filtros.');
+        resultCount.textContent = '';
         document.getElementById('paginationContainer').style.display = 'none';
         return;
       }
 
-      // Pagination
-      const totalPages = Math.ceil(carrosFiltrados.length / itemsPerPage);
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const carrosPagina = carrosFiltrados.slice(startIndex, endIndex);
+      resultCount.textContent = `(${filteredCars.length})`;
 
-      // Update result count
-      resultCount.textContent = `${carrosFiltrados.length} ${carrosFiltrados.length === 1 ? 'resultado' : 'resultados'}`;
+      const totalPages = Math.ceil(filteredCars.length / perPage);
+      const start = (currentPage - 1) * perPage;
+      const pageCars = filteredCars.slice(start, start + perPage);
 
-      // Render car cards
-      container.innerHTML = carrosPagina.map(carro => criarCardCarro(carro)).join('');
-
-      // Render pagination
-      renderizarPaginacao(totalPages);
-
-      // Smooth scroll to top of results
-      if (currentPage > 1) {
-        document.querySelector('.toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      container.innerHTML = pageCars.map(car => createCard(car)).join('');
+      renderPagination(totalPages);
     }
 
-    function criarCardCarro(carro) {
-      const badgeColor = carro.nota_geral >= 9 ? 'success' : carro.nota_geral >= 7 ? 'warning' : 'danger';
-
+    // Create Card
+    function createCard(car) {
+      const badgeClass = car.nota_geral >= 9 ? 'excellent' : car.nota_geral >= 7 ? 'good' : '';
       return `
-        <div class="col">
-          <div class="car-card">
-            <div class="car-card-image-wrapper">
-              <img src="${carro.imagem_url || 'https://via.placeholder.com/600x400?text=Sem+Imagem'}"
-                   class="car-card-image"
-                   alt="${carro.modelo}"
-                   loading="lazy">
-              <span class="car-card-badge bg-${badgeColor}">
-                ${carro.nota_geral}/10
-              </span>
-              <button class="car-card-favorite"
-                      data-favorite-id="${carro.id}"
-                      onclick="Favorites.handleToggle(${carro.id}, this)"
-                      aria-label="Adicionar aos favoritos">
-                <i class="bi bi-heart"></i>
-              </button>
-            </div>
-            <div class="car-card-body">
-              <h3 class="car-card-title">${carro.titulo}</h3>
-              <div class="car-card-meta">
-                <span class="car-card-meta-item">
-                  <i class="bi bi-tag-fill"></i>
-                  ${carro.marca} ${carro.modelo}
-                </span>
-                <span class="car-card-meta-item">
-                  <i class="bi bi-calendar3"></i>
-                  ${carro.ano}
-                </span>
-              </div>
-              <div class="car-card-price">
-                <i class="bi bi-cash me-2"></i>${Format.currency(carro.preco_estimado)}
-              </div>
-              <p class="car-card-description">${carro.descricao.substring(0, 120)}${carro.descricao.length > 120 ? '...' : ''}</p>
-              <a href="/detalhe.html?id=${carro.id}" class="car-card-button">
-                <i class="bi bi-eye-fill"></i>
-                <span>Ver Análise Completa</span>
-              </a>
-            </div>
+        <article class="car-card">
+          <div class="car-card-image">
+            <img src="${car.imagem_url || 'https://via.placeholder.com/600x400?text=Sem+Imagem'}"
+                 alt="${car.modelo}" loading="lazy">
+            <span class="car-card-badge ${badgeClass}">${car.nota_geral}/10</span>
+            <button class="car-card-favorite" onclick="Favorites.handleToggle(${car.id}, this)" aria-label="Favoritar">
+              <i class="bi bi-heart"></i>
+            </button>
           </div>
-        </div>
+          <div class="car-card-body">
+            <h3 class="car-card-title">${car.titulo}</h3>
+            <div class="car-card-meta">
+              <span><i class="bi bi-tag"></i> ${car.marca}</span>
+              <span><i class="bi bi-calendar3"></i> ${car.ano}</span>
+            </div>
+            <div class="car-card-price">${Format.currency(car.preco_estimado)}</div>
+            <p class="car-card-desc">${car.descricao.substring(0, 100)}${car.descricao.length > 100 ? '...' : ''}</p>
+            <a href="/detalhe.html?id=${car.id}" class="car-card-action">
+              <i class="bi bi-eye"></i> Ver Análise
+            </a>
+          </div>
+        </article>
       `;
     }
 
-    // ========================================
-    // PAGINATION
-    // ========================================
-    function renderizarPaginacao(totalPages) {
-      const paginationContainer = document.getElementById('paginationContainer');
-      const paginationButtons = document.getElementById('paginationButtons');
-      const paginationInfo = document.getElementById('paginationInfo');
+    // Pagination
+    function renderPagination(totalPages) {
+      const container = document.getElementById('paginationContainer');
+      const info = document.getElementById('paginationInfo');
+      const buttons = document.getElementById('paginationButtons');
 
       if (totalPages <= 1) {
-        paginationContainer.style.display = 'none';
+        container.style.display = 'none';
         return;
       }
 
-      paginationContainer.style.display = 'flex';
+      container.style.display = 'flex';
+      const start = (currentPage - 1) * perPage + 1;
+      const end = Math.min(currentPage * perPage, filteredCars.length);
+      info.textContent = `${start}-${end} de ${filteredCars.length}`;
 
-      // Pagination info
-      const startItem = (currentPage - 1) * itemsPerPage + 1;
-      const endItem = Math.min(currentPage * itemsPerPage, carrosFiltrados.length);
-      paginationInfo.textContent = `Mostrando ${startItem}-${endItem} de ${carrosFiltrados.length}`;
+      let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+        <i class="bi bi-chevron-left"></i>
+      </button>`;
 
-      // Generate pagination buttons
-      let buttons = '';
-
-      // Previous button
-      buttons += `
-        <button class="pagination-button" onclick="mudarPagina(${currentPage - 1})"
-                ${currentPage === 1 ? 'disabled' : ''}>
-          <i class="bi bi-chevron-left"></i>
-        </button>
-      `;
-
-      // Page numbers
-      const maxButtons = 5;
-      let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-      let endPage = Math.min(totalPages, startPage + maxButtons - 1);
-
-      if (endPage - startPage < maxButtons - 1) {
-        startPage = Math.max(1, endPage - maxButtons + 1);
-      }
-
-      if (startPage > 1) {
-        buttons += `<button class="pagination-button" onclick="mudarPagina(1)">1</button>`;
-        if (startPage > 2) {
-          buttons += `<span class="pagination-button" disabled>...</span>`;
-        }
-      }
+      const maxBtns = 5;
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + maxBtns - 1);
+      if (endPage - startPage < maxBtns - 1) startPage = Math.max(1, endPage - maxBtns + 1);
 
       for (let i = startPage; i <= endPage; i++) {
-        buttons += `
-          <button class="pagination-button ${i === currentPage ? 'active' : ''}"
-                  onclick="mudarPagina(${i})">
-            ${i}
-          </button>
-        `;
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
       }
 
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-          buttons += `<span class="pagination-button" disabled>...</span>`;
-        }
-        buttons += `<button class="pagination-button" onclick="mudarPagina(${totalPages})">${totalPages}</button>`;
-      }
+      html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+        <i class="bi bi-chevron-right"></i>
+      </button>`;
 
-      // Next button
-      buttons += `
-        <button class="pagination-button" onclick="mudarPagina(${currentPage + 1})"
-                ${currentPage === totalPages ? 'disabled' : ''}>
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      `;
-
-      paginationButtons.innerHTML = buttons;
+      buttons.innerHTML = html;
     }
 
-    function mudarPagina(page) {
-      if (page < 1 || page > Math.ceil(carrosFiltrados.length / itemsPerPage)) return;
+    function goToPage(page) {
+      const totalPages = Math.ceil(filteredCars.length / perPage);
+      if (page < 1 || page > totalPages) return;
       currentPage = page;
-      renderizarCarros();
+      render();
+      document.querySelector('.section-header').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ========================================
-    // STATISTICS
-    // ========================================
-    function atualizarEstatisticas() {
-      const total = todosCarros.length;
-      const notaMedia = (todosCarros.reduce((acc, c) => acc + c.nota_geral, 0) / total).toFixed(1);
-      const marcasUnicas = new Set(todosCarros.map(c => c.marca)).size;
+    // Stats
+    function updateStats() {
+      const total = allCars.length;
+      const avg = (allCars.reduce((s, c) => s + c.nota_geral, 0) / total).toFixed(1);
+      const marcas = new Set(allCars.map(c => c.marca)).size;
 
-      // Animate numbers
-      animarNumero('totalCarros', 0, total, 1500);
-      animarNumero('notaMedia', 0, notaMedia, 1500);
-      animarNumero('marcasTotal', 0, marcasUnicas, 1500);
+      animateNumber('totalCarros', total);
+      animateNumber('notaMedia', avg);
+      animateNumber('marcasTotal', marcas);
     }
 
-    function animarNumero(elementId, start, end, duration) {
-      const element = document.getElementById(elementId);
-      const range = end - start;
-      const increment = range / (duration / 16);
-      let current = start;
+    function animateNumber(id, target) {
+      const el = document.getElementById(id);
+      const duration = 1000;
+      const step = target / (duration / 16);
+      let current = 0;
 
       const timer = setInterval(() => {
-        current += increment;
-        if (current >= end) {
-          element.textContent = end;
+        current += step;
+        if (current >= target) {
+          el.textContent = target;
           clearInterval(timer);
         } else {
-          element.textContent = Math.floor(current);
+          el.textContent = Math.floor(current);
         }
       }, 16);
     }
 
-    // ========================================
-    // SKELETON LOADING
-    // ========================================
-    function mostrarSkeletonLoading() {
-      const container = document.getElementById('carrosContainer');
-      const skeletons = Array(9).fill(0).map(() => `
-        <div class="col">
-          <div class="skeleton-card">
-            <div class="skeleton skeleton-image"></div>
-            <div style="padding: var(--space-6);">
-              <div class="skeleton skeleton-title"></div>
-              <div class="skeleton skeleton-text" style="width: 60%;"></div>
-              <div class="skeleton skeleton-text" style="width: 40%;"></div>
-              <div class="skeleton skeleton-text"></div>
-              <div class="skeleton skeleton-text" style="width: 80%;"></div>
-              <div style="margin-top: var(--space-4);">
-                <div class="skeleton skeleton-button"></div>
-              </div>
-            </div>
+    // Skeleton
+    function showSkeleton() {
+      const container = document.getElementById('carsContainer');
+      container.innerHTML = Array(6).fill(0).map(() => `
+        <div class="car-card">
+          <div class="skeleton" style="aspect-ratio: 16/10;"></div>
+          <div style="padding: var(--space-5);">
+            <div class="skeleton" style="height: 24px; width: 70%; margin-bottom: var(--space-3);"></div>
+            <div class="skeleton" style="height: 16px; width: 50%; margin-bottom: var(--space-3);"></div>
+            <div class="skeleton" style="height: 20px; width: 40%; margin-bottom: var(--space-3);"></div>
+            <div class="skeleton" style="height: 40px; margin-top: var(--space-4);"></div>
           </div>
         </div>
       `).join('');
-
-      container.innerHTML = skeletons;
     }
 
-    // ========================================
-    // EMPTY STATE
-    // ========================================
-    function mostrarEstadoVazio(titulo, descricao, icon = 'search') {
-      const container = document.getElementById('carrosContainer');
-      container.innerHTML = `
-        <div class="col-12">
-          <div class="empty-state">
-            <div class="empty-state-icon">
-              <i class="bi bi-${icon}"></i>
-            </div>
-            <h3 class="empty-state-title">${titulo}</h3>
-            <p class="empty-state-description">${descricao}</p>
-          </div>
+    // Empty State
+    function showEmpty(title, desc) {
+      document.getElementById('carsContainer').innerHTML = `
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-state-icon"><i class="bi bi-search"></i></div>
+          <h3 class="empty-state-title">${title}</h3>
+          <p class="empty-state-desc">${desc}</p>
         </div>
       `;
     }
 
-    // ========================================
-    // UTILITY: DEBOUNCE
-    // ========================================
-    function debounce(func, wait) {
+    // Debounce
+    function debounce(fn, wait) {
       let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
+      return (...args) => {
         clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        timeout = setTimeout(() => fn(...args), wait);
       };
     }
   </script>

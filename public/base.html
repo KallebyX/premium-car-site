@@ -1,785 +1,297 @@
-<!-- Header Moderno e Profissional -->
-<header class="premium-header" role="banner">
-  <nav class="container" aria-label="Navegação principal">
-    <div class="header-content">
-      <!-- Logo -->
-      <div class="header-logo">
-        <a href="/" class="logo-link" aria-label="Premium Car - Ir para página inicial">
-          <div class="logo-icon">
-            <i class="bi bi-car-front-fill" aria-hidden="true"></i>
-          </div>
-          <div class="logo-text">
-            <span class="logo-main">Premium Car</span>
-            <span class="logo-tagline">Avaliações Automotivas</span>
-          </div>
-        </a>
+<!-- Header - Apple-inspired Glassmorphism -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <!-- Logo -->
+    <a href="/" class="header-logo" aria-label="Premium Car - Ir para a p\u00e1gina inicial">
+      <div class="logo-icon">
+        <i class="bi bi-car-front-fill" aria-hidden="true"></i>
       </div>
+      <span class="logo-text">Premium Car</span>
+    </a>
 
-      <!-- Navigation Desktop -->
-      <ul class="header-nav" role="menubar">
-        <li role="none">
-          <a href="/" class="nav-link" role="menuitem">
-            <i class="bi bi-house-door" aria-hidden="true"></i>
-            <span>Home</span>
-          </a>
-        </li>
-        <li role="none">
-          <a href="/sobre-nos.html" class="nav-link" role="menuitem">
-            <i class="bi bi-info-circle" aria-hidden="true"></i>
-            <span>Sobre</span>
-          </a>
-        </li>
-        <li role="none">
-          <a href="/parcerias.html" class="nav-link" role="menuitem">
-            <i class="bi bi-handshake" aria-hidden="true"></i>
-            <span>Parcerias</span>
-          </a>
-        </li>
-        <li role="none">
-          <a href="/fale-conosco.html" class="nav-link" role="menuitem">
-            <i class="bi bi-envelope" aria-hidden="true"></i>
-            <span>Contato</span>
-          </a>
-        </li>
-      </ul>
+    <!-- Navigation Desktop -->
+    <nav class="header-nav" role="navigation" aria-label="Navega\u00e7\u00e3o principal">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/sobre-nos.html" class="nav-link">Sobre</a>
+      <a href="/parcerias.html" class="nav-link">Parcerias</a>
+      <a href="/fale-conosco.html" class="nav-link">Contato</a>
+    </nav>
 
-      <!-- Actions -->
-      <div class="header-actions">
-        <!-- Dark Mode Toggle -->
-        <button
-          id="darkModeToggle"
-          class="btn-icon"
-          aria-label="Alternar tema escuro"
-          title="Alternar tema escuro">
-          <i class="bi bi-moon-stars" aria-hidden="true"></i>
-        </button>
+    <!-- Actions -->
+    <div class="header-actions">
+      <!-- Dark Mode Toggle -->
+      <button id="themeToggle" class="header-btn" aria-label="Alternar tema" title="Alternar tema">
+        <i class="bi bi-moon-fill" aria-hidden="true"></i>
+      </button>
 
-        <!-- Favorites Button -->
-        <a href="/favoritos.html" class="btn-icon favorites-link" aria-label="Meus favoritos" title="Meus favoritos">
-          <i class="bi bi-heart" aria-hidden="true"></i>
-          <span class="favorites-counter" style="display: none;">0</span>
-        </a>
+      <!-- Favorites -->
+      <a href="/favoritos.html" class="header-btn" aria-label="Favoritos" title="Favoritos">
+        <i class="bi bi-heart" aria-hidden="true"></i>
+      </a>
 
-        <!-- Auth Buttons -->
-        <div id="loginBtn" class="auth-button" style="display: none;">
-          <a href="/login.html" class="btn btn-primary" id="loginButton">
-            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
-            <span>Login</span>
-          </a>
-        </div>
+      <!-- Auth Buttons -->
+      <div id="authButtons" class="header-auth"></div>
 
-        <div id="adminBtn" class="auth-button" style="display: none;">
-          <a href="/src/admin/painel.html" class="btn btn-success" id="adminButton">
-            <i class="bi bi-speedometer2" aria-hidden="true"></i>
-            <span>Admin</span>
-          </a>
-        </div>
-
-        <div id="logoutBtn" class="auth-button" style="display: none;">
-          <button class="btn btn-danger" id="logoutButton" aria-label="Sair da conta">
-            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-            <span>Sair</span>
-          </button>
-        </div>
-
-        <!-- Mobile Menu Toggle -->
-        <button
-          class="btn-mobile-menu d-lg-none"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#mobileMenu"
-          aria-controls="mobileMenu"
-          aria-label="Abrir menu de navegação">
-          <span class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
-      </div>
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-  </nav>
+  </div>
 </header>
 
-<!-- Estilos do Header -->
-<style>
-.premium-header {
-  background: var(--header-bg);
-  box-shadow: var(--shadow-lg);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--header-border);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-4) 0;
-  gap: var(--space-6);
-}
-
-/* Logo */
-.header-logo {
-  flex-shrink: 0;
-}
-
-.logo-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  text-decoration: none;
-  color: var(--header-text);
-  transition: var(--transition-base);
-}
-
-.logo-link:hover {
-  color: var(--header-text);
-  transform: translateY(-1px);
-}
-
-.logo-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  color: white;
-  box-shadow: var(--shadow-primary);
-  transition: var(--transition-base);
-}
-
-.logo-link:hover .logo-icon {
-  transform: rotate(-5deg) scale(1.05);
-  box-shadow: var(--shadow-lg);
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-main {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-extrabold);
-  letter-spacing: var(--letter-spacing-tight);
-  line-height: 1;
-  margin-bottom: 2px;
-}
-
-.logo-tagline {
-  font-size: var(--font-size-xs);
-  color: var(--header-text-muted);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-}
-
-/* Navigation */
-.header-nav {
-  display: none;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: var(--space-2);
-  flex: 1;
-  justify-content: center;
-}
-
-@media (min-width: 992px) {
-  .header-nav {
-    display: flex;
-  }
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  color: var(--footer-text);
-  text-decoration: none;
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-  border-radius: var(--radius-lg);
-  transition: var(--transition-base);
-  position: relative;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--color-primary-600);
-  transition: var(--transition-base);
-  transform: translateX(-50%);
-}
-
-.nav-link:hover {
-  color: var(--header-text);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-link:hover::before {
-  width: 80%;
-}
-
-.nav-link i {
-  font-size: 18px;
-}
-
-/* Actions */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-shrink: 0;
-}
-
-.btn-icon {
-  width: 44px;
-  height: 44px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-lg);
-  color: var(--header-text);
-  font-size: 18px;
-  transition: var(--transition-base);
-  cursor: pointer;
-}
-
-@media (min-width: 992px) {
-  .btn-icon {
-    display: flex;
-  }
-}
-
-.btn-icon:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-/* Favorites Counter Badge */
-.favorites-link {
-  position: relative;
-  text-decoration: none;
-}
-
-.favorites-counter {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 20px;
-  height: 20px;
-  background: linear-gradient(135deg, var(--color-danger-600), var(--color-danger-700));
-  color: white;
-  font-size: 11px;
-  font-weight: var(--font-weight-bold);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
-  animation: scaleIn 0.3s ease;
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-.auth-button .btn {
-  min-height: 44px;
-  display: none;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-lg);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  transition: var(--transition-base);
-  border: none;
-}
-
-@media (min-width: 576px) {
-  .auth-button .btn {
-    display: inline-flex;
-  }
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  color: white;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-primary);
-}
-
-.btn-success {
-  background: linear-gradient(135deg, var(--color-success-600) 0%, var(--color-success-700) 100%);
-  color: white;
-}
-
-.btn-success:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-success);
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, var(--color-danger-600) 0%, var(--color-danger-700) 100%);
-  color: white;
-}
-
-.btn-danger:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-danger);
-}
-
-/* Mobile Menu Button */
-.btn-mobile-menu {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--header-border);
-  border-radius: var(--radius-lg);
-  padding: 0;
-  cursor: pointer;
-  transition: var(--transition-base);
-}
-
-.btn-mobile-menu:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-.menu-icon {
-  width: 20px;
-  height: 14px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.menu-icon span {
-  width: 100%;
-  height: 2px;
-  background: var(--header-text);
-  border-radius: 2px;
-  transition: var(--transition-base);
-}
-
-.btn-mobile-menu:hover .menu-icon span:nth-child(1) {
-  transform: translateX(-3px);
-}
-
-.btn-mobile-menu:hover .menu-icon span:nth-child(3) {
-  transform: translateX(3px);
-}
-
-/* Responsive */
-@media (max-width: 991px) {
-  .logo-main {
-    font-size: var(--font-size-lg);
-  }
-
-  .logo-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 576px) {
-  .header-content {
-    padding: var(--space-3) 0;
-    gap: var(--space-3);
-  }
-
-  .logo-tagline {
-    display: none;
-  }
-
-  .logo-main {
-    font-size: var(--font-size-md);
-  }
-
-  .logo-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-
-  .auth-button .btn span {
-    display: none;
-  }
-
-  .auth-button .btn {
-    min-width: 44px;
-    padding: var(--space-3);
-  }
-}
-</style>
-
-<!-- Offcanvas Menu Mobile Moderno -->
-<div class="offcanvas offcanvas-end premium-mobile-menu" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-  <div class="offcanvas-header">
-    <div class="offcanvas-logo">
-      <div class="logo-icon-mobile">
-        <i class="bi bi-car-front-fill"></i>
-      </div>
-      <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
-    </div>
-    <button
-      type="button"
-      class="btn-close-mobile"
-      data-bs-dismiss="offcanvas"
-      aria-label="Fechar menu">
-      <i class="bi bi-x-lg"></i>
-    </button>
-  </div>
-
-  <div class="offcanvas-body">
-    <nav class="mobile-nav" aria-label="Navegação mobile">
-      <a href="/" class="mobile-nav-link" role="menuitem">
-        <div class="nav-link-icon">
-          <i class="bi bi-house-door"></i>
-        </div>
-        <div class="nav-link-content">
-          <span class="nav-link-title">Home</span>
-          <span class="nav-link-desc">Página inicial</span>
-        </div>
-        <i class="bi bi-chevron-right nav-link-arrow"></i>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navega\u00e7\u00e3o">
+  <div class="mobile-menu-inner">
+    <nav class="mobile-nav" role="navigation">
+      <a href="/" class="mobile-nav-link">
+        <i class="bi bi-house" aria-hidden="true"></i>
+        <span>Home</span>
       </a>
-
-      <a href="/sobre-nos.html" class="mobile-nav-link" role="menuitem">
-        <div class="nav-link-icon">
-          <i class="bi bi-info-circle"></i>
-        </div>
-        <div class="nav-link-content">
-          <span class="nav-link-title">Sobre Nós</span>
-          <span class="nav-link-desc">Conheça nossa história</span>
-        </div>
-        <i class="bi bi-chevron-right nav-link-arrow"></i>
+      <a href="/sobre-nos.html" class="mobile-nav-link">
+        <i class="bi bi-info-circle" aria-hidden="true"></i>
+        <span>Sobre N\u00f3s</span>
       </a>
-
-      <a href="/parcerias.html" class="mobile-nav-link" role="menuitem">
-        <div class="nav-link-icon">
-          <i class="bi bi-handshake"></i>
-        </div>
-        <div class="nav-link-content">
-          <span class="nav-link-title">Parcerias</span>
-          <span class="nav-link-desc">Seja nosso parceiro</span>
-        </div>
-        <i class="bi bi-chevron-right nav-link-arrow"></i>
+      <a href="/parcerias.html" class="mobile-nav-link">
+        <i class="bi bi-handshake" aria-hidden="true"></i>
+        <span>Parcerias</span>
       </a>
-
-      <a href="/fale-conosco.html" class="mobile-nav-link" role="menuitem">
-        <div class="nav-link-icon">
-          <i class="bi bi-envelope"></i>
-        </div>
-        <div class="nav-link-content">
-          <span class="nav-link-title">Fale Conosco</span>
-          <span class="nav-link-desc">Entre em contato</span>
-        </div>
-        <i class="bi bi-chevron-right nav-link-arrow"></i>
+      <a href="/fale-conosco.html" class="mobile-nav-link">
+        <i class="bi bi-envelope" aria-hidden="true"></i>
+        <span>Contato</span>
+      </a>
+      <a href="/favoritos.html" class="mobile-nav-link">
+        <i class="bi bi-heart" aria-hidden="true"></i>
+        <span>Favoritos</span>
       </a>
     </nav>
 
     <div class="mobile-menu-divider"></div>
 
-    <div id="auth-buttons-mobile" class="mobile-auth-buttons"></div>
+    <!-- Mobile Auth -->
+    <div id="mobileAuthButtons" class="mobile-auth"></div>
 
-    <div class="mobile-menu-footer">
-      <p class="text-muted mb-2">Tema</p>
-      <button id="darkModeToggleMobile" class="btn-theme-toggle">
-        <i class="bi bi-moon-stars"></i>
+    <div class="mobile-menu-divider"></div>
+
+    <!-- Theme Toggle -->
+    <button class="mobile-theme-toggle" id="mobileThemeToggle">
+      <span class="mobile-theme-toggle-label">
+        <i class="bi bi-moon-fill" aria-hidden="true"></i>
         <span>Modo Escuro</span>
-        <div class="toggle-switch">
-          <div class="toggle-thumb"></div>
-        </div>
-      </button>
-    </div>
+      </span>
+      <div class="toggle-switch"></div>
+    </button>
   </div>
 </div>
 
-<!-- Estilos do Menu Mobile -->
-<style>
-.premium-mobile-menu {
-  width: 320px;
-  background: var(--mobile-menu-bg);
-}
+<!-- Footer - Minimal & Elegant -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="bi bi-car-front-fill" aria-hidden="true"></i>
+            </div>
+            <span class="footer-logo-text">Premium Car</span>
+          </div>
+          <p class="footer-description">
+            Avalia\u00e7\u00f5es automotivas com credibilidade e transpar\u00eancia.
+            Ajudamos voc\u00ea a fazer a melhor escolha para seu pr\u00f3ximo ve\u00edculo.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+              <i class="bi bi-youtube" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/5555999837425" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">
+              <i class="bi bi-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
 
-.premium-mobile-menu .offcanvas-header {
-  background: var(--mobile-menu-header-bg);
-  padding: var(--space-6) var(--space-5);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--header-border);
-}
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h4>Links R\u00e1pidos</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/sobre-nos.html">Sobre N\u00f3s</a></li>
+            <li><a href="/parcerias.html">Parcerias</a></li>
+            <li><a href="/fale-conosco.html">Contato</a></li>
+          </ul>
+        </div>
 
-.offcanvas-logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
+        <!-- Resources -->
+        <div class="footer-section">
+          <h4>Recursos</h4>
+          <ul class="footer-links">
+            <li><a href="/">Avalia\u00e7\u00f5es</a></li>
+            <li><a href="/favoritos.html">Favoritos</a></li>
+            <li><a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank">V\u00eddeos</a></li>
+          </ul>
+        </div>
 
-.logo-icon-mobile {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--header-text);
-  font-size: 20px;
-  box-shadow: var(--shadow-primary);
-}
+        <!-- Contact -->
+        <div class="footer-section">
+          <h4>Contato</h4>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt" aria-hidden="true"></i>
+            <span>Ca\u00e7apava do Sul, RS - Brasil</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope" aria-hidden="true"></i>
+            <a href="mailto:goncalvesmarquesmoises@gmail.com">goncalvesmarquesmoises@gmail.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+            <a href="https://wa.me/5555999837425">(55) 99983-7425</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-.offcanvas-title {
-  margin: 0;
-  color: var(--header-text);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-}
-
-.btn-close-mobile {
-  width: 36px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--header-border);
-  border-radius: var(--radius-lg);
-  color: var(--header-text);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition-base);
-}
-
-.btn-close-mobile:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: rotate(90deg);
-}
-
-.premium-mobile-menu .offcanvas-body {
-  padding: var(--space-5);
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.mobile-nav-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  background: white;
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: var(--transition-base);
-  box-shadow: var(--shadow-sm);
-  min-height: 72px;
-}
-
-.mobile-nav-link:hover {
-  transform: translateX(4px);
-  box-shadow: var(--shadow-md);
-  background: var(--color-primary-50);
-  color: var(--color-primary-700);
-}
-
-.nav-link-icon {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--color-neutral-100) 0%, var(--color-neutral-200) 100%);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: var(--color-neutral-700);
-  flex-shrink: 0;
-  transition: var(--transition-base);
-}
-
-.mobile-nav-link:hover .nav-link-icon {
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  color: white;
-  transform: scale(1.1);
-}
-
-.nav-link-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-link-title {
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-base);
-  margin-bottom: 2px;
-}
-
-.nav-link-desc {
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-}
-
-.nav-link-arrow {
-  color: var(--color-neutral-400);
-  font-size: 14px;
-  transition: var(--transition-base);
-}
-
-.mobile-nav-link:hover .nav-link-arrow {
-  color: var(--color-primary-600);
-  transform: translateX(4px);
-}
-
-.mobile-menu-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--color-neutral-300) 50%, transparent 100%);
-  margin: var(--space-5) 0;
-}
-
-.mobile-auth-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.mobile-auth-buttons .btn {
-  width: 100%;
-  min-height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  border-radius: var(--radius-lg);
-  font-weight: var(--font-weight-semibold);
-  border: none;
-  transition: var(--transition-base);
-}
-
-.mobile-menu-footer {
-  margin-top: auto;
-  padding-top: var(--space-5);
-}
-
-.btn-theme-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  background: white;
-  border: 2px solid var(--color-neutral-200);
-  border-radius: var(--radius-lg);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: var(--transition-base);
-}
-
-.btn-theme-toggle:hover {
-  border-color: var(--color-primary-600);
-  background: var(--color-primary-50);
-}
-
-.btn-theme-toggle i {
-  font-size: 20px;
-}
-
-.toggle-switch {
-  margin-left: auto;
-  width: 48px;
-  height: 26px;
-  background: var(--color-neutral-300);
-  border-radius: 13px;
-  position: relative;
-  transition: var(--transition-base);
-}
-
-.toggle-thumb {
-  width: 22px;
-  height: 22px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: var(--transition-base);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-theme-toggle.active .toggle-switch {
-  background: var(--color-primary-600);
-}
-
-.btn-theme-toggle.active .toggle-thumb {
-  transform: translateX(22px);
-}
-</style>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom-inner">
+        <p class="footer-copyright">
+          2024-2025 <strong>Premium Car</strong>. Todos os direitos reservados.
+        </p>
+        <div class="footer-credits">
+          <i class="bi bi-heart-fill" aria-hidden="true"></i>
+          <span>Feito com paix\u00e3o por carros</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-// Sistema de autenticação para header e menu mobile
 (function() {
-  // Atualiza UI de autenticação após DOM carregar
+  // Theme Toggle
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeIcon(theme);
+  }
+
+  function updateThemeIcon(theme) {
+    const icon = theme === 'dark' ? 'bi-sun-fill' : 'bi-moon-fill';
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+
+    if (themeToggle) {
+      themeToggle.querySelector('i').className = `bi ${icon}`;
+    }
+    if (mobileThemeToggle) {
+      mobileThemeToggle.querySelector('i').className = `bi ${icon}`;
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+  }
+
+  // Mobile Menu
+  function initMobileMenu() {
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = menu.classList.contains('active');
+      btn.classList.toggle('active');
+      menu.classList.toggle('active');
+      btn.setAttribute('aria-expanded', !isOpen);
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    });
+
+    // Close on link click
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        btn.classList.remove('active');
+        menu.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('active')) {
+        btn.classList.remove('active');
+        menu.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // Header Scroll Effect
+  function initScrollEffect() {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      lastScroll = currentScroll;
+    }, { passive: true });
+  }
+
+  // Auth UI
   function updateAuthUI() {
     const token = localStorage.getItem('token');
-    const authButtonsMobile = document.getElementById('auth-buttons-mobile');
+    const authButtons = document.getElementById('authButtons');
+    const mobileAuthButtons = document.getElementById('mobileAuthButtons');
 
     if (token) {
-      // Usuário autenticado
-      if (authButtonsMobile) {
-        authButtonsMobile.innerHTML = `
-          <a href="/src/admin/painel.html" class="btn btn-success">
+      // Logged in
+      if (authButtons) {
+        authButtons.innerHTML = `
+          <a href="/src/admin/painel.html" class="btn btn-sm btn-primary">Admin</a>
+        `;
+      }
+      if (mobileAuthButtons) {
+        mobileAuthButtons.innerHTML = `
+          <a href="/src/admin/painel.html" class="mobile-nav-link">
             <i class="bi bi-speedometer2"></i>
             <span>Painel Admin</span>
           </a>
-          <button onclick="handleLogout()" class="btn btn-danger">
+          <button onclick="handleLogout()" class="mobile-nav-link" style="width: 100%; border: none; background: none; cursor: pointer;">
             <i class="bi bi-box-arrow-right"></i>
             <span>Sair</span>
           </button>
         `;
       }
     } else {
-      // Usuário não autenticado
-      if (authButtonsMobile) {
-        authButtonsMobile.innerHTML = `
-          <a href="/login.html" class="btn btn-primary">
+      // Logged out
+      if (authButtons) {
+        authButtons.innerHTML = `
+          <a href="/login.html" class="btn btn-sm btn-ghost">Login</a>
+        `;
+      }
+      if (mobileAuthButtons) {
+        mobileAuthButtons.innerHTML = `
+          <a href="/login.html" class="mobile-nav-link">
             <i class="bi bi-box-arrow-in-right"></i>
             <span>Login Admin</span>
           </a>
@@ -788,692 +300,43 @@
     }
   }
 
-  // Chama atualização quando DOM estiver pronto
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateAuthUI);
-  } else {
-    updateAuthUI();
-  }
-})();
-
-// Função de logout
-function handleLogout() {
-  if (confirm('Deseja realmente sair?')) {
-    localStorage.removeItem('token');
-    window.location.href = '/login.html';
-  }
-}
-
-// Dark Mode Toggle (implementação básica)
-document.addEventListener('DOMContentLoaded', () => {
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
-  const currentTheme = localStorage.getItem('theme') || 'light';
-
-  // Aplica tema salvo
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  if (currentTheme === 'dark') {
-    darkModeToggleMobile?.classList.add('active');
-  }
-
-  // Toggle dark mode
-  function toggleDarkMode() {
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-
-    if (theme === 'dark') {
-      darkModeToggleMobile?.classList.add('active');
-      if (darkModeToggle) darkModeToggle.querySelector('i').className = 'bi bi-sun';
-    } else {
-      darkModeToggleMobile?.classList.remove('active');
-      if (darkModeToggle) darkModeToggle.querySelector('i').className = 'bi bi-moon-stars';
-    }
-  }
-
-  darkModeToggle?.addEventListener('click', toggleDarkMode);
-  darkModeToggleMobile?.addEventListener('click', toggleDarkMode);
-});
-</script>
-
-<!-- Footer Moderno e Profissional -->
-<footer class="premium-footer" role="contentinfo">
-  <div class="footer-wave">
-    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-    </svg>
-  </div>
-
-  <div class="footer-content">
-    <div class="container">
-      <div class="row g-5">
-        <!-- About Section -->
-        <div class="col-12 col-lg-4">
-          <div class="footer-brand">
-            <div class="footer-logo">
-              <div class="footer-logo-icon">
-                <i class="bi bi-car-front-fill"></i>
-              </div>
-              <h3>Premium Car</h3>
-            </div>
-            <p class="footer-description">
-              Avaliações automotivas com credibilidade e transparência.
-              Ajudamos você a fazer a melhor escolha para seu próximo veículo.
-            </p>
-
-            <!-- Social Links -->
-            <div class="footer-social">
-              <p class="footer-social-title">Siga-nos</p>
-              <div class="social-links">
-                <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="YouTube" title="YouTube">
-                  <i class="bi bi-youtube"></i>
-                </a>
-                <a href="https://wa.me/5555999837425" target="_blank" rel="noopener noreferrer"
-                   class="social-link" aria-label="WhatsApp" title="WhatsApp">
-                  <i class="bi bi-whatsapp"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="col-6 col-md-4 col-lg-2">
-          <div class="footer-section">
-            <h4 class="footer-title">Links Rápidos</h4>
-            <nav class="footer-nav" aria-label="Links do rodapé">
-              <a href="/" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Home</span>
-              </a>
-              <a href="/sobre-nos.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Sobre Nós</span>
-              </a>
-              <a href="/parcerias.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Parcerias</span>
-              </a>
-              <a href="/fale-conosco.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Contato</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-
-        <!-- Resources -->
-        <div class="col-6 col-md-4 col-lg-2">
-          <div class="footer-section">
-            <h4 class="footer-title">Recursos</h4>
-            <nav class="footer-nav" aria-label="Recursos">
-              <a href="/" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Avaliações</span>
-              </a>
-              <a href="/sobre-nos.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Nossa Equipe</span>
-              </a>
-              <a href="/parcerias.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Parceiros</span>
-              </a>
-              <a href="/fale-conosco.html" class="footer-link">
-                <i class="bi bi-chevron-right"></i>
-                <span>Suporte</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-
-        <!-- Contact -->
-        <div class="col-12 col-md-4 col-lg-4">
-          <div class="footer-section">
-            <h4 class="footer-title">Entre em Contato</h4>
-            <div class="footer-contact">
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-                <div class="contact-info">
-                  <p class="contact-label">Localização</p>
-                  <p class="contact-value">Caçapava do Sul, RS - Brasil</p>
-                </div>
-              </div>
-
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <i class="bi bi-envelope"></i>
-                </div>
-                <div class="contact-info">
-                  <p class="contact-label">Email</p>
-                  <a href="mailto:goncalvesmarquesmoises@gmail.com" class="contact-value">
-                    goncalvesmarquesmoises@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <i class="bi bi-whatsapp"></i>
-                </div>
-                <div class="contact-info">
-                  <p class="contact-label">WhatsApp</p>
-                  <a href="https://wa.me/5555999837425" class="contact-value">
-                    (55) 99983-7425
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Newsletter Section -->
-      <div class="footer-newsletter">
-        <div class="row align-items-center g-4">
-          <div class="col-12 col-md-6">
-            <h4 class="newsletter-title">
-              <i class="bi bi-envelope-heart"></i>
-              Receba nossas novidades
-            </h4>
-            <p class="newsletter-desc">
-              Fique por dentro das últimas avaliações e lançamentos automotivos
-            </p>
-          </div>
-          <div class="col-12 col-md-6">
-            <form class="newsletter-form" id="newsletterForm" aria-label="Formulário de newsletter">
-              <div class="newsletter-input-group">
-                <i class="bi bi-envelope newsletter-icon"></i>
-                <input
-                  type="email"
-                  class="newsletter-input"
-                  placeholder="Seu melhor email"
-                  aria-label="Email para newsletter"
-                  required>
-                <button type="submit" class="newsletter-btn" aria-label="Inscrever-se">
-                  <span>Inscrever</span>
-                  <i class="bi bi-arrow-right"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <div class="row align-items-center g-3">
-          <div class="col-12 col-md-6 text-center text-md-start">
-            <p class="footer-copyright">
-              <i class="bi bi-c-circle"></i>
-              2024-2025 <strong>Premium Car</strong>. Todos os direitos reservados.
-            </p>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="footer-credits">
-              <i class="bi bi-heart-fill"></i>
-              <span>Desenvolvido com paixão por carros e código</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Estilos do Footer -->
-<style>
-.premium-footer {
-  position: relative;
-  background: var(--footer-bg);
-  color: var(--footer-text);
-  margin-top: var(--space-20);
-}
-
-.footer-wave {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.footer-wave svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 60px;
-  fill: var(--color-dark-900);
-}
-
-.footer-content {
-  padding: var(--space-20) 0 var(--space-8);
-}
-
-/* Footer Brand */
-.footer-brand {
-  padding-right: var(--space-6);
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
-}
-
-.footer-logo-icon {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  color: white;
-  box-shadow: var(--shadow-primary);
-}
-
-.footer-logo h3 {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-extrabold);
-  color: var(--header-text);
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-.footer-description {
-  color: var(--footer-text-muted);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-6);
-  font-size: var(--font-size-sm);
-}
-
-.footer-social-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--footer-text);
-  margin-bottom: var(--space-3);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.social-links {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.social-link {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--footer-border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--footer-text-muted);
-  font-size: 20px;
-  transition: var(--transition-base);
-  text-decoration: none;
-}
-
-.social-link:hover {
-  background: var(--color-primary-600);
-  border-color: var(--color-primary-600);
-  color: var(--header-text);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-primary);
-}
-
-/* Footer Sections */
-.footer-section {
-  height: 100%;
-}
-
-.footer-title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--header-text);
-  margin-bottom: var(--space-5);
-  position: relative;
-  padding-bottom: var(--space-3);
-}
-
-.footer-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: var(--color-primary-600);
-  border-radius: 2px;
-}
-
-.footer-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.footer-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--footer-text-muted);
-  text-decoration: none;
-  font-size: var(--font-size-sm);
-  transition: var(--transition-base);
-  padding: var(--space-2) 0;
-}
-
-.footer-link i {
-  font-size: 12px;
-  transition: var(--transition-base);
-}
-
-.footer-link:hover {
-  color: var(--color-primary-400);
-  transform: translateX(4px);
-}
-
-.footer-link:hover i {
-  transform: translateX(4px);
-}
-
-/* Contact */
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.contact-item {
-  display: flex;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.contact-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-primary-400);
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.contact-info {
-  flex: 1;
-}
-
-.contact-label {
-  font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.contact-value {
-  font-size: var(--font-size-sm);
-  color: var(--footer-text);
-  text-decoration: none;
-  display: block;
-  transition: var(--transition-base);
-}
-
-.contact-value:hover {
-  color: var(--color-primary-400);
-}
-
-/* Newsletter */
-.footer-newsletter {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--footer-border);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  margin: var(--space-12) 0 var(--space-8);
-  backdrop-filter: blur(10px);
-}
-
-.newsletter-title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--header-text);
-  margin-bottom: var(--space-2);
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.newsletter-title i {
-  color: var(--color-primary-400);
-}
-
-.newsletter-desc {
-  color: var(--footer-text-muted);
-  font-size: var(--font-size-sm);
-  margin: 0;
-}
-
-.newsletter-form {
-  max-width: 500px;
-  margin-left: auto;
-}
-
-.newsletter-input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: var(--radius-full);
-  padding: var(--space-2);
-  box-shadow: var(--shadow-lg);
-}
-
-.newsletter-icon {
-  position: absolute;
-  left: var(--space-5);
-  color: var(--color-neutral-500);
-  font-size: 18px;
-  pointer-events: none;
-}
-
-.newsletter-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: var(--space-3) var(--space-5) var(--space-3) var(--space-12);
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-  outline: none;
-}
-
-.newsletter-input::placeholder {
-  color: var(--color-neutral-500);
-}
-
-.newsletter-btn {
-  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
-  color: white;
-  border: none;
-  border-radius: var(--radius-full);
-  padding: var(--space-3) var(--space-6);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  cursor: pointer;
-  transition: var(--transition-base);
-  white-space: nowrap;
-}
-
-.newsletter-btn:hover {
-  transform: translateX(4px);
-  box-shadow: var(--shadow-primary);
-}
-
-/* Footer Bottom */
-.footer-bottom {
-  border-top: 1px solid var(--footer-border);
-  padding-top: var(--space-6);
-  margin-top: var(--space-6);
-}
-
-.footer-copyright {
-  color: var(--footer-text-muted);
-  font-size: var(--font-size-sm);
-  margin: 0;
-}
-
-.footer-copyright strong {
-  color: var(--header-text);
-}
-
-.footer-credits {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  color: var(--footer-text-muted);
-  font-size: var(--font-size-sm);
-}
-
-@media (min-width: 768px) {
-  .footer-credits {
-    justify-content: flex-end;
-  }
-}
-
-.footer-credits i {
-  color: var(--color-primary-500);
-  animation: heartbeat 1.5s ease infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.1); }
-  50% { transform: scale(1); }
-}
-
-/* Responsive */
-@media (max-width: 991px) {
-  .footer-brand {
-    padding-right: 0;
-    margin-bottom: var(--space-8);
-  }
-
-  .footer-wave svg {
-    height: 40px;
-  }
-
-  .newsletter-title {
-    font-size: var(--font-size-xl);
-  }
-
-  .footer-newsletter {
-    padding: var(--space-6);
-  }
-}
-
-@media (max-width: 767px) {
-  .footer-content {
-    padding: var(--space-12) 0 var(--space-6);
-  }
-
-  .newsletter-form {
-    margin-left: 0;
-  }
-
-  .newsletter-input-group {
-    flex-direction: column;
-    padding: var(--space-3);
-    border-radius: var(--radius-xl);
-  }
-
-  .newsletter-input {
-    padding: var(--space-3) var(--space-5);
-    text-align: center;
-  }
-
-  .newsletter-icon {
-    position: static;
-    margin-bottom: var(--space-2);
-  }
-
-  .newsletter-btn {
-    width: 100%;
-    justify-content: center;
-    margin-top: var(--space-2);
-  }
-
-  .footer-bottom {
-    text-align: center;
-  }
-}
-</style>
-
-<script>
-// Newsletter form handler
-document.addEventListener('DOMContentLoaded', () => {
-  const newsletterForm = document.getElementById('newsletterForm');
-
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const emailInput = newsletterForm.querySelector('.newsletter-input');
-      const submitBtn = newsletterForm.querySelector('.newsletter-btn');
-      const email = emailInput.value.trim();
-
-      if (!email || !Validation.isValidEmail(email)) {
-        Toast.error('Por favor, insira um email válido');
-        return;
-      }
-
-      // Disable button during submission
-      submitBtn.disabled = true;
-      const originalContent = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
-
-      try {
-        const response = await fetch('/api/newsletter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          Toast.success('Inscrição realizada com sucesso!');
-          emailInput.value = '';
-        } else {
-          Toast.error(data.error || 'Erro ao realizar inscrição');
-        }
-      } catch (error) {
-        console.error('Erro na newsletter:', error);
-        Toast.error('Erro ao conectar com o servidor');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalContent;
+  // Active Nav Link
+  function setActiveNavLink() {
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (href === '/' && currentPath === '/index.html')) {
+        link.classList.add('active');
       }
     });
   }
-});
+
+  // Initialize
+  function init() {
+    initTheme();
+    initMobileMenu();
+    initScrollEffect();
+    updateAuthUI();
+    setActiveNavLink();
+
+    // Theme toggle listeners
+    document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('mobileThemeToggle')?.addEventListener('click', toggleTheme);
+  }
+
+  // Run init when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Expose logout function globally
+  window.handleLogout = function() {
+    if (confirm('Deseja realmente sair?')) {
+      localStorage.removeItem('token');
+      window.location.href = '/login.html';
+    }
+  };
+})();
 </script>
