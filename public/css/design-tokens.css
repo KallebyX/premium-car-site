@@ -446,6 +446,49 @@
 }
 
 /* ==========================================
+   FIXED COLORS - Never change with theme
+   (Used for header, footer, and dark sections)
+   ========================================== */
+
+:root {
+  /* Fixed Dark Colors (for header/footer backgrounds) */
+  --color-dark-900: #212529;
+  --color-dark-800: #343a40;
+  --color-dark-700: #495057;
+  --color-dark-600: #6c757d;
+
+  /* Fixed Light Colors (for light backgrounds) */
+  --color-light-50: #f8f9fa;
+  --color-light-100: #f1f3f5;
+  --color-light-200: #e9ecef;
+  --color-light-300: #dee2e6;
+
+  /* Header/Footer specific tokens */
+  --header-bg: linear-gradient(135deg, var(--color-dark-900) 0%, var(--color-dark-800) 100%);
+  --header-text: #ffffff;
+  --header-text-muted: rgba(255, 255, 255, 0.7);
+  --header-border: rgba(255, 255, 255, 0.1);
+
+  --footer-bg: var(--color-dark-900);
+  --footer-text: rgba(255, 255, 255, 0.9);
+  --footer-text-muted: rgba(255, 255, 255, 0.7);
+  --footer-border: rgba(255, 255, 255, 0.1);
+
+  /* Mobile menu tokens */
+  --mobile-menu-bg: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  --mobile-menu-header-bg: linear-gradient(135deg, var(--color-dark-900) 0%, var(--color-dark-800) 100%);
+}
+
+/* Dark mode - these tokens stay the same */
+[data-theme="dark"] {
+  --header-bg: linear-gradient(135deg, var(--color-dark-900) 0%, var(--color-dark-800) 100%);
+  --footer-bg: var(--color-dark-900);
+
+  /* Mobile menu in dark mode */
+  --mobile-menu-bg: linear-gradient(180deg, #1a1d20 0%, #212529 100%);
+}
+
+/* ==========================================
    ACCESSIBILITY TOKENS
    ========================================== */
 
