@@ -104,13 +104,13 @@
 <!-- Estilos do Header -->
 <style>
 .premium-header {
-  background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+  background: var(--header-bg);
   box-shadow: var(--shadow-lg);
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--header-border);
 }
 
 .header-content {
@@ -131,12 +131,12 @@
   align-items: center;
   gap: var(--space-3);
   text-decoration: none;
-  color: white;
+  color: var(--header-text);
   transition: var(--transition-base);
 }
 
 .logo-link:hover {
-  color: white;
+  color: var(--header-text);
   transform: translateY(-1px);
 }
 
@@ -174,7 +174,7 @@
 
 .logo-tagline {
   font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--header-text-muted);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
@@ -202,7 +202,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--footer-text);
   text-decoration: none;
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
@@ -224,7 +224,7 @@
 }
 
 .nav-link:hover {
-  color: white;
+  color: var(--header-text);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -253,7 +253,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-lg);
-  color: white;
+  color: var(--header-text);
   font-size: 18px;
   transition: var(--transition-base);
   cursor: pointer;
@@ -362,7 +362,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--header-border);
   border-radius: var(--radius-lg);
   padding: 0;
   cursor: pointer;
@@ -386,7 +386,7 @@
 .menu-icon span {
   width: 100%;
   height: 2px;
-  background: white;
+  background: var(--header-text);
   border-radius: 2px;
   transition: var(--transition-base);
 }
@@ -529,16 +529,16 @@
 <style>
 .premium-mobile-menu {
   width: 320px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  background: var(--mobile-menu-bg);
 }
 
 .premium-mobile-menu .offcanvas-header {
-  background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+  background: var(--mobile-menu-header-bg);
   padding: var(--space-6) var(--space-5);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--header-border);
 }
 
 .offcanvas-logo {
@@ -555,14 +555,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--header-text);
   font-size: 20px;
   box-shadow: var(--shadow-primary);
 }
 
 .offcanvas-title {
   margin: 0;
-  color: white;
+  color: var(--header-text);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
 }
@@ -571,9 +571,9 @@
   width: 36px;
   height: 36px;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--header-border);
   border-radius: var(--radius-lg);
-  color: white;
+  color: var(--header-text);
   font-size: 18px;
   display: flex;
   align-items: center;
@@ -1028,8 +1028,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <style>
 .premium-footer {
   position: relative;
-  background: linear-gradient(180deg, var(--color-neutral-900) 0%, var(--color-neutral-900) 100%);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--footer-bg);
+  color: var(--footer-text);
   margin-top: var(--space-20);
 }
 
@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
   display: block;
   width: calc(100% + 1.3px);
   height: 60px;
-  fill: var(--color-neutral-900);
+  fill: var(--color-dark-900);
 }
 
 .footer-content {
@@ -1083,12 +1083,12 @@ document.addEventListener('DOMContentLoaded', () => {
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-extrabold);
-  color: white;
+  color: var(--header-text);
   letter-spacing: var(--letter-spacing-tight);
 }
 
 .footer-description {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--footer-text-muted);
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-6);
   font-size: var(--font-size-sm);
@@ -1097,7 +1097,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .footer-social-title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--footer-text);
   margin-bottom: var(--space-3);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
@@ -1113,12 +1113,12 @@ document.addEventListener('DOMContentLoaded', () => {
   width: 44px;
   height: 44px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--footer-border);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--footer-text-muted);
   font-size: 20px;
   transition: var(--transition-base);
   text-decoration: none;
@@ -1127,7 +1127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .social-link:hover {
   background: var(--color-primary-600);
   border-color: var(--color-primary-600);
-  color: white;
+  color: var(--header-text);
   transform: translateY(-4px);
   box-shadow: var(--shadow-primary);
 }
@@ -1140,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .footer-title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: white;
+  color: var(--header-text);
   margin-bottom: var(--space-5);
   position: relative;
   padding-bottom: var(--space-3);
@@ -1167,7 +1167,7 @@ document.addEventListener('DOMContentLoaded', () => {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--footer-text-muted);
   text-decoration: none;
   font-size: var(--font-size-sm);
   transition: var(--transition-base);
@@ -1228,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 .contact-value {
   font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--footer-text);
   text-decoration: none;
   display: block;
   transition: var(--transition-base);
@@ -1241,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* Newsletter */
 .footer-newsletter {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--footer-border);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
   margin: var(--space-12) 0 var(--space-8);
@@ -1251,7 +1251,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .newsletter-title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: white;
+  color: var(--header-text);
   margin-bottom: var(--space-2);
   display: flex;
   align-items: center;
@@ -1263,7 +1263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 .newsletter-desc {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--footer-text-muted);
   font-size: var(--font-size-sm);
   margin: 0;
 }
@@ -1328,19 +1328,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Footer Bottom */
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--footer-border);
   padding-top: var(--space-6);
   margin-top: var(--space-6);
 }
 
 .footer-copyright {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--footer-text-muted);
   font-size: var(--font-size-sm);
   margin: 0;
 }
 
 .footer-copyright strong {
-  color: white;
+  color: var(--header-text);
 }
 
 .footer-credits {
@@ -1348,7 +1348,7 @@ document.addEventListener('DOMContentLoaded', () => {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--footer-text-muted);
   font-size: var(--font-size-sm);
 }
 
