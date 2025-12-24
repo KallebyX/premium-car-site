@@ -87,7 +87,7 @@
       left: 0;
       right: 0;
       height: 100px;
-      background: linear-gradient(to top, #f8f9fa, transparent);
+      background: linear-gradient(to top, var(--bg-secondary), transparent);
     }
 
     .hero-badge {
@@ -105,6 +105,7 @@
       position: relative;
       margin-bottom: 40px;
       font-weight: 700;
+      color: var(--text-primary);
     }
 
     .section-title:after {
@@ -114,7 +115,7 @@
       bottom: -10px;
       width: 60px;
       height: 4px;
-      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      background: linear-gradient(90deg, var(--color-accent-600), var(--color-accent-400));
       border-radius: 2px;
     }
 
@@ -131,24 +132,24 @@
     }
 
     .stats-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 40px 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
       text-align: center;
       transition: all 0.4s ease;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid var(--border-light);
     }
 
     .stats-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .stats-icon {
       width: 70px;
       height: 70px;
-      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-400));
       border-radius: 20px;
       display: flex;
       align-items: center;
@@ -161,12 +162,12 @@
     .stats-number {
       font-size: 2.5rem;
       font-weight: 800;
-      color: #212529;
+      color: var(--text-primary);
       line-height: 1;
     }
 
     .stats-label {
-      color: #6c757d;
+      color: var(--text-secondary);
       font-size: 0.95rem;
       margin-top: 5px;
     }
@@ -184,7 +185,7 @@
       transform: translateX(-50%);
       width: 3px;
       height: 100%;
-      background: linear-gradient(to bottom, #dc3545, #ff6b7a);
+      background: linear-gradient(to bottom, var(--color-accent-600), var(--color-accent-400));
       border-radius: 3px;
     }
 
@@ -200,16 +201,25 @@
     .timeline-content {
       width: 45%;
       padding: 30px;
-      background: white;
+      background: var(--card-bg);
       border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
       position: relative;
       transition: all 0.3s ease;
+      border: 1px solid var(--border-light);
+    }
+
+    .timeline-content h4 {
+      color: var(--text-primary);
+    }
+
+    .timeline-content p {
+      color: var(--text-secondary);
     }
 
     .timeline-content:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .timeline-item:nth-child(odd) .timeline-content {
@@ -226,8 +236,8 @@
       transform: translateX(-50%);
       width: 20px;
       height: 20px;
-      background: #dc3545;
-      border: 4px solid white;
+      background: var(--color-accent-600);
+      border: 4px solid var(--card-bg);
       border-radius: 50%;
       box-shadow: 0 0 0 4px rgba(220,53,69,0.3);
       z-index: 1;
@@ -235,7 +245,7 @@
 
     .timeline-year {
       display: inline-block;
-      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-400));
       color: white;
       padding: 5px 15px;
       border-radius: 20px;
@@ -261,15 +271,19 @@
 
     /* Values Section */
     .value-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 35px;
       height: 100%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      box-shadow: var(--card-shadow);
       transition: all 0.4s ease;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid var(--border-light);
       position: relative;
       overflow: hidden;
+    }
+
+    .value-card h4 {
+      color: var(--text-primary);
     }
 
     .value-card::before {
@@ -279,52 +293,53 @@
       left: 0;
       width: 100%;
       height: 4px;
-      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      background: linear-gradient(90deg, var(--color-accent-600), var(--color-accent-400));
     }
 
     .value-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .value-icon {
       width: 60px;
       height: 60px;
-      background: linear-gradient(135deg, rgba(220,53,69,0.1), rgba(255,107,122,0.1));
+      background: linear-gradient(135deg, rgba(220,53,69,0.15), rgba(255,107,122,0.15));
       border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
-      color: #dc3545;
+      color: var(--color-accent-600);
       font-size: 1.5rem;
     }
 
     /* Team Section */
     .team-section {
-      background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+      background: var(--bg-secondary);
       padding: 80px 0;
     }
 
     .team-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
       transition: all 0.4s ease;
       text-align: center;
+      border: 1px solid var(--border-light);
     }
 
     .team-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .team-img-wrapper {
       position: relative;
       height: 250px;
       overflow: hidden;
-      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-400));
     }
 
     .team-img-wrapper i {
@@ -344,10 +359,11 @@
       font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 5px;
+      color: var(--text-primary);
     }
 
     .team-role {
-      color: #dc3545;
+      color: var(--color-accent-600);
       font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 15px;
@@ -360,21 +376,21 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #f8f9fa;
-      color: #6c757d;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
       margin: 0 5px;
       transition: all 0.3s ease;
     }
 
     .team-social a:hover {
-      background: #dc3545;
+      background: var(--color-accent-600);
       color: white;
       transform: translateY(-3px);
     }
 
     /* Quote Section */
     .quote-section {
-      background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+      background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
       color: white;
       padding: 80px 0;
       position: relative;
@@ -398,12 +414,13 @@
       line-height: 1.6;
       position: relative;
       z-index: 1;
+      color: white;
     }
 
     .quote-author {
       margin-top: 30px;
       font-weight: 600;
-      color: #dc3545;
+      color: var(--color-accent-500);
     }
 
     /* Expertise Cards */
@@ -412,22 +429,27 @@
       align-items: flex-start;
       gap: 20px;
       padding: 25px;
-      background: white;
+      background: var(--card-bg);
       border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      box-shadow: var(--card-shadow);
       margin-bottom: 20px;
       transition: all 0.3s ease;
+      border: 1px solid var(--border-light);
+    }
+
+    .expertise-card h5 {
+      color: var(--text-primary);
     }
 
     .expertise-card:hover {
       transform: translateX(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .expertise-icon {
       width: 50px;
       height: 50px;
-      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-400));
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -439,7 +461,7 @@
 
     /* CTA Section */
     .cta-section {
-      background: linear-gradient(135deg, #dc3545, #c82333);
+      background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-700));
       padding: 80px 0;
       color: white;
       text-align: center;
@@ -464,6 +486,19 @@
       border-width: 2px;
     }
 
+    /* About Content Section */
+    .about-content-section {
+      background: var(--bg-primary);
+    }
+
+    .about-content-section p {
+      color: var(--text-secondary);
+    }
+
+    .about-content-section .lead {
+      color: var(--text-primary);
+    }
+
     /* Animations */
     .fade-in-up {
       opacity: 0;
@@ -482,7 +517,7 @@
     }
   </style>
 </head>
-<body class="bg-light">
+<body>
   <div id="injected-header"></div>
 
   <!-- Hero Section -->
@@ -541,7 +576,7 @@
   </section>
 
   <!-- About Content -->
-  <div class="container my-5 py-5">
+  <div class="container my-5 py-5 about-content-section">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4 mb-lg-0 fade-in-up">
         <h2 class="section-title">Nossa História</h2>
