@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciamento de Usuarios - Premium Car</title>
+  <meta name="description" content="Gerenciamento de usuarios do sistema Premium Car">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+<div id="injected-header"></div>
+
+<!-- Admin Header -->
+<div class="admin-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <div>
+        <h1><i class="bi bi-people-fill"></i>Gerenciamento de Usuarios</h1>
+        <p class="mb-0 mt-2 opacity-75">Gerencie os usuarios, funcoes e permissoes do sistema</p>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-badge">
+          <i class="bi bi-people-fill"></i>
+          <span id="totalUsuarios">0</span> usuarios
+        </div>
+        <div class="stat-badge">
+          <i class="bi bi-shield-check"></i>
+          <span id="totalAdmins">0</span> admins
+        </div>
+        <button onclick="logout()" class="btn btn-light btn-sm">
+          <i class="bi bi-box-arrow-right"></i> Sair
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <!-- Navegacao Admin -->
+  <div class="admin-nav">
+    <a href="/admin" class="admin-nav-link">
+      <i class="bi bi-car-front-fill"></i>
+      Avaliacoes
+    </a>
+    <a href="/admin/usuarios" class="admin-nav-link active">
+      <i class="bi bi-people-fill"></i>
+      Usuarios
+    </a>
+  </div>
+
+  <!-- Mensagem de Status -->
+  <div id="statusMsg" class="mb-4"></div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <i class="bi bi-people"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value" id="statTotalUsers">0</div>
+        <div class="stat-label">Total de Usuarios</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <i class="bi bi-person-check"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value" id="statActiveUsers">0</div>
+        <div class="stat-label">Usuarios Ativos</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <i class="bi bi-shield"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value" id="statAdmins">0</div>
+        <div class="stat-label">Administradores</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon danger">
+        <i class="bi bi-shield-exclamation"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value" id="statSuperAdmins">0</div>
+        <div class="stat-label">Super Admins</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filter-card slide-up">
+    <h5>
+      <i class="bi bi-funnel-fill"></i>
+      Filtros e Busca
+    </h5>
+    <div class="row g-3">
+      <div class="col-md-5">
+        <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" id="searchUser" class="form-control"
+                 placeholder="Buscar por nome ou email...">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select id="filterRole" class="form-select">
+          <option value="">Todas as funcoes</option>
+          <option value="super_admin">Super Admin</option>
+          <option value="admin">Admin</option>
+          <option value="user">Usuario</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select id="filterStatus" class="form-select">
+          <option value="">Todos os status</option>
+          <option value="true">Ativos</option>
+          <option value="false">Inativos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button id="clearFilters" class="btn btn-outline-secondary w-100">
+          <i class="bi bi-x-circle"></i> Limpar
+        </button>
+      </div>
+    </div>
+    <div class="mt-3">
+      <small class="text-muted" id="resultCount">0 resultados</small>
+    </div>
+  </div>
+
+  <!-- Tabela de Usuarios -->
+  <div class="table-container slide-up">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle" id="tabelaUsuarios">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Funcao</th>
+            <th>Status</th>
+            <th>Criado em</th>
+            <th class="text-center" style="width: 180px;">Acoes</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Paginacao -->
+    <nav aria-label="Navegacao de paginas">
+      <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">
+          <i class="bi bi-person-gear me-2"></i>Editar Usuario
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editUserForm">
+          <input type="hidden" id="editUserId">
+
+          <div class="mb-4">
+            <label class="form-label">
+              <i class="bi bi-person me-2"></i>Nome Completo
+            </label>
+            <input type="text" class="form-control" id="editUserName" placeholder="Nome do usuario">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">
+              <i class="bi bi-envelope me-2"></i>Email
+            </label>
+            <input type="email" class="form-control" id="editUserEmail" readonly>
+            <small class="text-muted">O email nao pode ser alterado</small>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">
+              <i class="bi bi-shield me-2"></i>Funcao
+            </label>
+            <select class="form-select" id="editUserRole">
+              <option value="user">Usuario</option>
+              <option value="admin">Administrador</option>
+              <option value="super_admin">Super Admin</option>
+            </select>
+            <small class="text-muted">Cuidado ao atribuir funcoes administrativas</small>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">
+              <i class="bi bi-toggle-on me-2"></i>Status
+            </label>
+            <select class="form-select" id="editUserStatus">
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="salvarUsuario()">
+          <i class="bi bi-check-lg me-2"></i>Salvar Alteracoes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="injected-footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ============================================
+// VERIFICACAO DE AUTENTICACAO
+// ============================================
+const token = localStorage.getItem('token');
+if (!token) {
+  window.location.href = '/login.html';
+}
+
+// ============================================
+// VARIAVEIS GLOBAIS
+// ============================================
+let todosUsuarios = [];
+let usuariosFiltrados = [];
+let paginaAtual = 1;
+const itensPorPagina = 10;
+const tabela = document.querySelector('#tabelaUsuarios tbody');
+let editModal;
+
+// ============================================
+// FUNCOES AUXILIARES
+// ============================================
+function mostrarMensagem(texto, tipo = 'success') {
+  const msg = document.getElementById('statusMsg');
+  const iconMap = {
+    success: 'check-circle',
+    danger: 'exclamation-triangle',
+    warning: 'exclamation-circle',
+    info: 'info-circle'
+  };
+
+  msg.innerHTML = `
+    <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+      <i class="bi bi-${iconMap[tipo]} me-2"></i>
+      ${texto}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+  setTimeout(() => { msg.innerHTML = ''; }, 5000);
+}
+
+function mostrarLoading(show = true) {
+  if (show) {
+    const overlay = document.createElement('div');
+    overlay.id = 'loadingOverlay';
+    overlay.className = 'loading-overlay';
+    overlay.innerHTML = '<div class="spinner-custom"></div>';
+    document.body.appendChild(overlay);
+  } else {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.remove();
+  }
+}
+
+function formatarData(dateString) {
+  if (!dateString) return '-';
+  return new Date(dateString).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+}
+
+function getInitials(name, email) {
+  if (name && name.trim()) {
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return parts[0].substring(0, 2).toUpperCase();
+  }
+  return email.substring(0, 2).toUpperCase();
+}
+
+function getRoleLabel(role) {
+  const labels = {
+    'super_admin': 'Super Admin',
+    'admin': 'Admin',
+    'user': 'Usuario'
+  };
+  return labels[role] || role;
+}
+
+// ============================================
+// CARREGAR USUARIOS
+// ============================================
+async function carregarUsuarios() {
+  mostrarLoading(true);
+  try {
+    const res = await fetch('/api/users', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (res.status === 403) {
+      mostrarMensagem('Acesso negado. Apenas Super Admins podem gerenciar usuarios.', 'danger');
+      setTimeout(() => {
+        window.location.href = '/admin';
+      }, 2000);
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error('Erro ao carregar usuarios');
+    }
+
+    const data = await res.json();
+    todosUsuarios = data.users || [];
+    usuariosFiltrados = [...todosUsuarios];
+
+    // Atualizar estatisticas
+    atualizarEstatisticas();
+    renderizarTabela();
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem('Erro ao carregar usuarios. Verifique sua conexao.', 'danger');
+  } finally {
+    mostrarLoading(false);
+  }
+}
+
+function atualizarEstatisticas() {
+  const total = todosUsuarios.length;
+  const ativos = todosUsuarios.filter(u => u.is_active).length;
+  const admins = todosUsuarios.filter(u => u.role === 'admin').length;
+  const superAdmins = todosUsuarios.filter(u => u.role === 'super_admin').length;
+
+  document.getElementById('totalUsuarios').textContent = total;
+  document.getElementById('totalAdmins').textContent = admins + superAdmins;
+  document.getElementById('statTotalUsers').textContent = total;
+  document.getElementById('statActiveUsers').textContent = ativos;
+  document.getElementById('statAdmins').textContent = admins;
+  document.getElementById('statSuperAdmins').textContent = superAdmins;
+}
+
+// ============================================
+// RENDERIZAR TABELA
+// ============================================
+function renderizarTabela() {
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const usuariosPagina = usuariosFiltrados.slice(inicio, fim);
+
+  document.getElementById('resultCount').textContent =
+    `${usuariosFiltrados.length} ${usuariosFiltrados.length === 1 ? 'resultado' : 'resultados'}`;
+
+  if (usuariosPagina.length === 0) {
+    tabela.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center py-5">
+          <div class="empty-state">
+            <i class="bi bi-person-x"></i>
+            <h3>Nenhum usuario encontrado</h3>
+            <p>Tente ajustar os filtros de busca</p>
+          </div>
+        </td>
+      </tr>
+    `;
+  } else {
+    tabela.innerHTML = usuariosPagina.map(user => `
+      <tr class="fade-in">
+        <td>
+          <div class="user-info">
+            <div class="user-avatar">
+              ${getInitials(user.full_name, user.email)}
+            </div>
+            <div>
+              <div class="user-name">${user.full_name || 'Sem nome'}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="user-email">${user.email}</span>
+        </td>
+        <td>
+          <span class="role-badge ${user.role}">
+            <i class="bi bi-${user.role === 'super_admin' ? 'shield-fill-exclamation' : user.role === 'admin' ? 'shield-fill' : 'person'}"></i>
+            ${getRoleLabel(user.role)}
+          </span>
+        </td>
+        <td>
+          <span class="status-badge ${user.is_active ? 'active' : 'inactive'}">
+            <span class="status-dot"></span>
+            ${user.is_active ? 'Ativo' : 'Inativo'}
+          </span>
+        </td>
+        <td>
+          <small class="text-muted">${formatarData(user.created_at)}</small>
+        </td>
+        <td class="text-center">
+          <div class="btn-group btn-group-sm" role="group">
+            <button onclick='abrirModalEditar(${JSON.stringify(user).replace(/'/g, "&#39;")})'
+                    class="btn btn-primary"
+                    title="Editar">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            ${user.role !== 'super_admin' ? `
+            <button onclick='alternarStatus("${user.id}", ${user.is_active})'
+                    class="btn ${user.is_active ? 'btn-warning' : 'btn-success'}"
+                    title="${user.is_active ? 'Desativar' : 'Ativar'}">
+              <i class="bi bi-${user.is_active ? 'pause-fill' : 'play-fill'}"></i>
+            </button>
+            ` : ''}
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  renderizarPaginacao();
+}
+
+// ============================================
+// PAGINACAO
+// ============================================
+function renderizarPaginacao() {
+  const totalPaginas = Math.ceil(usuariosFiltrados.length / itensPorPagina);
+  const pagination = document.getElementById('pagination');
+
+  if (totalPaginas <= 1) {
+    pagination.innerHTML = '';
+    return;
+  }
+
+  let html = `
+    <li class="page-item ${paginaAtual === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual - 1}); return false;">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+    </li>
+  `;
+
+  for (let i = 1; i <= totalPaginas; i++) {
+    if (i === 1 || i === totalPaginas || (i >= paginaAtual - 2 && i <= paginaAtual + 2)) {
+      html += `
+        <li class="page-item ${i === paginaAtual ? 'active' : ''}">
+          <a class="page-link" href="#" onclick="mudarPagina(${i}); return false;">${i}</a>
+        </li>
+      `;
+    } else if (i === paginaAtual - 3 || i === paginaAtual + 3) {
+      html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+    }
+  }
+
+  html += `
+    <li class="page-item ${paginaAtual === totalPaginas ? 'disabled' : ''}">
+      <a class="page-link" href="#" onclick="mudarPagina(${paginaAtual + 1}); return false;">
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    </li>
+  `;
+
+  pagination.innerHTML = html;
+}
+
+function mudarPagina(novaPagina) {
+  const totalPaginas = Math.ceil(usuariosFiltrados.length / itensPorPagina);
+  if (novaPagina < 1 || novaPagina > totalPaginas) return;
+  paginaAtual = novaPagina;
+  renderizarTabela();
+  document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================
+// FILTROS
+// ============================================
+function aplicarFiltros() {
+  const searchTerm = document.getElementById('searchUser').value.toLowerCase();
+  const roleFiltro = document.getElementById('filterRole').value;
+  const statusFiltro = document.getElementById('filterStatus').value;
+
+  usuariosFiltrados = todosUsuarios.filter(user => {
+    const matchSearch = !searchTerm ||
+      (user.full_name && user.full_name.toLowerCase().includes(searchTerm)) ||
+      user.email.toLowerCase().includes(searchTerm);
+
+    const matchRole = !roleFiltro || user.role === roleFiltro;
+    const matchStatus = statusFiltro === '' || user.is_active.toString() === statusFiltro;
+
+    return matchSearch && matchRole && matchStatus;
+  });
+
+  paginaAtual = 1;
+  renderizarTabela();
+}
+
+function limparFiltros() {
+  document.getElementById('searchUser').value = '';
+  document.getElementById('filterRole').value = '';
+  document.getElementById('filterStatus').value = '';
+  usuariosFiltrados = [...todosUsuarios];
+  paginaAtual = 1;
+  renderizarTabela();
+}
+
+// ============================================
+// MODAL EDITAR
+// ============================================
+function abrirModalEditar(user) {
+  document.getElementById('editUserId').value = user.id;
+  document.getElementById('editUserName').value = user.full_name || '';
+  document.getElementById('editUserEmail').value = user.email;
+  document.getElementById('editUserRole').value = user.role;
+  document.getElementById('editUserStatus').value = user.is_active.toString();
+
+  editModal.show();
+}
+
+async function salvarUsuario() {
+  const id = document.getElementById('editUserId').value;
+  const dados = {
+    full_name: document.getElementById('editUserName').value.trim(),
+    role: document.getElementById('editUserRole').value,
+    is_active: document.getElementById('editUserStatus').value === 'true'
+  };
+
+  mostrarLoading(true);
+
+  try {
+    const res = await fetch(`/api/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(dados)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Erro ao atualizar usuario');
+    }
+
+    editModal.hide();
+    mostrarMensagem('Usuario atualizado com sucesso!', 'success');
+    carregarUsuarios();
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem(error.message, 'danger');
+  } finally {
+    mostrarLoading(false);
+  }
+}
+
+// ============================================
+// ALTERNAR STATUS
+// ============================================
+async function alternarStatus(id, statusAtual) {
+  const novoStatus = !statusAtual;
+  const acao = novoStatus ? 'ativar' : 'desativar';
+
+  if (!confirm(`Deseja realmente ${acao} este usuario?`)) return;
+
+  mostrarLoading(true);
+
+  try {
+    const res = await fetch(`/api/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ is_active: novoStatus })
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || 'Erro ao atualizar status');
+    }
+
+    mostrarMensagem(`Usuario ${novoStatus ? 'ativado' : 'desativado'} com sucesso!`, 'success');
+    carregarUsuarios();
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem(error.message, 'danger');
+  } finally {
+    mostrarLoading(false);
+  }
+}
+
+// ============================================
+// LOGOUT
+// ============================================
+function logout() {
+  if (confirm('Deseja realmente sair?')) {
+    localStorage.removeItem('token');
+    window.location.href = '/login.html';
+  }
+}
+
+// ============================================
+// INICIALIZACAO
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+
+  carregarUsuarios();
+
+  // Event Listeners
+  document.getElementById('searchUser').addEventListener('input', aplicarFiltros);
+  document.getElementById('filterRole').addEventListener('change', aplicarFiltros);
+  document.getElementById('filterStatus').addEventListener('change', aplicarFiltros);
+  document.getElementById('clearFilters').addEventListener('click', limparFiltros);
+});
+</script>
+
+<!-- Carregar Header e Footer -->
+<script>
+async function carregarHeaderFooter() {
+  try {
+    const base = await fetch('/base.html').then(res => res.text());
+    const temp = document.createElement('div');
+    temp.innerHTML = base;
+
+    const header = temp.querySelector('header');
+    const footer = temp.querySelector('footer');
+
+    if (header) document.getElementById('injected-header').appendChild(header);
+    if (footer) document.getElementById('injected-footer').appendChild(footer);
+  } catch (error) {
+    console.error('Erro ao carregar header/footer:', error);
+  }
+}
+
+carregarHeaderFooter();
+</script>
+</body>
+</html>

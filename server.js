@@ -8,6 +8,7 @@ const contactsRoutes = require('./src/routes/contacts');
 const newsletterRoutes = require('./src/routes/newsletter');
 const authRoutes = require('./src/routes/auth');
 const setupRoutes = require('./src/routes/setup');
+const usersRoutes = require('./src/routes/users');
 const { rateLimiter, errorLogger, errorHandler } = require('./src/middleware/auth');
 
 const app = express();
@@ -45,6 +46,7 @@ app.use('/api/contacts', contactsRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/setup', setupRoutes);
+app.use('/api/users', usersRoutes);
 
 // Rota para home
 app.get('/', (req, res) => {
@@ -54,6 +56,11 @@ app.get('/', (req, res) => {
 // Rota para admin
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'src', 'admin', 'painel.html'));
+});
+
+// Rota para gerenciamento de usuarios (super admin)
+app.get('/admin/usuarios', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src', 'admin', 'usuarios.html'));
 });
 
 // Endpoint para fornecer configuração pública do Supabase
