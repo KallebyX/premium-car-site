@@ -243,17 +243,32 @@
     });
 
     // Carregar configuração do Supabase do backend
-    async function initSupabase() {
+    async function initSupabase(retryCount = 0) {
+      const maxRetries = 2;
+
       try {
         const response = await fetch('/api/config');
-        const config = await response.json();
 
+        // Check response status first before parsing JSON
         if (!response.ok) {
-          throw new Error(config.message || 'Configuração do servidor não disponível');
+          let errorMessage = 'Configuração do servidor não disponível';
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch {
+            // Response might not be JSON (e.g., Vercel's own error page)
+          }
+
+          if (response.status === 503) {
+            throw new Error('Servidor temporariamente indisponível. Verifique se as variáveis de ambiente estão configuradas.');
+          }
+          throw new Error(errorMessage);
         }
 
+        const config = await response.json();
+
         if (!config.supabaseUrl || !config.supabaseAnonKey) {
-          throw new Error('Configuração do Supabase incompleta');
+          throw new Error('Configuração do Supabase incompleta. Verifique SUPABASE_URL e SUPABASE_ANON_KEY.');
         }
 
         supabase = createClient(config.supabaseUrl, config.supabaseAnonKey);
@@ -261,7 +276,20 @@
         btnText.textContent = 'Entrar no Painel';
       } catch (error) {
         console.error('Erro ao inicializar Supabase:', error);
-        mostrarMensagem('Erro ao conectar com o servidor. Tente novamente mais tarde.', 'danger');
+
+        // Retry logic for transient errors
+        if (retryCount < maxRetries && (error.message.includes('fetch') || error.message.includes('network'))) {
+          console.log(`Tentando reconectar... (${retryCount + 1}/${maxRetries})`);
+          setTimeout(() => initSupabase(retryCount + 1), 2000 * (retryCount + 1));
+          return;
+        }
+
+        const isConfigError = error.message.includes('variáveis de ambiente') || error.message.includes('503');
+        const mensagem = isConfigError
+          ? 'O servidor não está configurado corretamente. Contate o administrador.'
+          : 'Erro ao conectar com o servidor. Tente novamente mais tarde.';
+
+        mostrarMensagem(mensagem, 'danger');
         btnLogin.disabled = true;
         btnText.textContent = 'Erro de conexão';
       }
