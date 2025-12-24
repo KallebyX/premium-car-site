@@ -200,9 +200,9 @@
           </label>
         </div>
 
-        <button type="submit" class="btn btn-login" id="btnLogin">
+        <button type="submit" class="btn btn-login" id="btnLogin" disabled>
           <i class="bi bi-box-arrow-in-right me-2"></i>
-          <span id="btnText">Entrar no Painel</span>
+          <span id="btnText">Conectando...</span>
         </button>
       </form>
 
@@ -247,10 +247,23 @@
       try {
         const response = await fetch('/api/config');
         const config = await response.json();
+
+        if (!response.ok) {
+          throw new Error(config.message || 'Configuração do servidor não disponível');
+        }
+
+        if (!config.supabaseUrl || !config.supabaseAnonKey) {
+          throw new Error('Configuração do Supabase incompleta');
+        }
+
         supabase = createClient(config.supabaseUrl, config.supabaseAnonKey);
+        btnLogin.disabled = false;
+        btnText.textContent = 'Entrar no Painel';
       } catch (error) {
         console.error('Erro ao inicializar Supabase:', error);
-        mostrarMensagem('Erro ao conectar com o servidor', 'danger');
+        mostrarMensagem('Erro ao conectar com o servidor. Tente novamente mais tarde.', 'danger');
+        btnLogin.disabled = true;
+        btnText.textContent = 'Erro de conexão';
       }
     }
 
@@ -287,6 +300,11 @@
 
       if (!email || !senha) {
         mostrarMensagem('Por favor, preencha todos os campos', 'warning');
+        return;
+      }
+
+      if (!supabase) {
+        mostrarMensagem('Aguarde a conexão com o servidor...', 'warning');
         return;
       }
 
