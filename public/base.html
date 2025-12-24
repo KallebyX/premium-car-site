@@ -369,7 +369,7 @@
 
   // Favorites Badge
   function updateFavoritesBadge() {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const favorites = JSON.parse(localStorage.getItem('premium_car_favorites') || '[]');
     const badge = document.getElementById('favoritesBadge');
     const btn = document.getElementById('favoritesBtn');
 
@@ -402,7 +402,7 @@
 
     // Listen for favorites changes
     window.addEventListener('storage', (e) => {
-      if (e.key === 'favorites') updateFavoritesBadge();
+      if (e.key === 'premium_car_favorites') updateFavoritesBadge();
     });
     window.addEventListener('favoritesUpdated', updateFavoritesBadge);
   }

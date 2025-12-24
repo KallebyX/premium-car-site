@@ -55,7 +55,7 @@
       left: 0;
       right: 0;
       height: 100px;
-      background: linear-gradient(to top, #f8f9fa, transparent);
+      background: linear-gradient(to top, var(--bg-secondary), transparent);
     }
 
     .hero-badge {
@@ -93,21 +93,22 @@
 
     /* Filter Section */
     .filter-section {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
       margin-top: -50px;
       position: relative;
       z-index: 10;
+      border: 1px solid var(--border-light);
     }
 
     .filter-btn {
       padding: 10px 25px;
       border-radius: 50px;
-      border: 2px solid #e9ecef;
-      background: white;
-      color: #495057;
+      border: 2px solid var(--border-default);
+      background: var(--card-bg);
+      color: var(--text-secondary);
       font-weight: 600;
       transition: all 0.3s ease;
       margin: 5px;
@@ -135,16 +136,17 @@
 
     /* Video Card */
     .video-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
       transition: all 0.4s ease;
+      border: 1px solid var(--border-light);
     }
 
     .video-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .video-thumbnail {
@@ -229,20 +231,20 @@
     }
 
     .video-title a {
-      color: #212529;
+      color: var(--text-primary);
       text-decoration: none;
       transition: color 0.3s ease;
     }
 
     .video-title a:hover {
-      color: #dc3545;
+      color: var(--color-accent-600);
     }
 
     .video-meta {
       display: flex;
       align-items: center;
       gap: 15px;
-      color: #6c757d;
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
 
@@ -315,10 +317,11 @@
     }
 
     .skeleton-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-light);
     }
 
     .skeleton-thumbnail {
@@ -364,7 +367,7 @@
     }
   </style>
 </head>
-<body class="bg-light">
+<body>
   <div id="injected-header"></div>
 
   <!-- Hero Section -->

@@ -64,7 +64,7 @@
       left: 0;
       right: 0;
       height: 100px;
-      background: linear-gradient(to top, #f8f9fa, transparent);
+      background: linear-gradient(to top, var(--bg-secondary), transparent);
     }
 
     .hero-badge {
@@ -108,20 +108,20 @@
     }
 
     .contact-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 35px;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
       height: 100%;
       transition: all 0.4s ease;
-      border: 2px solid transparent;
+      border: 2px solid var(--border-light);
     }
 
     .contact-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-      border-color: #dc3545;
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--color-accent-600);
     }
 
     .contact-card-icon {
@@ -155,57 +155,71 @@
     .contact-card h4 {
       font-weight: 700;
       margin-bottom: 10px;
+      color: var(--text-primary);
     }
 
     .contact-card p {
-      color: #6c757d;
+      color: var(--text-secondary);
       margin-bottom: 20px;
     }
 
     .contact-card a {
-      color: #dc3545;
+      color: var(--color-accent-600);
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
     }
 
     .contact-card a:hover {
-      color: #c82333;
+      color: var(--color-accent-700);
     }
 
     /* Form Section */
     .form-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 50px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-light);
+    }
+
+    .form-card h3 {
+      color: var(--text-primary);
     }
 
     .form-control, .form-select {
       padding: 14px 18px;
       border-radius: 12px;
-      border: 2px solid #e9ecef;
+      border: 2px solid var(--border-default);
       transition: all 0.3s ease;
       font-size: 1rem;
+      background: var(--input-bg);
+      color: var(--text-primary);
     }
 
     .form-control:focus, .form-select:focus {
-      border-color: #dc3545;
+      border-color: var(--color-accent-600);
       box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15);
+      background: var(--input-bg);
     }
 
     .form-label {
       font-weight: 600;
-      color: #212529;
+      color: var(--text-primary);
       margin-bottom: 8px;
     }
 
     /* Info Section */
     .info-card {
-      background: linear-gradient(135deg, #f8f9fa, #fff);
+      background: var(--bg-tertiary);
       border-radius: 20px;
       padding: 35px;
       height: 100%;
+      border: 1px solid var(--border-light);
+    }
+
+    .info-card h4, .info-card h6 {
+      color: var(--text-primary);
     }
 
     .info-item {
@@ -213,7 +227,7 @@
       align-items: flex-start;
       gap: 15px;
       padding: 20px 0;
-      border-bottom: 1px solid #e9ecef;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .info-item:last-child {
@@ -275,7 +289,7 @@
 
     /* Social Section */
     .social-section {
-      background: white;
+      background: var(--bg-primary);
       padding: 80px 0;
     }
 
@@ -284,6 +298,10 @@
       padding: 30px;
       border-radius: 20px;
       transition: all 0.4s ease;
+    }
+
+    .social-card h5 {
+      color: var(--text-primary);
     }
 
     .social-card:hover {
@@ -378,23 +396,24 @@
     /* Map placeholder */
     .map-container {
       height: 300px;
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      background: var(--bg-tertiary);
       border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #6c757d;
+      color: var(--text-secondary);
       font-size: 1.2rem;
+      border: 1px solid var(--border-light);
     }
 
     .map-container i {
       font-size: 3rem;
       margin-bottom: 15px;
-      color: #dc3545;
+      color: var(--color-accent-600);
     }
   </style>
 </head>
-<body class="bg-light">
+<body>
   <div id="injected-header"></div>
 
   <!-- Hero Section -->

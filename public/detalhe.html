@@ -101,32 +101,40 @@
     }
 
     .info-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 15px;
       padding: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      box-shadow: var(--card-shadow);
       margin-bottom: 20px;
-      border-left: 4px solid #dc3545;
+      border-left: 4px solid var(--color-accent-600);
+      border-top: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .info-card h3, .info-card h4, .info-card h5 {
+      color: var(--text-primary);
     }
 
     .spec-item {
       padding: 15px;
-      background: #f8f9fa;
+      background: var(--bg-tertiary);
       border-radius: 10px;
       margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border: 1px solid var(--border-light);
     }
 
     .spec-label {
       font-weight: 600;
-      color: #6c757d;
+      color: var(--text-secondary);
     }
 
     .spec-value {
       font-weight: bold;
-      color: #212529;
+      color: var(--text-primary);
     }
 
     .rating-badge {
@@ -175,7 +183,7 @@
     .share-btn.email { background: #6c757d; }
   </style>
 </head>
-<body class="bg-light">
+<body>
   <div id="injected-header"></div>
   <div class="container my-5 px-3 px-md-5">
     <div id="carroDetalhe"></div>
