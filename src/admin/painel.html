@@ -8,6 +8,183 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/admin.css">
+  <style>
+    /* Dashboard Cards */
+    .dashboard-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+    }
+
+    .dashboard-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-icon.cars { background: linear-gradient(135deg, #dc3545, #ff6b7a); }
+    .dashboard-icon.contacts { background: linear-gradient(135deg, #28a745, #48c774); }
+    .dashboard-icon.newsletter { background: linear-gradient(135deg, #17a2b8, #3dc5d8); }
+    .dashboard-icon.users { background: linear-gradient(135deg, #6c757d, #8a9199); }
+
+    .dashboard-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #212529;
+      line-height: 1;
+    }
+
+    .dashboard-label {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin-top: 5px;
+    }
+
+    .dashboard-trend {
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .dashboard-trend.up { color: #28a745; }
+    .dashboard-trend.down { color: #dc3545; }
+
+    /* Tab Content Sections */
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    /* Contact/Newsletter Cards */
+    .message-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      border-left: 4px solid #dc3545;
+      transition: all 0.3s ease;
+    }
+
+    .message-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .message-card.read {
+      border-left-color: #6c757d;
+      opacity: 0.7;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .message-from {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .message-date {
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    .message-subject {
+      color: #dc3545;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .message-content {
+      color: #495057;
+      line-height: 1.6;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    /* Newsletter Subscriber */
+    .subscriber-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .subscriber-email {
+      font-weight: 600;
+    }
+
+    .subscriber-date {
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .quick-action-btn {
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    /* Charts placeholder */
+    .chart-placeholder {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 20px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+    }
+  </style>
 </head>
 <body class="admin-body">
 <div id="injected-header"></div>
@@ -37,9 +214,22 @@
 <div class="container my-5">
   <!-- Navegacao Admin -->
   <div class="admin-nav">
-    <a href="/admin" class="admin-nav-link active">
+    <a href="#" class="admin-nav-link active" onclick="showSection('dashboard', this)">
+      <i class="bi bi-grid-fill"></i>
+      Dashboard
+    </a>
+    <a href="#" class="admin-nav-link" onclick="showSection('avaliacoes', this)">
       <i class="bi bi-car-front-fill"></i>
       Avaliacoes
+    </a>
+    <a href="#" class="admin-nav-link" onclick="showSection('contatos', this)">
+      <i class="bi bi-envelope-fill"></i>
+      Contatos
+      <span class="badge bg-danger ms-2" id="contactsBadge">0</span>
+    </a>
+    <a href="#" class="admin-nav-link" onclick="showSection('newsletter', this)">
+      <i class="bi bi-newspaper"></i>
+      Newsletter
     </a>
     <a href="/admin/usuarios" class="admin-nav-link" id="usersNavLink">
       <i class="bi bi-people-fill"></i>
@@ -50,176 +240,303 @@
   <!-- Mensagem de Status -->
   <div id="statusMsg" class="mb-4"></div>
 
-  <!-- Formulário -->
-  <form id="carroForm" class="form-card fade-in">
-    <h3>
-      <i class="bi bi-plus-circle-fill text-danger"></i>
-      <span id="formTitle">Nova Avaliação</span>
-    </h3>
-    <input type="hidden" id="id">
-    
-    <div class="row g-3 mb-3">
-      <div class="col-12">
-        <label class="form-label">
-          <i class="bi bi-card-heading me-2"></i>Título da Avaliação *
-        </label>
-        <input type="text" class="form-control" id="titulo" 
-               placeholder="Ex: Porsche 911 GT3 - O carro dos sonhos" required>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">
-        <i class="bi bi-text-paragraph me-2"></i>Descrição Completa *
-      </label>
-      <textarea class="form-control" id="descricao" rows="4" 
-                placeholder="Descreva sua análise detalhada do veículo..." required></textarea>
-      <small class="text-muted">Mínimo 100 caracteres</small>
-    </div>
-
-    <div class="row g-3 mb-3">
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-tag me-2"></i>Marca *
-        </label>
-        <input type="text" class="form-control" id="marca" 
-               placeholder="Ex: Porsche" list="marcasList" required>
-        <datalist id="marcasList"></datalist>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-car-front me-2"></i>Modelo *
-        </label>
-        <input type="text" class="form-control" id="modelo" 
-               placeholder="Ex: 911 GT3" required>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-calendar-event me-2"></i>Ano *
-        </label>
-        <input type="number" class="form-control" id="ano" 
-               placeholder="2024" min="1900" max="2030" required>
-      </div>
-    </div>
-
-    <div class="row g-3 mb-3">
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-cash-stack me-2"></i>Preço Estimado (R$) *
-        </label>
-        <input type="number" class="form-control" id="preco" 
-               placeholder="350000" min="0" step="1000" required>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-star-fill me-2"></i>Nota (1-10) *
-        </label>
-        <input type="number" class="form-control" id="nota" 
-               placeholder="9" min="1" max="10" required>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">
-          <i class="bi bi-youtube me-2"></i>URL do Vídeo (YouTube)
-        </label>
-        <input type="url" class="form-control" id="video" 
-               placeholder="https://www.youtube.com/embed/...">
-      </div>
-    </div>
-
-    <div class="mb-4">
-      <label class="form-label">
-        <i class="bi bi-image me-2"></i>Imagem do Carro
-      </label>
-      <input type="file" class="form-control" id="imagem" accept="image/*">
-      <small class="text-muted">Formatos: JPG, PNG, WEBP. Tamanho máximo: 5MB</small>
-      
-      <div id="previewContainer" class="image-preview-container d-none">
-        <img id="previewImagem" src="#" alt="Pré-visualização" class="image-preview img-fluid">
-        <button type="button" class="remove-image-btn" onclick="removerPreview()">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-      <input type="hidden" id="imagem_url">
-    </div>
-
-    <div class="d-flex gap-3 flex-wrap">
-      <button type="submit" class="btn btn-success btn-lg" id="btnSalvar">
-        <i class="bi bi-check-circle"></i>
-        <span id="btnText">Salvar Avaliação</span>
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn-lg" onclick="limparFormulario()">
-        <i class="bi bi-x-circle"></i> Cancelar
-      </button>
-    </div>
-  </form>
-
-  <!-- Busca e Filtros -->
-  <div class="filter-card slide-up">
-    <h5>
-      <i class="bi bi-funnel-fill text-danger"></i>
-      Filtros e Busca
-    </h5>
-    <div class="row g-3">
-      <div class="col-md-5">
-        <div class="input-group">
-          <span class="input-group-text bg-white">
-            <i class="bi bi-search"></i>
-          </span>
-          <input type="text" id="searchTable" class="form-control" 
-                 placeholder="Buscar por título, marca ou modelo...">
+  <!-- ======================= -->
+  <!-- DASHBOARD SECTION -->
+  <!-- ======================= -->
+  <div class="admin-section active" id="dashboardSection">
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card">
+          <div class="dashboard-icon cars">
+            <i class="bi bi-car-front-fill"></i>
+          </div>
+          <div class="dashboard-number" id="dashCarros">0</div>
+          <div class="dashboard-label">Carros Avaliados</div>
+          <div class="dashboard-trend up">
+            <i class="bi bi-arrow-up"></i> Este mês
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <select id="filterMarcaTable" class="form-select">
-          <option value="">Todas as marcas</option>
-        </select>
+      <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card">
+          <div class="dashboard-icon contacts">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <div class="dashboard-number" id="dashContatos">0</div>
+          <div class="dashboard-label">Mensagens de Contato</div>
+          <div class="dashboard-trend up">
+            <i class="bi bi-arrow-up"></i> Novas
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <select id="filterNotaTable" class="form-select">
-          <option value="">Todas as notas</option>
-          <option value="9">9+ Excelente</option>
-          <option value="7">7+ Muito Bom</option>
-          <option value="5">5+ Bom</option>
-        </select>
+      <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card">
+          <div class="dashboard-icon newsletter">
+            <i class="bi bi-newspaper"></i>
+          </div>
+          <div class="dashboard-number" id="dashNewsletter">0</div>
+          <div class="dashboard-label">Inscritos Newsletter</div>
+          <div class="dashboard-trend up">
+            <i class="bi bi-arrow-up"></i> Total
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <button id="clearTableFilters" class="btn btn-outline-secondary w-100">
-          <i class="bi bi-x-circle"></i> Limpar
-        </button>
+      <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card">
+          <div class="dashboard-icon users">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <div class="dashboard-number" id="dashUsuarios">-</div>
+          <div class="dashboard-label">Usuarios Cadastrados</div>
+        </div>
       </div>
     </div>
-    <div class="mt-3 d-flex justify-content-between align-items-center">
-      <small class="text-muted" id="tableResultCount">0 resultados</small>
-      <small class="text-muted">
-        <i class="bi bi-info-circle me-1"></i>
-        Mostrando <span id="currentPageInfo">0</span> de <span id="totalCarrosInfo">0</span>
-      </small>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="dashboard-card">
+          <h5 class="mb-4"><i class="bi bi-graph-up text-danger me-2"></i>Ultimas Avaliacoes</h5>
+          <div class="table-responsive">
+            <table class="table table-hover" id="recentCarsTable">
+              <thead>
+                <tr>
+                  <th>Carro</th>
+                  <th>Marca</th>
+                  <th>Nota</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="dashboard-card">
+          <h5 class="mb-4"><i class="bi bi-star-fill text-warning me-2"></i>Marcas Mais Avaliadas</h5>
+          <div id="brandsChart">
+            <!-- Brand stats will be inserted here -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Tabela -->
-  <div class="table-container slide-up">
-    <div class="table-responsive">
-      <table class="table table-hover align-middle" id="tabelaCarros">
-        <thead>
-          <tr>
-            <th style="width: 80px;">Imagem</th>
-            <th>Título</th>
-            <th>Marca/Modelo</th>
-            <th style="width: 80px;">Ano</th>
-            <th style="width: 120px;">Preço</th>
-            <th style="width: 80px;">Nota</th>
-            <th style="width: 200px;" class="text-center">Ações</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+  <!-- ======================= -->
+  <!-- AVALIACOES SECTION -->
+  <!-- ======================= -->
+  <div class="admin-section" id="avaliacoesSection">
+    <!-- Formulário -->
+    <form id="carroForm" class="form-card fade-in">
+      <h3>
+        <i class="bi bi-plus-circle-fill text-danger"></i>
+        <span id="formTitle">Nova Avaliação</span>
+      </h3>
+      <input type="hidden" id="id">
+
+      <div class="row g-3 mb-3">
+        <div class="col-12">
+          <label class="form-label">
+            <i class="bi bi-card-heading me-2"></i>Título da Avaliação *
+          </label>
+          <input type="text" class="form-control" id="titulo"
+                 placeholder="Ex: Porsche 911 GT3 - O carro dos sonhos" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-text-paragraph me-2"></i>Descrição Completa *
+        </label>
+        <textarea class="form-control" id="descricao" rows="4"
+                  placeholder="Descreva sua análise detalhada do veículo..." required></textarea>
+        <small class="text-muted">Mínimo 100 caracteres</small>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-tag me-2"></i>Marca *
+          </label>
+          <input type="text" class="form-control" id="marca"
+                 placeholder="Ex: Porsche" list="marcasList" required>
+          <datalist id="marcasList"></datalist>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-car-front me-2"></i>Modelo *
+          </label>
+          <input type="text" class="form-control" id="modelo"
+                 placeholder="Ex: 911 GT3" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-calendar-event me-2"></i>Ano *
+          </label>
+          <input type="number" class="form-control" id="ano"
+                 placeholder="2024" min="1900" max="2030" required>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-cash-stack me-2"></i>Preço Estimado (R$) *
+          </label>
+          <input type="number" class="form-control" id="preco"
+                 placeholder="350000" min="0" step="1000" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-star-fill me-2"></i>Nota (1-10) *
+          </label>
+          <input type="number" class="form-control" id="nota"
+                 placeholder="9" min="1" max="10" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">
+            <i class="bi bi-youtube me-2"></i>URL do Vídeo (YouTube)
+          </label>
+          <input type="url" class="form-control" id="video"
+                 placeholder="https://www.youtube.com/embed/...">
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">
+          <i class="bi bi-image me-2"></i>Imagem do Carro
+        </label>
+        <input type="file" class="form-control" id="imagem" accept="image/*">
+        <small class="text-muted">Formatos: JPG, PNG, WEBP. Tamanho máximo: 5MB</small>
+
+        <div id="previewContainer" class="image-preview-container d-none">
+          <img id="previewImagem" src="#" alt="Pré-visualização" class="image-preview img-fluid">
+          <button type="button" class="remove-image-btn" onclick="removerPreview()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <input type="hidden" id="imagem_url">
+      </div>
+
+      <div class="d-flex gap-3 flex-wrap">
+        <button type="submit" class="btn btn-success btn-lg" id="btnSalvar">
+          <i class="bi bi-check-circle"></i>
+          <span id="btnText">Salvar Avaliação</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-lg" onclick="limparFormulario()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+      </div>
+    </form>
+
+    <!-- Busca e Filtros -->
+    <div class="filter-card slide-up">
+      <h5>
+        <i class="bi bi-funnel-fill text-danger"></i>
+        Filtros e Busca
+      </h5>
+      <div class="row g-3">
+        <div class="col-md-5">
+          <div class="input-group">
+            <span class="input-group-text bg-white">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" id="searchTable" class="form-control"
+                   placeholder="Buscar por título, marca ou modelo...">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select id="filterMarcaTable" class="form-select">
+            <option value="">Todas as marcas</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select id="filterNotaTable" class="form-select">
+            <option value="">Todas as notas</option>
+            <option value="9">9+ Excelente</option>
+            <option value="7">7+ Muito Bom</option>
+            <option value="5">5+ Bom</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button id="clearTableFilters" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-x-circle"></i> Limpar
+          </button>
+        </div>
+      </div>
+      <div class="mt-3 d-flex justify-content-between align-items-center">
+        <small class="text-muted" id="tableResultCount">0 resultados</small>
+        <small class="text-muted">
+          <i class="bi bi-info-circle me-1"></i>
+          Mostrando <span id="currentPageInfo">0</span> de <span id="totalCarrosInfo">0</span>
+        </small>
+      </div>
     </div>
 
-    <!-- Paginação -->
-    <nav aria-label="Navegação de páginas">
-      <ul class="pagination justify-content-center" id="pagination"></ul>
-    </nav>
+    <!-- Tabela -->
+    <div class="table-container slide-up">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle" id="tabelaCarros">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Imagem</th>
+              <th>Título</th>
+              <th>Marca/Modelo</th>
+              <th style="width: 80px;">Ano</th>
+              <th style="width: 120px;">Preço</th>
+              <th style="width: 80px;">Nota</th>
+              <th style="width: 200px;" class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <nav aria-label="Navegação de páginas">
+        <ul class="pagination justify-content-center" id="pagination"></ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ======================= -->
+  <!-- CONTATOS SECTION -->
+  <!-- ======================= -->
+  <div class="admin-section" id="contatosSection">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4><i class="bi bi-envelope-fill text-danger me-2"></i>Mensagens de Contato</h4>
+      <button class="btn btn-outline-danger" onclick="loadContacts()">
+        <i class="bi bi-arrow-clockwise me-2"></i>Atualizar
+      </button>
+    </div>
+
+    <div id="contactsList">
+      <div class="text-center py-5">
+        <div class="spinner-border text-danger" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= -->
+  <!-- NEWSLETTER SECTION -->
+  <!-- ======================= -->
+  <div class="admin-section" id="newsletterSection">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4><i class="bi bi-newspaper text-danger me-2"></i>Inscritos na Newsletter</h4>
+      <button class="btn btn-outline-danger" onclick="loadNewsletter()">
+        <i class="bi bi-arrow-clockwise me-2"></i>Atualizar
+      </button>
+    </div>
+
+    <div id="newsletterList">
+      <div class="text-center py-5">
+        <div class="spinner-border text-danger" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div id="injected-footer"></div>
@@ -252,6 +569,27 @@ let paginaAtual = 1;
 const itensPorPagina = 10;
 
 // ============================================
+// NAVEGAÇÃO ENTRE SEÇÕES
+// ============================================
+function showSection(sectionId, linkElement) {
+  // Hide all sections
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+
+  // Show selected section
+  document.getElementById(sectionId + 'Section').classList.add('active');
+
+  // Update nav links
+  document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
+  if (linkElement) linkElement.classList.add('active');
+
+  // Load data for specific sections
+  if (sectionId === 'contatos') loadContacts();
+  if (sectionId === 'newsletter') loadNewsletter();
+
+  return false;
+}
+
+// ============================================
 // FUNÇÕES AUXILIARES
 // ============================================
 function mostrarMensagem(texto, tipo = 'success') {
@@ -263,7 +601,6 @@ function mostrarMensagem(texto, tipo = 'success') {
     </div>
   `;
   setTimeout(() => { msg.innerHTML = ''; }, 5000);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function mostrarLoading(show = true) {
@@ -280,10 +617,18 @@ function mostrarLoading(show = true) {
 }
 
 function formatarMoeda(valor) {
-  return new Intl.NumberFormat('pt-BR', { 
-    style: 'currency', 
-    currency: 'BRL' 
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
   }).format(valor);
+}
+
+function formatarData(data) {
+  return new Date(data).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
 }
 
 function validarFormulario() {
@@ -335,13 +680,225 @@ function limparFormulario() {
   btnText.textContent = 'Salvar Avaliação';
   previewContainer.classList.add('d-none');
   imagem_url.value = '';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function removerPreview() {
   inputFile.value = '';
   previewContainer.classList.add('d-none');
   imagem_url.value = '';
+}
+
+// ============================================
+// DASHBOARD
+// ============================================
+async function loadDashboard() {
+  try {
+    // Load car stats
+    const carsRes = await fetch('/api/carros?limit=500', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    const carsData = await carsRes.json();
+    const cars = carsData.data || carsData;
+
+    document.getElementById('dashCarros').textContent = cars.length;
+    document.getElementById('totalAvaliacoes').textContent = cars.length;
+    document.getElementById('totalMarcas').textContent = [...new Set(cars.map(c => c.marca))].size;
+
+    // Recent cars table
+    const recentCars = cars.slice(0, 5);
+    document.querySelector('#recentCarsTable tbody').innerHTML = recentCars.map(car => `
+      <tr>
+        <td>
+          <strong>${car.titulo.substring(0, 40)}...</strong>
+        </td>
+        <td><span class="badge bg-light text-dark">${car.marca}</span></td>
+        <td><span class="badge bg-${car.nota_geral >= 9 ? 'success' : car.nota_geral >= 7 ? 'warning text-dark' : 'danger'}">${car.nota_geral}/10</span></td>
+        <td class="text-muted">${formatarData(car.data_postagem)}</td>
+      </tr>
+    `).join('');
+
+    // Brands chart
+    const brandCounts = {};
+    cars.forEach(car => {
+      brandCounts[car.marca] = (brandCounts[car.marca] || 0) + 1;
+    });
+    const sortedBrands = Object.entries(brandCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    document.getElementById('brandsChart').innerHTML = sortedBrands.map(([brand, count]) => `
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span>${brand}</span>
+        <div class="d-flex align-items-center gap-2">
+          <div class="progress" style="width: 100px; height: 8px;">
+            <div class="progress-bar bg-danger" style="width: ${(count / sortedBrands[0][1]) * 100}%"></div>
+          </div>
+          <span class="badge bg-light text-dark">${count}</span>
+        </div>
+      </div>
+    `).join('');
+
+    // Try to load contacts count
+    try {
+      const contactsRes = await fetch('/api/contacts', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (contactsRes.ok) {
+        const contacts = await contactsRes.json();
+        document.getElementById('dashContatos').textContent = contacts.length || 0;
+        document.getElementById('contactsBadge').textContent = contacts.length || 0;
+      }
+    } catch (e) {
+      document.getElementById('dashContatos').textContent = '-';
+    }
+
+    // Try to load newsletter count
+    try {
+      const newsletterRes = await fetch('/api/newsletter', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (newsletterRes.ok) {
+        const newsletter = await newsletterRes.json();
+        document.getElementById('dashNewsletter').textContent = newsletter.length || 0;
+      }
+    } catch (e) {
+      document.getElementById('dashNewsletter').textContent = '-';
+    }
+
+  } catch (error) {
+    console.error('Error loading dashboard:', error);
+  }
+}
+
+// ============================================
+// CONTATOS
+// ============================================
+async function loadContacts() {
+  try {
+    const response = await fetch('/api/contacts', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+
+    if (!response.ok) throw new Error('Não foi possível carregar contatos');
+
+    const contacts = await response.json();
+
+    if (contacts.length === 0) {
+      document.getElementById('contactsList').innerHTML = `
+        <div class="empty-state">
+          <i class="bi bi-envelope-open"></i>
+          <h4>Nenhuma mensagem</h4>
+          <p class="text-muted">Você não recebeu mensagens ainda.</p>
+        </div>
+      `;
+      return;
+    }
+
+    document.getElementById('contactsList').innerHTML = contacts.map(c => `
+      <div class="message-card">
+        <div class="message-header">
+          <div>
+            <div class="message-from">${c.name}</div>
+            <div class="text-muted small">${c.email} ${c.phone ? '| ' + c.phone : ''}</div>
+          </div>
+          <div class="message-date">${formatarData(c.created_at)}</div>
+        </div>
+        <div class="message-subject">
+          <i class="bi bi-tag me-2"></i>${c.subject || 'Sem assunto'}
+        </div>
+        <div class="message-content">${c.message}</div>
+        <div class="message-actions">
+          <a href="mailto:${c.email}" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-reply me-1"></i>Responder
+          </a>
+          <a href="https://wa.me/${c.phone?.replace(/\D/g, '')}" target="_blank" class="btn btn-sm btn-outline-success ${!c.phone ? 'd-none' : ''}">
+            <i class="bi bi-whatsapp me-1"></i>WhatsApp
+          </a>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (error) {
+    console.error('Error loading contacts:', error);
+    document.getElementById('contactsList').innerHTML = `
+      <div class="empty-state">
+        <i class="bi bi-exclamation-triangle"></i>
+        <h4>Erro ao carregar</h4>
+        <p class="text-muted">Não foi possível carregar as mensagens.</p>
+      </div>
+    `;
+  }
+}
+
+// ============================================
+// NEWSLETTER
+// ============================================
+async function loadNewsletter() {
+  try {
+    const response = await fetch('/api/newsletter', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+
+    if (!response.ok) throw new Error('Não foi possível carregar inscritos');
+
+    const subscribers = await response.json();
+
+    if (subscribers.length === 0) {
+      document.getElementById('newsletterList').innerHTML = `
+        <div class="empty-state">
+          <i class="bi bi-newspaper"></i>
+          <h4>Nenhum inscrito</h4>
+          <p class="text-muted">Ainda não há inscritos na newsletter.</p>
+        </div>
+      `;
+      return;
+    }
+
+    document.getElementById('newsletterList').innerHTML = `
+      <div class="mb-3 text-muted">
+        <i class="bi bi-people me-2"></i>Total: ${subscribers.length} inscritos
+      </div>
+      ${subscribers.map(s => `
+        <div class="subscriber-row">
+          <div>
+            <div class="subscriber-email">${s.email}</div>
+            <div class="subscriber-date">Inscrito em: ${formatarData(s.subscribed_at || s.created_at)}</div>
+          </div>
+          <button class="btn btn-sm btn-outline-danger" onclick="unsubscribe('${s.email}')">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      `).join('')}
+    `;
+
+  } catch (error) {
+    console.error('Error loading newsletter:', error);
+    document.getElementById('newsletterList').innerHTML = `
+      <div class="empty-state">
+        <i class="bi bi-exclamation-triangle"></i>
+        <h4>Erro ao carregar</h4>
+        <p class="text-muted">Não foi possível carregar os inscritos.</p>
+      </div>
+    `;
+  }
+}
+
+async function unsubscribe(email) {
+  if (!confirm(`Remover ${email} da newsletter?`)) return;
+
+  try {
+    const response = await fetch(`/api/newsletter/${encodeURIComponent(email)}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+
+    if (response.ok) {
+      mostrarMensagem('Inscrito removido com sucesso', 'warning');
+      loadNewsletter();
+    } else {
+      throw new Error('Erro ao remover');
+    }
+  } catch (error) {
+    mostrarMensagem('Erro ao remover inscrito', 'danger');
+  }
 }
 
 // ============================================
@@ -368,16 +925,13 @@ async function listarCarros() {
     if (!res.ok) throw new Error('Erro ao carregar carros');
 
     const response = await res.json();
-    // Suporta resposta com paginação ou array direto
     todosOsCarros = response.data || response;
     carrosFiltradosTable = todosOsCarros;
 
-    // Atualizar estatísticas
     document.getElementById('totalAvaliacoes').textContent = todosOsCarros.length;
     document.getElementById('totalMarcas').textContent = [...new Set(todosOsCarros.map(c => c.marca))].size;
     document.getElementById('totalCarrosInfo').textContent = todosOsCarros.length;
 
-    // Preencher filtro de marcas
     const marcas = [...new Set(todosOsCarros.map(c => c.marca))].sort();
     document.getElementById('filterMarcaTable').innerHTML = '<option value="">Todas as marcas</option>' +
       marcas.map(m => `<option value="${m}">${m}</option>`).join('');
@@ -400,11 +954,10 @@ function renderizarTabela() {
   const fim = inicio + itensPorPagina;
   const carrosPagina = carrosFiltradosTable.slice(inicio, fim);
 
-  // Atualizar contador
-  document.getElementById('tableResultCount').textContent = 
+  document.getElementById('tableResultCount').textContent =
     `${carrosFiltradosTable.length} ${carrosFiltradosTable.length === 1 ? 'resultado' : 'resultados'}`;
-  
-  document.getElementById('currentPageInfo').textContent = 
+
+  document.getElementById('currentPageInfo').textContent =
     carrosPagina.length > 0 ? `${inicio + 1}-${Math.min(fim, carrosFiltradosTable.length)}` : '0';
 
   if (carrosPagina.length === 0) {
@@ -445,19 +998,19 @@ function renderizarTabela() {
           </td>
           <td class="text-center">
             <div class="btn-group btn-group-sm" role="group">
-              <button onclick='editarCarro(${JSON.stringify(carro).replace(/'/g, "&#39;")})' 
-                      class="btn btn-warning" 
+              <button onclick='editarCarro(${JSON.stringify(carro).replace(/'/g, "&#39;")})'
+                      class="btn btn-warning"
                       title="Editar">
                 <i class="bi bi-pencil-fill"></i>
               </button>
-              <a href="/detalhe.html?id=${carro.id}" 
+              <a href="/detalhe.html?id=${carro.id}"
                  target="_blank"
-                 class="btn btn-info text-white" 
+                 class="btn btn-info text-white"
                  title="Visualizar">
                 <i class="bi bi-eye-fill"></i>
               </a>
-              <button onclick='excluirCarro("${carro.id}", "${carro.titulo}")' 
-                      class="btn btn-danger" 
+              <button onclick='excluirCarro("${carro.id}", "${carro.titulo}")'
+                      class="btn btn-danger"
                       title="Excluir">
                 <i class="bi bi-trash-fill"></i>
               </button>
@@ -519,9 +1072,7 @@ function mudarPagina(novaPagina) {
   if (novaPagina < 1 || novaPagina > totalPaginas) return;
   paginaAtual = novaPagina;
   renderizarTabela();
-  document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
 }
-
 
 // ============================================
 // FILTROS
@@ -536,7 +1087,7 @@ function aplicarFiltrosTable() {
       carro.titulo.toLowerCase().includes(searchTerm) ||
       carro.marca.toLowerCase().includes(searchTerm) ||
       carro.modelo.toLowerCase().includes(searchTerm) ||
-      carro.descricao.toLowerCase().includes(searchTerm);
+      (carro.descricao && carro.descricao.toLowerCase().includes(searchTerm));
 
     const matchMarca = !marcaSelecionada || carro.marca === marcaSelecionada;
     const matchNota = !notaMinima || carro.nota_geral >= parseInt(notaMinima);
@@ -571,15 +1122,16 @@ function editarCarro(carro) {
   document.getElementById('nota').value = carro.nota_geral;
   document.getElementById('video').value = carro.video_url || '';
   document.getElementById('imagem_url').value = carro.imagem_url || '';
-  
+
   document.getElementById('formTitle').textContent = 'Editar Avaliação';
   btnText.textContent = 'Atualizar Avaliação';
-  
+
   if (carro.imagem_url) {
     previewImagem.src = carro.imagem_url;
     previewContainer.classList.remove('d-none');
   }
-  
+
+  showSection('avaliacoes', document.querySelector('[onclick*="avaliacoes"]'));
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -592,7 +1144,7 @@ async function excluirCarro(id, titulo) {
   }
 
   mostrarLoading(true);
-  
+
   try {
     const res = await fetch(`/api/carros/${id}`, {
       method: 'DELETE',
@@ -604,6 +1156,7 @@ async function excluirCarro(id, titulo) {
     if (res.ok) {
       mostrarMensagem('Avaliação excluída com sucesso!', 'warning');
       listarCarros();
+      loadDashboard();
     } else {
       throw new Error('Erro ao excluir');
     }
@@ -622,14 +1175,12 @@ async function uploadImagem() {
   const file = inputFile.files[0];
   if (!file) return null;
 
-  // Validar tipo de arquivo
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
   if (!allowedTypes.includes(file.type)) {
     mostrarMensagem('Apenas imagens JPG, PNG ou WEBP são permitidas.', 'danger');
     return null;
   }
 
-  // Validar tamanho (máximo 5MB)
   if (file.size > 5 * 1024 * 1024) {
     mostrarMensagem('A imagem deve ter no máximo 5MB.', 'danger');
     return null;
@@ -729,6 +1280,7 @@ form.addEventListener('submit', async (e) => {
       );
       limparFormulario();
       listarCarros();
+      loadDashboard();
     } else {
       const erro = await res.json();
       throw new Error(erro.error || 'Erro desconhecido');
@@ -749,19 +1301,18 @@ form.addEventListener('submit', async (e) => {
 inputFile.addEventListener('change', () => {
   const file = inputFile.files[0];
   if (file) {
-    // Validação prévia
     if (!['image/jpeg', 'image/png', 'image/jpg', 'image/webp'].includes(file.type)) {
       mostrarMensagem('Formato de imagem inválido', 'danger');
       inputFile.value = '';
       return;
     }
-    
+
     if (file.size > 5 * 1024 * 1024) {
       mostrarMensagem('Imagem muito grande (máx 5MB)', 'danger');
       inputFile.value = '';
       return;
     }
-    
+
     previewImagem.src = URL.createObjectURL(file);
     previewContainer.classList.remove('d-none');
   } else {
@@ -783,6 +1334,7 @@ function logout() {
 // INICIALIZAÇÃO
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+  loadDashboard();
   listarCarros();
 
   // Event Listeners dos Filtros

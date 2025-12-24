@@ -40,27 +40,6 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://premiumcar.com/fale-conosco.html">
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "Fale Conosco - Premium Car",
-    "description": "Entre em contato com a equipe Premium Car",
-    "url": "https://premiumcar.com/fale-conosco.html",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "Premium Car",
-      "url": "https://premiumcar.com",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "Customer Service",
-        "availableLanguage": "Portuguese"
-      }
-    }
-  }
-  </script>
-
   <!-- Bootstrap (must load BEFORE custom styles) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
@@ -70,111 +49,348 @@
   <link rel="stylesheet" href="/css/global.css">
   <style>
     .hero-section {
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background: linear-gradient(135deg, rgba(220, 53, 69, 0.9), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
       background-size: cover;
       background-position: center;
       color: white;
-      padding: 100px 0;
-      margin-bottom: 60px;
+      padding: 140px 0 100px;
+      position: relative;
     }
-    
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, #f8f9fa, transparent);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
     .section-title {
       position: relative;
       margin-bottom: 40px;
-      font-weight: 600;
+      font-weight: 700;
     }
-    
+
     .section-title:after {
       content: '';
       position: absolute;
       left: 0;
       bottom: -10px;
       width: 60px;
-      height: 3px;
-      background-color: #dc3545;
+      height: 4px;
+      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      border-radius: 2px;
     }
-    
-    .contact-form {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      padding: 30px;
+
+    .section-title.text-center:after {
+      left: 50%;
+      transform: translateX(-50%);
     }
-    
-    .form-control:focus {
-      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+
+    /* Contact Cards */
+    .contact-cards {
+      margin-top: -60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      height: 100%;
+      transition: all 0.4s ease;
+      border: 2px solid transparent;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
       border-color: #dc3545;
     }
-    
-    .btn-primary {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: #bb2d3b;
-      border-color: #bb2d3b;
-    }
-    
-    .social-link {
-      display: inline-flex;
+
+    .contact-card-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      color: white;
+    }
+
+    .contact-card-icon.whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+
+    .contact-card-icon.email {
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+    }
+
+    .contact-card-icon.youtube {
+      background: linear-gradient(135deg, #FF0000, #cc0000);
+    }
+
+    .contact-card-icon.location {
+      background: linear-gradient(135deg, #6c757d, #495057);
+    }
+
+    .contact-card h4 {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .contact-card p {
+      color: #6c757d;
+      margin-bottom: 20px;
+    }
+
+    .contact-card a {
+      color: #dc3545;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card a:hover {
+      color: #c82333;
+    }
+
+    /* Form Section */
+    .form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .form-control, .form-select {
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 8px;
+    }
+
+    /* Info Section */
+    .info-card {
+      background: linear-gradient(135deg, #f8f9fa, #fff);
+      border-radius: 20px;
+      padding: 35px;
+      height: 100%;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-icon {
       width: 50px;
       height: 50px;
-      border-radius: 50%;
-      background-color: #f8f9fa;
-      color: #212529;
-      margin-right: 15px;
-      transition: all 0.3s ease;
-      text-decoration: none;
+      background: linear-gradient(135deg, rgba(220,53,69,0.1), rgba(255,107,122,0.1));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dc3545;
+      font-size: 1.3rem;
+      flex-shrink: 0;
     }
-    
-    .social-link:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .social-link.whatsapp {
-      background-color: #25D366;
+
+    /* FAQ Section */
+    .faq-section {
+      background: linear-gradient(135deg, #212529, #343a40);
+      padding: 80px 0;
       color: white;
     }
-    
-    .social-link.instagram {
-      background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+
+    .faq-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .faq-item .accordion-button {
+      padding: 20px 25px;
+      font-weight: 600;
+      background: transparent;
       color: white;
     }
-    
-    .social-link.youtube {
-      background-color: #FF0000;
-      color: white;
+
+    .faq-item .accordion-button:not(.collapsed) {
+      background: rgba(220, 53, 69, 0.2);
+      color: #ff6b7a;
     }
-    
-    .contact-info-card {
-      border-left: 3px solid #dc3545;
-      padding: 20px;
-      margin-bottom: 20px;
-      background-color: #f8f9fa;
-      transition: all 0.3s ease;
+
+    .faq-item .accordion-button:focus {
+      box-shadow: none;
     }
-    
-    .contact-info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+    .faq-item .accordion-button::after {
+      filter: invert(1);
     }
-    
-    .thank-you-message {
-      display: none;
-      background-color: #d4edda;
-      color: #155724;
-      border-radius: 10px;
-      padding: 30px;
+
+    .faq-item .accordion-body {
+      padding: 0 25px 20px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Social Section */
+    .social-section {
+      background: white;
+      padding: 80px 0;
+    }
+
+    .social-card {
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      transition: all 0.4s ease;
     }
-    
-    .loading-spinner {
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon.youtube {
+      background: linear-gradient(135deg, #FF0000, #cc0000);
+    }
+
+    .social-icon.whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+
+    .social-icon.instagram {
+      background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+    }
+
+    .social-card:hover .social-icon {
+      transform: scale(1.1);
+    }
+
+    /* Success Message */
+    .success-message {
       display: none;
+      background: linear-gradient(135deg, #28a745, #218838);
+      color: white;
+      border-radius: 20px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .success-message i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      border: none;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
+      background: linear-gradient(135deg, #c82333, #bd2130);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Map placeholder */
+    .map-container {
+      height: 300px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 1.2rem;
+    }
+
+    .map-container i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #dc3545;
     }
   </style>
 </head>
@@ -184,111 +400,298 @@
   <!-- Hero Section -->
   <section class="hero-section text-center">
     <div class="container">
-      <h1 class="display-4 fw-bold mb-4">Fale Conosco</h1>
-      <p class="lead mb-4">Estamos à disposição para ouvir suas dúvidas, sugestões e propostas</p>
+      <span class="hero-badge">
+        <i class="bi bi-headset me-2"></i>Estamos aqui para ajudar
+      </span>
+      <h1 class="display-3 fw-bold mb-4">Fale Conosco</h1>
+      <p class="lead mb-0 fs-4">Dúvidas, sugestões ou propostas? Entre em contato!</p>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <div class="container my-5">
-    <div class="row">
-      <!-- Contact Form -->
-      <div class="col-lg-7 mb-5 mb-lg-0">
-        <h2 class="section-title">Envie sua mensagem</h2>
-        <p class="mb-4">Preencha o formulário abaixo e entraremos em contato o mais breve possível.</p>
-        
-        <div class="contact-form" id="contact-form">
-          <form id="contactForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Nome completo*</label>
-              <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="email" class="form-label">E-mail*</label>
-              <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="phone" class="form-label">Telefone (opcional)</label>
-              <input type="tel" class="form-control" id="phone" name="phone">
-            </div>
-            
-            <div class="mb-3">
-              <label for="subject" class="form-label">Assunto*</label>
-              <select class="form-select" id="subject" name="subject" required>
-                <option value="" selected disabled>Selecione uma opção</option>
-                <option value="Avaliação de carro">Avaliação de carro</option>
-                <option value="Parceria">Parceria</option>
-                <option value="Sugestão">Sugestão</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-            
-            <div class="mb-3">
-              <label for="message" class="form-label">Mensagem*</label>
-              <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-            </div>
-            
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary py-2" id="submitButton">
-                <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true" id="loadingSpinner"></span>
-                <span id="submitText">Enviar mensagem</span>
-              </button>
-            </div>
-          </form>
-        </div>
-        
-        <!-- Thank You Message -->
-        <div class="thank-you-message mt-4" id="thankYouMessage">
-          <i class="bi bi-check-circle-fill text-success fs-1 mb-3"></i>
-          <h3>Mensagem enviada com sucesso!</h3>
-          <p class="mb-0">Agradecemos seu contato. Nossa equipe responderá o mais breve possível.</p>
+  <!-- Contact Cards -->
+  <div class="container contact-cards">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 fade-in-up">
+        <div class="contact-card">
+          <div class="contact-card-icon whatsapp">
+            <i class="bi bi-whatsapp"></i>
+          </div>
+          <h4>WhatsApp</h4>
+          <p>Resposta rápida em horário comercial</p>
+          <a href="https://wa.me/5555999837425" target="_blank">
+            (55) 99983-7425
+            <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
       </div>
-      
-      <!-- Contact Info -->
-      <div class="col-lg-5">
-        <div class="ps-lg-4">
-          <h2 class="section-title">Informações de contato</h2>
-          <p class="mb-4">Você também pode nos encontrar através dos seguintes canais:</p>
-          
-          <div class="contact-info-card">
-            <h5><i class="bi bi-envelope me-2"></i> Email</h5>
-            <p class="mb-0"><a href="mailto:goncalvesmarquesmoises@gmail.com" class="text-decoration-none">goncalvesmarquesmoises@gmail.com</a></p>
-          </div>
 
-          <div class="contact-info-card">
-            <h5><i class="bi bi-whatsapp me-2"></i> WhatsApp</h5>
-            <p class="mb-0"><a href="https://wa.me/5555999837425" class="text-decoration-none">(55) 99983-7425</a></p>
+      <div class="col-md-6 col-lg-3 fade-in-up">
+        <div class="contact-card">
+          <div class="contact-card-icon email">
+            <i class="bi bi-envelope"></i>
           </div>
+          <h4>E-mail</h4>
+          <p>Para assuntos profissionais</p>
+          <a href="mailto:goncalvesmarquesmoises@gmail.com">
+            Enviar e-mail
+            <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
 
-          <div class="contact-info-card">
-            <h5><i class="bi bi-geo-alt me-2"></i> Localização</h5>
-            <p class="mb-0">Caçapava do Sul, RS - Brasil<br>Atendemos em todo o Brasil através de nossos canais digitais.</p>
+      <div class="col-md-6 col-lg-3 fade-in-up">
+        <div class="contact-card">
+          <div class="contact-card-icon youtube">
+            <i class="bi bi-youtube"></i>
           </div>
-          
-          <h4 class="mt-5 mb-4">Nos encontre</h4>
-          <div class="d-flex mb-4">
-            <a href="https://wa.me/5555999837425" class="social-link whatsapp" target="_blank">
-              <i class="bi bi-whatsapp fs-4"></i>
-            </a>
-            <a href="https://www.youtube.com/@PremiumCarAvaliacoes" class="social-link youtube" target="_blank">
-              <i class="bi bi-youtube fs-4"></i>
-            </a>
-          </div>
+          <h4>YouTube</h4>
+          <p>Assista nossas avaliações</p>
+          <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank">
+            Acessar canal
+            <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
 
-          <div class="mt-5">
-            <h4 class="mb-3">Quer uma avaliação rápida?</h4>
-            <p>Entre em contato diretamente pelo WhatsApp para um atendimento mais ágil.</p>
-            <a href="https://wa.me/5555999837425" class="btn btn-success d-inline-flex align-items-center" target="_blank">
-              <i class="bi bi-whatsapp me-2"></i> Falar pelo WhatsApp
-            </a>
+      <div class="col-md-6 col-lg-3 fade-in-up">
+        <div class="contact-card">
+          <div class="contact-card-icon location">
+            <i class="bi bi-geo-alt"></i>
           </div>
+          <h4>Localização</h4>
+          <p>Caçapava do Sul, RS</p>
+          <span class="text-muted">Atendimento em todo Brasil</span>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Contact Form Section -->
+  <div class="container my-5 py-5">
+    <div class="row g-5">
+      <!-- Form -->
+      <div class="col-lg-7 fade-in-up">
+        <div class="form-card" id="formCard">
+          <h3 class="fw-bold mb-2">Envie sua Mensagem</h3>
+          <p class="text-muted mb-4">Preencha o formulário abaixo e responderemos em breve</p>
+
+          <form id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Nome completo *</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Seu nome" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">E-mail *</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" required>
+              </div>
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="(00) 00000-0000">
+              </div>
+              <div class="col-md-6">
+                <label for="subject" class="form-label">Assunto *</label>
+                <select class="form-select" id="subject" name="subject" required>
+                  <option value="" selected disabled>Selecione</option>
+                  <option value="Dúvida">Dúvida</option>
+                  <option value="Sugestão">Sugestão</option>
+                  <option value="Parceria">Parceria</option>
+                  <option value="Avaliação de carro">Avaliação de carro</option>
+                  <option value="Elogio">Elogio</option>
+                  <option value="Reclamação">Reclamação</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label">Mensagem *</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
+                  <i class="bi bi-send me-2"></i>
+                  <span id="submitText">Enviar Mensagem</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <i class="bi bi-check-circle"></i>
+          <h3 class="fw-bold mb-3">Mensagem Enviada!</h3>
+          <p class="mb-4">Obrigado pelo contato. Nossa equipe responderá em breve.</p>
+          <button class="btn btn-light" onclick="resetForm()">Enviar outra mensagem</button>
+        </div>
+      </div>
+
+      <!-- Info Sidebar -->
+      <div class="col-lg-5 fade-in-up">
+        <div class="info-card">
+          <h4 class="fw-bold mb-4">Informações de Contato</h4>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bi bi-clock"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1">Horário de Atendimento</h6>
+              <p class="text-muted mb-0">Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 12h</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bi bi-chat-dots"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1">Tempo de Resposta</h6>
+              <p class="text-muted mb-0">WhatsApp: Até 2 horas<br>E-mail: Até 24 horas</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1">Privacidade</h6>
+              <p class="text-muted mb-0">Seus dados estão seguros e não serão compartilhados.</p>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h6 class="fw-bold mb-3">Atendimento Rápido</h6>
+            <a href="https://wa.me/5555999837425" target="_blank" class="btn btn-success w-100">
+              <i class="bi bi-whatsapp me-2"></i>Falar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container mt-4 flex-column">
+          <i class="bi bi-geo-alt"></i>
+          <div>Caçapava do Sul, RS - Brasil</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Perguntas Frequentes</h2>
+        <p class="opacity-75">Encontre respostas para as dúvidas mais comuns</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion" id="faqAccordion">
+            <div class="faq-item fade-in-up">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                  Como posso ter meu carro avaliado pela Premium Car?
+                </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Entre em contato pelo WhatsApp ou formulário acima informando os dados do veículo. Nossa equipe irá analisar e retornar com informações sobre disponibilidade e valores.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item fade-in-up">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                  Vocês avaliam carros em outras cidades?
+                </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Atualmente atendemos principalmente a região Sul do Brasil. Para outras localidades, entre em contato para verificarmos a possibilidade de agendamento.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item fade-in-up">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                  Quanto tempo leva para receber uma resposta?
+                </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Mensagens pelo WhatsApp são respondidas em até 2 horas durante o horário comercial. E-mails são respondidos em até 24 horas úteis.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item fade-in-up">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                  Posso sugerir um carro para vocês avaliarem?
+                </button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Claro! Adoramos receber sugestões da nossa comunidade. Use o formulário acima ou nosso WhatsApp para enviar sua sugestão de avaliação.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Section -->
+  <section class="social-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title d-inline-block text-center">Siga a Premium Car</h2>
+        <p class="lead mt-4">Acompanhe nosso conteúdo nas redes sociais</p>
+      </div>
+
+      <div class="row justify-content-center g-4">
+        <div class="col-md-4 col-lg-3 fade-in-up">
+          <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="text-decoration-none">
+            <div class="social-card">
+              <div class="social-icon youtube">
+                <i class="bi bi-youtube"></i>
+              </div>
+              <h5 class="text-dark">YouTube</h5>
+              <p class="text-muted mb-0">Avaliações em vídeo</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4 col-lg-3 fade-in-up">
+          <a href="https://wa.me/5555999837425" target="_blank" class="text-decoration-none">
+            <div class="social-card">
+              <div class="social-icon whatsapp">
+                <i class="bi bi-whatsapp"></i>
+              </div>
+              <h5 class="text-dark">WhatsApp</h5>
+              <p class="text-muted mb-0">Contato direto</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4 col-lg-3 fade-in-up">
+          <a href="https://instagram.com/premiumcar" target="_blank" class="text-decoration-none">
+            <div class="social-card">
+              <div class="social-icon instagram">
+                <i class="bi bi-instagram"></i>
+              </div>
+              <h5 class="text-dark">Instagram</h5>
+              <p class="text-muted mb-0">Bastidores e fotos</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div id="injected-footer"></div>
 
@@ -306,66 +709,68 @@
     }
 
     carregarHeaderFooter();
-    
-    // Form submission handling
-    document.addEventListener('DOMContentLoaded', function() {
-      const contactForm = document.getElementById('contactForm');
-      const thankYouMessage = document.getElementById('thankYouMessage');
-      const formContainer = document.getElementById('contact-form');
-      const submitButton = document.getElementById('submitButton');
-      const loadingSpinner = document.getElementById('loadingSpinner');
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
       const submitText = document.getElementById('submitText');
-      
-      contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        submitButton.disabled = true;
-        loadingSpinner.style.display = 'inline-block';
-        submitText.textContent = 'Enviando...';
-        
-        // Collect form data
+      submitBtn.disabled = true;
+      submitText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+
+      try {
         const formData = {
           name: document.getElementById('name').value,
           email: document.getElementById('email').value,
           phone: document.getElementById('phone').value,
           subject: document.getElementById('subject').value,
-          message: document.getElementById('message').value,
-          created_at: new Date().toISOString()
+          message: document.getElementById('message').value
         };
-        
-        try {
-          // Enviar para a API do backend
-          const response = await fetch('/api/contacts', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-          });
 
-          const result = await response.json();
+        const response = await fetch('/api/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
 
-          if (!response.ok) {
-            throw new Error(result.error || 'Erro ao enviar mensagem');
-          }
+        if (response.ok) {
+          document.getElementById('formCard').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+          this.reset();
+        } else {
+          throw new Error('Erro ao enviar');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+      } finally {
+        submitBtn.disabled = false;
+        submitText.innerHTML = '<i class="bi bi-send me-2"></i>Enviar Mensagem';
+      }
+    });
 
-          // Show success message
-          formContainer.style.display = 'none';
-          thankYouMessage.style.display = 'block';
+    function resetForm() {
+      document.getElementById('formCard').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+    }
 
-          // Reset form
-          contactForm.reset();
-        } catch (error) {
-          console.error('Error submitting form:', error);
-          alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
-        } finally {
-          // Reset button state
-          submitButton.disabled = false;
-          loadingSpinner.style.display = 'none';
-          submitText.textContent = 'Enviar mensagem';
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
       });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      observer.observe(el);
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
