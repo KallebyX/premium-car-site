@@ -39,22 +39,6 @@ body {
   flex-direction: column;
 }
 
-/* Skip Link for Accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary-600);
-  color: white;
-  padding: var(--space-2) var(--space-4);
-  z-index: var(--z-max);
-  transition: top var(--duration-200) var(--ease-out);
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
 /* ==========================================
    TYPOGRAPHY
    ========================================== */

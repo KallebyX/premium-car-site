@@ -695,20 +695,14 @@
 
   <div id="injected-footer"></div>
 
+  <script src="/js/common.js"></script>
   <script>
-    async function carregarHeaderFooter() {
-      const base = await fetch('/base.html').then(res => res.text());
-      const temp = document.createElement('div');
-      temp.innerHTML = base;
-
-      const header = temp.querySelector('header');
-      const footer = temp.querySelector('footer');
-
-      if (header) document.getElementById('injected-header').appendChild(header);
-      if (footer) document.getElementById('injected-footer').appendChild(footer);
-    }
-
-    carregarHeaderFooter();
+    // Carrega header e footer usando o Layout do common.js
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Layout !== 'undefined') {
+        Layout.loadHeaderFooter();
+      }
+    });
 
     // Form submission
     document.getElementById('contactForm').addEventListener('submit', async function(e) {

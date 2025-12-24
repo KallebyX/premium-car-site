@@ -650,21 +650,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inicializa sistema de favoritos
   Favorites.init();
 
-  // Adiciona skip link se não existir
-  if (!document.querySelector('.skip-link')) {
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Pular para o conteúdo principal';
-    document.body.insertBefore(skipLink, document.body.firstChild);
-  }
-
-  // Adiciona ID ao main content se não existir
-  const main = document.querySelector('main');
-  if (main && !main.id) {
-    main.id = 'main-content';
-    main.setAttribute('tabindex', '-1');
-  }
 });
 
 // ============================================
