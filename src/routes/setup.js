@@ -8,14 +8,20 @@ const path = require('path');
 let supabaseAdmin = null;
 
 function getSupabaseAdmin() {
-  if (!supabaseAdmin && process.env.SUPABASE_URL && process.env.SUPABASE_KEY) {
+  // Use service role key to bypass RLS - prioritize explicit SERVICE_ROLE key
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
+
+  if (!supabaseAdmin && process.env.SUPABASE_URL && serviceRoleKey) {
     supabaseAdmin = createClient(
       process.env.SUPABASE_URL,
-      process.env.SUPABASE_KEY,
+      serviceRoleKey,
       {
         auth: {
           autoRefreshToken: false,
           persistSession: false
+        },
+        db: {
+          schema: 'public'
         }
       }
     );
@@ -244,6 +250,14 @@ router.post('/init', async (req, res) => {
 
     if (authError) {
       console.error('Erro ao criar super admin:', authError);
+
+      // Erro comum quando usa chave anon em vez de service_role
+      if (authError.message?.includes('Bearer') || authError.message?.includes('token') || authError.status === 401) {
+        return res.status(400).json({
+          error: 'Este endpoint requer a chave service_role. Verifique se SUPABASE_KEY ou SUPABASE_SERVICE_ROLE_KEY contem a chave service_role (nao a chave anon). Encontre em: Supabase Dashboard > Settings > API > service_role key.'
+        });
+      }
+
       return res.status(400).json({
         error: authError.message || 'Erro ao criar super admin'
       });
@@ -696,6 +710,14 @@ router.post('/seed', async (req, res) => {
 
     if (carrosError) {
       console.error('Erro ao inserir carros:', carrosError);
+
+      // Mensagem especifica para erro de RLS
+      if (carrosError.message.includes('row-level security') || carrosError.code === '42501') {
+        return res.status(400).json({
+          error: 'Erro de permissao RLS. Verifique se SUPABASE_KEY ou SUPABASE_SERVICE_ROLE_KEY contem a chave service_role (nao a chave anon). A chave service_role bypassa RLS automaticamente.'
+        });
+      }
+
       return res.status(400).json({
         error: 'Erro ao popular carros: ' + carrosError.message
       });

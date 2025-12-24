@@ -253,6 +253,11 @@
           </a>
         </div>
 
+        <div class="warning-box">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          <strong>Configuracao do Servidor:</strong> Certifique-se de que a variavel <code>SUPABASE_KEY</code> ou <code>SUPABASE_SERVICE_ROLE_KEY</code> contem a <strong>chave service_role</strong> (nao a chave anon). Encontre em: Supabase Dashboard &gt; Settings &gt; API &gt; <code>service_role</code> key.
+        </div>
+
         <div class="position-relative">
           <button class="btn btn-sm btn-outline-light copy-btn" onclick="copiarSQL()">
             <i class="bi bi-clipboard me-1"></i>Copiar
