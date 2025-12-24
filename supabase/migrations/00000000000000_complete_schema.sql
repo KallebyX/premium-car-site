@@ -38,20 +38,48 @@ DROP POLICY IF EXISTS "Permitir leitura publica de carros" ON carros_avaliados;
 CREATE POLICY "Permitir leitura publica de carros" ON carros_avaliados
   FOR SELECT USING (true);
 
--- Politica para insercao autenticada
+-- Politica para insercao (requer admin autenticado)
+-- Nota: O service_role key automaticamente bypassa RLS
 DROP POLICY IF EXISTS "Permitir insercao autenticada de carros" ON carros_avaliados;
 CREATE POLICY "Permitir insercao autenticada de carros" ON carros_avaliados
-  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+  FOR INSERT WITH CHECK (
+    auth.role() = 'authenticated' AND (
+      EXISTS (
+        SELECT 1 FROM user_profiles
+        WHERE id = auth.uid()
+        AND role IN ('admin', 'super_admin')
+        AND is_active = true
+      )
+    )
+  );
 
--- Politica para atualizacao autenticada
+-- Politica para atualizacao (requer admin autenticado)
 DROP POLICY IF EXISTS "Permitir atualizacao autenticada de carros" ON carros_avaliados;
 CREATE POLICY "Permitir atualizacao autenticada de carros" ON carros_avaliados
-  FOR UPDATE USING (auth.role() = 'authenticated');
+  FOR UPDATE USING (
+    auth.role() = 'authenticated' AND (
+      EXISTS (
+        SELECT 1 FROM user_profiles
+        WHERE id = auth.uid()
+        AND role IN ('admin', 'super_admin')
+        AND is_active = true
+      )
+    )
+  );
 
--- Politica para delecao autenticada
+-- Politica para delecao (requer admin autenticado)
 DROP POLICY IF EXISTS "Permitir delecao autenticada de carros" ON carros_avaliados;
 CREATE POLICY "Permitir delecao autenticada de carros" ON carros_avaliados
-  FOR DELETE USING (auth.role() = 'authenticated');
+  FOR DELETE USING (
+    auth.role() = 'authenticated' AND (
+      EXISTS (
+        SELECT 1 FROM user_profiles
+        WHERE id = auth.uid()
+        AND role IN ('admin', 'super_admin')
+        AND is_active = true
+      )
+    )
+  );
 
 -- ============================================
 -- 2. TABELA DE PERFIS DE USUARIOS
