@@ -40,22 +40,6 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://premiumcar.com/parcerias.html">
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Parcerias - Premium Car",
-    "description": "Torne-se parceiro da Premium Car e divulgue seu veículo com credibilidade.",
-    "url": "https://premiumcar.com/parcerias.html",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Premium Car",
-      "url": "https://premiumcar.com"
-    }
-  }
-  </script>
-
   <!-- Bootstrap (must load BEFORE custom styles) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
@@ -65,142 +49,458 @@
   <link rel="stylesheet" href="/css/global.css">
   <style>
     .hero-section {
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(220, 53, 69, 0.7)), url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       color: white;
-      padding: 120px 0;
-      margin-bottom: 60px;
+      padding: 140px 0 120px;
+      position: relative;
     }
-    
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, #f8f9fa, transparent);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
     .section-title {
       position: relative;
       margin-bottom: 40px;
-      font-weight: 600;
+      font-weight: 700;
     }
-    
+
     .section-title:after {
       content: '';
       position: absolute;
       left: 0;
       bottom: -10px;
       width: 60px;
-      height: 3px;
-      background-color: #dc3545;
+      height: 4px;
+      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      border-radius: 2px;
     }
-    
-    .process-step {
+
+    .section-title.text-center:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      margin-top: -60px;
       position: relative;
-      padding-left: 80px;
-      margin-bottom: 40px;
+      z-index: 10;
     }
-    
-    .process-step:before {
-      content: attr(data-step);
+
+    .stat-item {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #dc3545;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    /* Process Steps */
+    .process-container {
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .process-line {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 60px;
-      height: 60px;
-      background-color: #dc3545;
-      color: white;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 4px;
+      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    @media (max-width: 768px) {
+      .process-line {
+        display: none;
+      }
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    
-    .process-step:after {
-      content: '';
-      position: absolute;
-      left: 30px;
-      top: 60px;
-      width: 2px;
-      height: calc(100% - 30px);
-      background-color: #dc3545;
-      display: none;
-    }
-    
-    .process-step:not(:last-child):after {
-      display: block;
-    }
-    
-    .benefit-card {
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      height: 100%;
-    }
-    
-    .benefit-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    }
-    
-    .benefit-card .card-img-top {
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    .benefit-icon {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #dc3545;
-    }
-    
-    .testimonial {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 30px;
-      margin-bottom: 30px;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
       position: relative;
     }
-    
-    .testimonial:before {
-      content: '"';
+
+    .process-number {
       position: absolute;
-      top: 10px;
-      left: 20px;
-      font-size: 5rem;
-      color: rgba(220, 53, 69, 0.1);
-      font-family: Georgia, serif;
-    }
-    
-    .cta-section {
-      background-color: #212529;
-      color: white;
-      padding: 80px 0;
-      margin: 60px 0;
-    }
-    
-    .btn-primary {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: #bb2d3b;
-      border-color: #bb2d3b;
-    }
-    
-    .btn-outline-light:hover {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    
-    .feature-icon {
-      display: inline-flex;
+      top: -10px;
+      right: -10px;
+      width: 30px;
+      height: 30px;
+      background: #212529;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* Pricing Cards */
+    .pricing-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      height: 100%;
+      position: relative;
+      transition: all 0.4s ease;
+      border: 2px solid transparent;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    .pricing-card.featured {
+      border-color: #dc3545;
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      color: white;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pricing-icon {
       width: 70px;
       height: 70px;
-      border-radius: 50%;
-      background-color: rgba(220, 53, 69, 0.1);
+      background: linear-gradient(135deg, rgba(220,53,69,0.1), rgba(255,107,122,0.1));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
       color: #dc3545;
-      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .pricing-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .pricing-desc {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px;
+    }
+
+    .pricing-features li {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features i {
+      color: #28a745;
+      font-size: 1.1rem;
+    }
+
+    .pricing-features .disabled {
+      color: #adb5bd;
+      text-decoration: line-through;
+    }
+
+    .pricing-features .disabled i {
+      color: #adb5bd;
+    }
+
+    /* Benefits Grid */
+    .benefit-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      height: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+      text-align: center;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .benefit-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 1.8rem;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      height: 100%;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 6rem;
+      color: rgba(220, 53, 69, 0.1);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #495057;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .testimonial-role {
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #212529, #343a40);
+      color: white;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      opacity: 0.1;
+    }
+
+    /* Form Section */
+    .form-section {
+      background: linear-gradient(135deg, #f8f9fa, #fff);
+      padding: 80px 0;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .form-control, .form-select {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15);
+    }
+
+    /* FAQ Section */
+    .faq-item {
+      background: white;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .faq-item .accordion-button {
+      padding: 20px 25px;
+      font-weight: 600;
+      background: white;
+    }
+
+    .faq-item .accordion-button:not(.collapsed) {
+      background: linear-gradient(135deg, rgba(220,53,69,0.05), rgba(255,107,122,0.05));
+      color: #dc3545;
+    }
+
+    .faq-item .accordion-button:focus {
+      box-shadow: none;
+    }
+
+    .faq-item .accordion-body {
+      padding: 0 25px 20px;
+    }
+
+    /* Animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      border: none;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
+      background: linear-gradient(135deg, #c82333, #bd2130);
+    }
+
+    .btn-outline-primary {
+      border: 2px solid #dc3545;
+      color: #dc3545;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background: #dc3545;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
     }
   </style>
 </head>
@@ -210,154 +510,365 @@
   <!-- Hero Section -->
   <section class="hero-section text-center">
     <div class="container">
-      <h1 class="display-4 fw-bold mb-4">Parcerias Premium Car</h1>
-      <p class="lead mb-4">Quer divulgar seu carro com estilo e credibilidade?</p>
-      <a href="#parceria" class="btn btn-danger btn-lg px-5 py-3 mt-3">Quero ser parceiro</a>
+      <span class="hero-badge">
+        <i class="bi bi-handshake me-2"></i>Parcerias de Sucesso
+      </span>
+      <h1 class="display-3 fw-bold mb-4">Parcerias Premium Car</h1>
+      <p class="lead mb-4 fs-4">Divulgue seu veículo com estilo, credibilidade e alcance profissional</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#planos" class="btn btn-light btn-lg px-5">
+          <i class="bi bi-rocket-takeoff me-2"></i>Ver Planos
+        </a>
+        <a href="https://wa.me/5555999837425" target="_blank" class="btn btn-success btn-lg px-5">
+          <i class="bi bi-whatsapp me-2"></i>Falar Agora
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <div class="container my-5">
-    <div class="row align-items-center mb-5">
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <h2 class="section-title">Por que se tornar um parceiro?</h2>
-        <p class="lead mb-4">Transformamos a maneira como os veículos são apresentados ao público, combinando análise técnica com storytelling envolvente.</p>
-        <p>Na Premium Car, não fazemos apenas avaliações — criamos experiências que conectam pessoas e veículos através de conteúdo autêntico e de alta qualidade. Seja você uma revenda, concessionária ou proprietário particular, nossa parceria oferece uma plataforma única para destacar seu veículo no competitivo mercado automotivo.</p>
-        <p>Com milhares de visualizações em nossas plataformas e um público altamente engajado e qualificado, garantimos que seu veículo receba a atenção que merece, apresentado com o profissionalismo e a credibilidade que só a Premium Car pode oferecer.</p>
-      </div>
-      <div class="col-lg-6">
-        <img src="https://images.unsplash.com/photo-1560253023-fa94d53e1f12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Parceria Premium Car" class="img-fluid rounded shadow">
-      </div>
-    </div>
-
-    <!-- Process Section -->
-    <div class="row my-5 pt-5">
-      <div class="col-12 text-center mb-5">
-        <h2 class="display-5 fw-bold">Como funciona o processo</h2>
-        <p class="lead">Do primeiro contato à publicação final, garantimos uma experiência simples e profissional</p>
-      </div>
-      
-      <div class="col-lg-8 mx-auto">
-        <div class="process-step" data-step="1">
-          <h3>Agendamento</h3>
-          <p>Entre em contato conosco através do formulário ou WhatsApp. Nossa equipe irá avaliar a disponibilidade e agendar a melhor data para a gravação do seu veículo.</p>
+  <!-- Stats Bar -->
+  <div class="container">
+    <div class="stats-bar">
+      <div class="row">
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfação</div>
+          </div>
         </div>
-        
-        <div class="process-step" data-step="2">
-          <h3>Gravação</h3>
-          <p>Nossa equipe profissional realizará a gravação completa do veículo, destacando seus principais atributos, tecnologias e diferenciais. Todo o processo é conduzido com equipamentos de alta qualidade.</p>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Parcerias</div>
+          </div>
         </div>
-        
-        <div class="process-step" data-step="3">
-          <h3>Análise Técnica</h3>
-          <p>Realizamos uma avaliação detalhada do veículo, considerando aspectos mecânicos, conforto, tecnologia, design e custo-benefício. Nossa abordagem é sempre honesta e imparcial.</p>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">500K+</div>
+            <div class="stat-label">Visualizações</div>
+          </div>
         </div>
-        
-        <div class="process-step" data-step="4">
-          <h3>Edição e Produção</h3>
-          <p>O material é editado por nossa equipe especializada, garantindo um conteúdo dinâmico, informativo e visualmente atraente, alinhado aos mais altos padrões de qualidade.</p>
-        </div>
-        
-        <div class="process-step" data-step="5">
-          <h3>Publicação e Divulgação</h3>
-          <p>O conteúdo é publicado em nosso canal do YouTube e promovido para nossa audiência qualificada, gerando visibilidade imediata para o seu veículo.</p>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">3 dias</div>
+            <div class="stat-label">Média de Venda</div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Benefits Section -->
-    <div class="row my-5 pt-5">
-      <div class="col-12 text-center mb-5">
-        <h2 class="display-5 fw-bold">Benefícios para nossos parceiros</h2>
-        <p class="lead">Muito mais do que uma simples avaliação</p>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-graph-up fs-2"></i>
-          </div>
-          <h3 class="h4">Visibilidade Ampliada</h3>
-          <p>Acesso a uma audiência qualificada e interessada em automóveis, com potencial de milhares de visualizações em múltiplas plataformas.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-award fs-2"></i>
-          </div>
-          <h3 class="h4">Credibilidade e Confiança</h3>
-          <p>Associe sua marca ou veículo a uma fonte respeitada no mercado automotivo, construindo confiança com potenciais compradores.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-camera-video fs-2"></i>
-          </div>
-          <h3 class="h4">Conteúdo Profissional</h3>
-          <p>Material audiovisual de alta qualidade que pode ser compartilhado em suas próprias redes sociais e canais de marketing.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-speedometer2 fs-2"></i>
-          </div>
-          <h3 class="h4">Velocidade de Venda</h3>
-          <p>Veículos avaliados pela Premium Car tendem a despertar maior interesse e são vendidos mais rapidamente.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-people fs-2"></i>
-          </div>
-          <h3 class="h4">Alcance Qualificado</h3>
-          <p>Acesso direto a um público interessado em automóveis e com potencial de compra, reduzindo o tempo de prospecção.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-4 mb-4">
-        <div class="text-center p-4">
-          <div class="feature-icon">
-            <i class="bi bi-star fs-2"></i>
-          </div>
-          <h3 class="h4">Diferenciação no Mercado</h3>
-          <p>Destaque-se da concorrência com uma abordagem moderna e transparente na divulgação de seus veículos.</p>
-        </div>
-      </div>
-    </div>
+  <!-- Why Partner Section -->
+  <div class="container my-5 py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0 fade-in-up">
+        <h2 class="section-title">Por que se tornar parceiro?</h2>
+        <p class="lead mb-4">Transformamos a maneira como os veículos são apresentados ao público.</p>
+        <p>Na Premium Car, não fazemos apenas avaliações - criamos experiências que conectam pessoas e veículos através de conteúdo autêntico e de alta qualidade.</p>
+        <p>Seja você uma revenda, concessionária ou proprietário particular, nossa parceria oferece uma plataforma única para destacar seu veículo no competitivo mercado automotivo.</p>
 
-    <!-- Testimonials -->
-    <div class="row my-5 pt-3">
-      <div class="col-12 mb-4">
-        <h2 class="section-title">O que nossos parceiros dizem</h2>
-      </div>
-      
-      <div class="col-md-6 mb-4">
-        <div class="testimonial">
-          <p>"Após a avaliação da Premium Car, nosso showroom recebeu um aumento significativo de visitas. O vídeo destacou características que nem mesmo sabíamos como valorizar. O carro foi vendido em apenas 3 dias após a publicação."</p>
-          <div class="d-flex align-items-center mt-3">
-            <div>
-              <h5 class="mb-0">Carlos Mendes</h5>
-              <small class="text-muted">Gerente de Vendas - AutoPrime Multimarcas</small>
+        <div class="row mt-4">
+          <div class="col-6 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="bg-danger bg-opacity-10 rounded-circle p-3">
+                <i class="bi bi-check-lg text-danger fs-4"></i>
+              </div>
+              <span class="fw-semibold">Alcance Qualificado</span>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="bg-danger bg-opacity-10 rounded-circle p-3">
+                <i class="bi bi-check-lg text-danger fs-4"></i>
+              </div>
+              <span class="fw-semibold">Produção Profissional</span>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="bg-danger bg-opacity-10 rounded-circle p-3">
+                <i class="bi bi-check-lg text-danger fs-4"></i>
+              </div>
+              <span class="fw-semibold">Credibilidade</span>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="bg-danger bg-opacity-10 rounded-circle p-3">
+                <i class="bi bi-check-lg text-danger fs-4"></i>
+              </div>
+              <span class="fw-semibold">Venda Rápida</span>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="col-md-6 mb-4">
-        <div class="testimonial">
-          <p>"Como proprietário particular, estava tendo dificuldades para vender meu carro. A avaliação profissional e honesta da Premium Car não só atraiu compradores sérios, como também me ajudou a valorizar corretamente o veículo."</p>
-          <div class="d-flex align-items-center mt-3">
+      <div class="col-lg-6 fade-in-up">
+        <img src="https://images.unsplash.com/photo-1560253023-fa94d53e1f12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Parceria Premium Car" class="img-fluid rounded-4 shadow-lg">
+      </div>
+    </div>
+  </div>
+
+  <!-- Process Section -->
+  <div class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title d-inline-block text-center">Como Funciona</h2>
+      <p class="lead mt-4">Do primeiro contato à publicação, um processo simples e profissional</p>
+    </div>
+
+    <div class="process-container">
+      <div class="process-line d-none d-md-block"></div>
+      <div class="row g-4">
+        <div class="col-md-4 col-lg fade-in-up">
+          <div class="process-step">
+            <div class="process-icon">
+              <i class="bi bi-chat-dots"></i>
+              <span class="process-number">1</span>
+            </div>
+            <h5>Contato</h5>
+            <p class="text-muted small">Entre em contato pelo WhatsApp ou formulário</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg fade-in-up">
+          <div class="process-step">
+            <div class="process-icon">
+              <i class="bi bi-calendar-check"></i>
+              <span class="process-number">2</span>
+            </div>
+            <h5>Agendamento</h5>
+            <p class="text-muted small">Definimos a melhor data para gravação</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg fade-in-up">
+          <div class="process-step">
+            <div class="process-icon">
+              <i class="bi bi-camera-video"></i>
+              <span class="process-number">3</span>
+            </div>
+            <h5>Gravação</h5>
+            <p class="text-muted small">Captamos imagens profissionais do veículo</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg fade-in-up">
+          <div class="process-step">
+            <div class="process-icon">
+              <i class="bi bi-film"></i>
+              <span class="process-number">4</span>
+            </div>
+            <h5>Edição</h5>
+            <p class="text-muted small">Produzimos conteúdo de alta qualidade</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg fade-in-up">
+          <div class="process-step">
+            <div class="process-icon">
+              <i class="bi bi-rocket-takeoff"></i>
+              <span class="process-number">5</span>
+            </div>
+            <h5>Publicação</h5>
+            <p class="text-muted small">Lançamos em todas as plataformas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Section -->
+  <div class="container my-5 py-5" id="planos">
+    <div class="text-center mb-5">
+      <h2 class="section-title d-inline-block text-center">Nossos Planos</h2>
+      <p class="lead mt-4">Escolha o plano ideal para suas necessidades</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-4 fade-in-up">
+        <div class="pricing-card">
+          <div class="pricing-icon">
+            <i class="bi bi-star"></i>
+          </div>
+          <h3 class="pricing-name">Básico</h3>
+          <p class="pricing-desc">Ideal para proprietários particulares</p>
+
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i> Vídeo de até 10 minutos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Publicação no YouTube</li>
+            <li><i class="bi bi-check-circle-fill"></i> Fotos profissionais</li>
+            <li><i class="bi bi-check-circle-fill"></i> Avaliação detalhada</li>
+            <li class="disabled"><i class="bi bi-x-circle"></i> Destaque em redes sociais</li>
+            <li class="disabled"><i class="bi bi-x-circle"></i> Publicação no site</li>
+          </ul>
+
+          <a href="https://wa.me/5555999837425?text=Olá! Gostaria de saber mais sobre o plano Básico" target="_blank" class="btn btn-outline-primary w-100">
+            Consultar Valor
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 fade-in-up">
+        <div class="pricing-card featured">
+          <span class="pricing-badge">Mais Popular</span>
+          <div class="pricing-icon">
+            <i class="bi bi-trophy"></i>
+          </div>
+          <h3 class="pricing-name">Premium</h3>
+          <p class="pricing-desc">Máxima visibilidade e alcance</p>
+
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i> Vídeo de até 20 minutos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Publicação no YouTube</li>
+            <li><i class="bi bi-check-circle-fill"></i> Fotos profissionais</li>
+            <li><i class="bi bi-check-circle-fill"></i> Avaliação completa</li>
+            <li><i class="bi bi-check-circle-fill"></i> Destaque em redes sociais</li>
+            <li><i class="bi bi-check-circle-fill"></i> Publicação no site</li>
+          </ul>
+
+          <a href="https://wa.me/5555999837425?text=Olá! Gostaria de saber mais sobre o plano Premium" target="_blank" class="btn btn-primary w-100">
+            Consultar Valor
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 fade-in-up">
+        <div class="pricing-card">
+          <div class="pricing-icon">
+            <i class="bi bi-building"></i>
+          </div>
+          <h3 class="pricing-name">Empresarial</h3>
+          <p class="pricing-desc">Para revendas e concessionárias</p>
+
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i> Múltiplos veículos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Contrato mensal</li>
+            <li><i class="bi bi-check-circle-fill"></i> Preços especiais</li>
+            <li><i class="bi bi-check-circle-fill"></i> Prioridade na agenda</li>
+            <li><i class="bi bi-check-circle-fill"></i> Relatórios de desempenho</li>
+            <li><i class="bi bi-check-circle-fill"></i> Suporte dedicado</li>
+          </ul>
+
+          <a href="https://wa.me/5555999837425?text=Olá! Gostaria de saber mais sobre o plano Empresarial" target="_blank" class="btn btn-outline-primary w-100">
+            Falar com Consultor
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Benefits Section -->
+  <div class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title d-inline-block text-center">Benefícios da Parceria</h2>
+      <p class="lead mt-4">Muito mais do que uma simples avaliação</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h4>Visibilidade Ampliada</h4>
+          <p class="text-muted mb-0">Alcance milhares de pessoas interessadas em automóveis através de múltiplas plataformas.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-award"></i>
+          </div>
+          <h4>Credibilidade</h4>
+          <p class="text-muted mb-0">Associe seu veículo a uma marca respeitada no mercado automotivo brasileiro.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-camera-reels"></i>
+          </div>
+          <h4>Conteúdo Profissional</h4>
+          <p class="text-muted mb-0">Material de alta qualidade que pode ser usado em suas próprias campanhas.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+          <h4>Venda Rápida</h4>
+          <p class="text-muted mb-0">Veículos avaliados pela Premium Car são vendidos em média 3x mais rápido.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <h4>Público Qualificado</h4>
+          <p class="text-muted mb-0">Nossa audiência é composta por pessoas com real interesse e poder de compra.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h4>Transparência</h4>
+          <p class="text-muted mb-0">Avaliação honesta que gera confiança nos potenciais compradores.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <div class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title d-inline-block text-center">O que Dizem Nossos Parceiros</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Após a avaliação da Premium Car, nosso showroom recebeu um aumento significativo de visitas. O carro foi vendido em apenas 3 dias!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <i class="bi bi-person"></i>
+            </div>
             <div>
-              <h5 class="mb-0">Mariana Costa</h5>
-              <small class="text-muted">Proprietária particular</small>
+              <div class="testimonial-name">Carlos Mendes</div>
+              <div class="testimonial-role">Gerente - AutoPrime</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Profissionalismo impecável! A avaliação honesta ajudou a valorizar meu veículo e atrair compradores sérios."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <i class="bi bi-person"></i>
+            </div>
+            <div>
+              <div class="testimonial-name">Mariana Costa</div>
+              <div class="testimonial-role">Proprietária Particular</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in-up">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Parceria de sucesso! Já fizemos mais de 20 avaliações juntos e os resultados são sempre excelentes."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <i class="bi bi-person"></i>
+            </div>
+            <div>
+              <div class="testimonial-name">Roberto Silva</div>
+              <div class="testimonial-role">Diretor - RS Multimarcas</div>
             </div>
           </div>
         </div>
@@ -369,136 +880,154 @@
   <section class="cta-section" id="parceria">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-lg-8 mb-4 mb-lg-0">
+        <div class="col-lg-7 mb-4 mb-lg-0">
           <h2 class="display-5 fw-bold mb-3">Pronto para destacar seu veículo?</h2>
-          <p class="lead mb-0">Entre em contato agora mesmo e descubra como podemos criar uma parceria de sucesso.</p>
+          <p class="lead mb-0 opacity-75">Entre em contato agora e descubra como podemos criar uma parceria de sucesso.</p>
         </div>
-        <div class="col-lg-4 text-lg-end">
-          <a href="https://wa.me/5555999837425" class="btn btn-light btn-lg px-4 me-md-2" target="_blank">
-            <i class="bi bi-whatsapp me-2"></i> Falar pelo WhatsApp
+        <div class="col-lg-5 text-lg-end">
+          <a href="https://wa.me/5555999837425" target="_blank" class="btn btn-success btn-lg">
+            <i class="bi bi-whatsapp me-2"></i>Falar pelo WhatsApp
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Form -->
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <div class="card border-0 shadow">
-          <div class="card-body p-5">
-            <h3 class="mb-4 text-center">Solicite uma avaliação</h3>
+  <!-- Form Section -->
+  <section class="form-section" id="formulario">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="form-card fade-in-up">
+            <div class="text-center mb-4">
+              <h3 class="fw-bold">Solicite uma Avaliação</h3>
+              <p class="text-muted">Preencha o formulário e entraremos em contato</p>
+            </div>
+
             <form id="partnershipForm">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="name" class="form-label">Nome completo*</label>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="name" class="form-label fw-semibold">Nome completo *</label>
                   <input type="text" class="form-control" id="name" name="name" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="email" class="form-label">E-mail*</label>
+                <div class="col-md-6">
+                  <label for="email" class="form-label fw-semibold">E-mail *</label>
                   <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="phone" class="form-label">Telefone*</label>
+                <div class="col-md-6">
+                  <label for="phone" class="form-label fw-semibold">Telefone/WhatsApp *</label>
                   <input type="tel" class="form-control" id="phone" name="phone" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="partnerType" class="form-label">Tipo de parceiro*</label>
+                <div class="col-md-6">
+                  <label for="partnerType" class="form-label fw-semibold">Tipo de parceiro *</label>
                   <select class="form-select" id="partnerType" name="partnerType" required>
-                    <option value="" selected disabled>Selecione uma opção</option>
+                    <option value="" selected disabled>Selecione</option>
+                    <option value="Proprietário particular">Proprietário particular</option>
                     <option value="Revenda">Revenda</option>
                     <option value="Concessionária">Concessionária</option>
-                    <option value="Proprietário particular">Proprietário particular</option>
                     <option value="Outro">Outro</option>
                   </select>
                 </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="carBrand" class="form-label">Marca do veículo*</label>
+                <div class="col-md-6">
+                  <label for="carBrand" class="form-label fw-semibold">Marca do veículo *</label>
                   <input type="text" class="form-control" id="carBrand" name="carBrand" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="carModel" class="form-label">Modelo do veículo*</label>
+                <div class="col-md-6">
+                  <label for="carModel" class="form-label fw-semibold">Modelo do veículo *</label>
                   <input type="text" class="form-control" id="carModel" name="carModel" required>
                 </div>
-              </div>
-              
-              <div class="mb-3">
-                <label for="message" class="form-label">Informações adicionais</label>
-                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Conte-nos mais sobre o veículo e suas expectativas..."></textarea>
-              </div>
-              
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary py-3">Solicitar avaliação</button>
+                <div class="col-12">
+                  <label for="message" class="form-label fw-semibold">Informações adicionais</label>
+                  <textarea class="form-control" id="message" name="message" rows="4" placeholder="Conte-nos mais sobre o veículo e suas expectativas..."></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-lg w-100">
+                    <i class="bi bi-send me-2"></i>Solicitar Avaliação
+                  </button>
+                </div>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- FAQ Section -->
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <h2 class="section-title">Perguntas frequentes</h2>
-        
+  <div class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title d-inline-block text-center">Perguntas Frequentes</h2>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
         <div class="accordion" id="faqAccordion">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div class="faq-item fade-in-up">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                <i class="bi bi-question-circle me-2 text-danger"></i>
                 Quanto custa uma avaliação da Premium Car?
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                Os valores variam de acordo com o tipo de veículo, localização e pacote de serviços escolhido. Trabalhamos com pacotes personalizados para atender às necessidades específicas de cada parceiro. Entre em contato conosco para receber uma proposta detalhada.
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted">
+                Os valores variam de acordo com o tipo de veículo, localização e pacote escolhido. Trabalhamos com planos personalizados para atender às necessidades de cada parceiro. Entre em contato para receber uma proposta detalhada.
               </div>
             </div>
           </div>
-          
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+          <div class="faq-item fade-in-up">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                <i class="bi bi-question-circle me-2 text-danger"></i>
                 Vocês avaliam qualquer tipo de veículo?
               </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                Avaliamos diversos tipos de veículos, desde carros populares até modelos de luxo e esportivos. No entanto, reservamos o direito de selecionar os veículos com base em critérios técnicos e editoriais, considerando o interesse de nossa audiência e a qualidade do conteúdo que podemos produzir.
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted">
+                Avaliamos diversos tipos de veículos, desde carros populares até modelos de luxo e esportivos. Reservamos o direito de selecionar os veículos com base em critérios técnicos e editoriais.
               </div>
             </div>
           </div>
-          
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+          <div class="faq-item fade-in-up">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                <i class="bi bi-question-circle me-2 text-danger"></i>
                 Quanto tempo leva para o vídeo ser publicado?
               </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                O processo completo, desde a gravação até a publicação, geralmente leva de 7 a 14 dias. Este prazo pode variar de acordo com nossa agenda de produção e a complexidade do conteúdo. Sempre informamos o prazo estimado no momento do agendamento.
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted">
+                O processo completo, desde a gravação até a publicação, geralmente leva de 7 a 14 dias. Este prazo pode variar de acordo com nossa agenda de produção.
               </div>
             </div>
           </div>
-          
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFour">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+
+          <div class="faq-item fade-in-up">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                <i class="bi bi-question-circle me-2 text-danger"></i>
                 E se eu não gostar da avaliação?
               </button>
             </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                Nossa abordagem é sempre honesta e imparcial, destacando tanto os pontos positivos quanto os aspectos que podem ser melhorados em cada veículo. Antes da publicação, compartilhamos uma prévia do conteúdo com nossos parceiros para alinhamento, mas mantemos nossa independência editorial para garantir a credibilidade que nos diferencia no mercado.
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted">
+                Nossa abordagem é sempre honesta e imparcial. Antes da publicação, compartilhamos uma prévia do conteúdo para alinhamento, mantendo nossa independência editorial.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in-up">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                <i class="bi bi-question-circle me-2 text-danger"></i>
+                Vocês atendem em todo o Brasil?
+              </button>
+            </h2>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted">
+                Atualmente atendemos principalmente a região Sul do Brasil, mas estamos expandindo nossa área de cobertura. Entre em contato para verificar disponibilidade na sua região.
               </div>
             </div>
           </div>
@@ -523,40 +1052,42 @@
     }
 
     carregarHeaderFooter();
-    
-    // Form submission handling
-    document.addEventListener('DOMContentLoaded', function() {
-      const partnershipForm = document.getElementById('partnershipForm');
-      
-      if (partnershipForm) {
-        partnershipForm.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          
-          // Show loading state
-          const submitButton = partnershipForm.querySelector('button[type="submit"]');
-          const originalButtonText = submitButton.textContent;
-          submitButton.disabled = true;
-          submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
-          
-          try {
-            // Simulate API call (replace with actual Supabase integration)
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Show success message
-            alert('Sua solicitação foi enviada com sucesso! Em breve, nossa equipe entrará em contato.');
-            
-            // Reset form
-            partnershipForm.reset();
-          } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.');
-          } finally {
-            // Reset button state
-            submitButton.disabled = false;
-            submitButton.textContent = originalButtonText;
-          }
-        });
+
+    // Form submission
+    document.getElementById('partnershipForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        alert('Sua solicitação foi enviada com sucesso! Entraremos em contato em breve.');
+        this.reset();
+      } catch (error) {
+        alert('Erro ao enviar. Tente novamente.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
       }
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      observer.observe(el);
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

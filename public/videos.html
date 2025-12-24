@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Vídeos - Premium Car</title>
+  <meta name="title" content="Vídeos - Premium Car">
+  <meta name="description" content="Assista às melhores avaliações de carros em vídeo. Análises completas, test drives e reviews detalhados dos melhores veículos do mercado.">
+  <meta name="keywords" content="vídeos de carros, avaliações de carros, test drive, reviews, premium car, YouTube">
+  <meta name="author" content="Premium Car">
+  <meta name="language" content="Portuguese">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://premiumcar.com/videos.html">
+  <meta property="og:title" content="Vídeos - Premium Car">
+  <meta property="og:description" content="Assista às melhores avaliações de carros em vídeo.">
+  <meta property="og:image" content="https://premiumcar.com/icons/icon-512x512.png">
+  <meta property="og:site_name" content="Premium Car">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Icons and PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#dc3545">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(220, 53, 69, 0.7)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 140px 0 100px;
+      position: relative;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, #f8f9fa, transparent);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+
+    .section-title:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #dc3545, #ff6b7a);
+      border-radius: 2px;
+    }
+
+    .section-title.text-center:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Filter Section */
+    .filter-section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .filter-btn {
+      padding: 10px 25px;
+      border-radius: 50px;
+      border: 2px solid #e9ecef;
+      background: white;
+      color: #495057;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin: 5px;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      border-color: #dc3545;
+      color: white;
+    }
+
+    /* Video Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Video Card */
+    .video-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      padding-top: 56.25%;
+      background: #000;
+      cursor: pointer;
+    }
+
+    .video-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(220, 53, 69, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .video-card:hover .video-play-btn {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: #dc3545;
+    }
+
+    .video-duration {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .video-info {
+      padding: 25px;
+    }
+
+    .video-category {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(220,53,69,0.1), rgba(255,107,122,0.1));
+      color: #dc3545;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .video-title a {
+      color: #212529;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .video-title a:hover {
+      color: #dc3545;
+    }
+
+    .video-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .video-meta i {
+      color: #dc3545;
+    }
+
+    /* Featured Video */
+    .featured-video {
+      background: linear-gradient(135deg, #212529, #343a40);
+      border-radius: 30px;
+      overflow: hidden;
+      margin-bottom: 60px;
+    }
+
+    .featured-video-player {
+      position: relative;
+      padding-top: 56.25%;
+    }
+
+    .featured-video-player iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .featured-info {
+      padding: 40px;
+      color: white;
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #dc3545, #ff6b7a);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      padding: 80px 0;
+      color: white;
+      text-align: center;
+    }
+
+    .cta-section .btn-light {
+      padding: 15px 40px;
+      font-weight: 600;
+      border-radius: 50px;
+    }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .skeleton-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    .skeleton-thumbnail {
+      height: 200px;
+      background: #e0e0e0;
+    }
+
+    .skeleton-text {
+      height: 20px;
+      margin: 10px 25px;
+      border-radius: 4px;
+    }
+
+    .skeleton-text-sm {
+      height: 15px;
+      width: 60%;
+      margin: 10px 25px 25px;
+      border-radius: 4px;
+    }
+
+    /* Animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: #dee2e6;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div id="injected-header"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <span class="hero-badge">
+        <i class="bi bi-play-circle me-2"></i>Conteúdo em Vídeo
+      </span>
+      <h1 class="display-3 fw-bold mb-4">Vídeos Premium Car</h1>
+      <p class="lead mb-4 fs-4">Avaliações completas, test drives e análises detalhadas</p>
+      <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-danger btn-lg px-5">
+        <i class="bi bi-youtube me-2"></i>Inscreva-se no Canal
+      </a>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <div class="container">
+    <div class="filter-section fade-in-up">
+      <div class="d-flex flex-wrap justify-content-center">
+        <button class="filter-btn active" data-category="all">
+          <i class="bi bi-grid me-2"></i>Todos
+        </button>
+        <button class="filter-btn" data-category="avaliacao">
+          <i class="bi bi-star me-2"></i>Avaliações
+        </button>
+        <button class="filter-btn" data-category="comparativo">
+          <i class="bi bi-arrows-expand me-2"></i>Comparativos
+        </button>
+        <button class="filter-btn" data-category="testdrive">
+          <i class="bi bi-speedometer2 me-2"></i>Test Drives
+        </button>
+        <button class="filter-btn" data-category="dicas">
+          <i class="bi bi-lightbulb me-2"></i>Dicas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Video -->
+  <div class="container my-5">
+    <div class="featured-video fade-in-up">
+      <div class="row g-0">
+        <div class="col-lg-7">
+          <div class="featured-video-player" id="featuredPlayer">
+            <!-- Will be populated dynamically -->
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="featured-info">
+            <span class="featured-badge">
+              <i class="bi bi-fire"></i>
+              Destaque
+            </span>
+            <h2 class="fw-bold mb-3" id="featuredTitle">Carregando...</h2>
+            <p class="opacity-75 mb-4" id="featuredDesc">Assista nossa avaliação mais recente e descubra todos os detalhes deste veículo incrível.</p>
+            <div class="d-flex gap-4 mb-4">
+              <div>
+                <i class="bi bi-eye me-2"></i>
+                <span id="featuredViews">-</span> visualizações
+              </div>
+              <div>
+                <i class="bi bi-calendar me-2"></i>
+                <span id="featuredDate">-</span>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-danger">
+              <i class="bi bi-youtube me-2"></i>Ver no YouTube
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="container my-5">
+    <h2 class="section-title text-center">Todos os Vídeos</h2>
+    <div class="video-grid" id="videoGrid">
+      <!-- Loading Skeletons -->
+      <div class="skeleton-card">
+        <div class="skeleton-thumbnail skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text-sm skeleton"></div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-thumbnail skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text-sm skeleton"></div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-thumbnail skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text-sm skeleton"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="display-5 fw-bold mb-4">Não Perca Nenhum Vídeo</h2>
+      <p class="lead mb-4">Inscreva-se no canal e ative as notificações</p>
+      <a href="https://www.youtube.com/@PremiumCarAvaliacoes" target="_blank" class="btn btn-light btn-lg">
+        <i class="bi bi-youtube me-2"></i>Inscrever-se no YouTube
+      </a>
+    </div>
+  </section>
+
+  <div id="injected-footer"></div>
+
+  <script>
+    async function carregarHeaderFooter() {
+      const base = await fetch('/base.html').then(res => res.text());
+      const temp = document.createElement('div');
+      temp.innerHTML = base;
+
+      const header = temp.querySelector('header');
+      const footer = temp.querySelector('footer');
+
+      if (header) document.getElementById('injected-header').appendChild(header);
+      if (footer) document.getElementById('injected-footer').appendChild(footer);
+    }
+
+    carregarHeaderFooter();
+
+    // Video data - Fetch from API with video URLs
+    async function loadVideos() {
+      try {
+        const response = await fetch('/api/carros?limit=20');
+        const result = await response.json();
+        const carros = result.data || result;
+
+        // Filter cars with videos
+        const videosData = carros.filter(car => car.video_url).map(car => ({
+          id: car.id,
+          title: car.titulo,
+          thumbnail: car.imagem_url || `https://img.youtube.com/vi/${extractVideoId(car.video_url)}/maxresdefault.jpg`,
+          videoUrl: car.video_url,
+          category: 'avaliacao',
+          brand: car.marca,
+          model: car.modelo,
+          year: car.ano,
+          rating: car.nota_geral,
+          date: new Date(car.data_postagem).toLocaleDateString('pt-BR')
+        }));
+
+        if (videosData.length > 0) {
+          renderFeaturedVideo(videosData[0]);
+          renderVideoGrid(videosData);
+        } else {
+          // Show sample videos if no data
+          showSampleVideos();
+        }
+      } catch (error) {
+        console.error('Error loading videos:', error);
+        showSampleVideos();
+      }
+    }
+
+    function extractVideoId(url) {
+      if (!url) return '';
+      const match = url.match(/(?:embed\/|v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : '';
+    }
+
+    function renderFeaturedVideo(video) {
+      const videoId = extractVideoId(video.videoUrl);
+      document.getElementById('featuredPlayer').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${videoId}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      `;
+      document.getElementById('featuredTitle').textContent = video.title;
+      document.getElementById('featuredDesc').textContent = `Avaliação completa do ${video.brand} ${video.model} ${video.year}`;
+      document.getElementById('featuredDate').textContent = video.date;
+    }
+
+    function renderVideoGrid(videos) {
+      const grid = document.getElementById('videoGrid');
+      grid.innerHTML = videos.map((video, index) => `
+        <div class="video-card fade-in-up" data-category="${video.category}" style="animation-delay: ${index * 0.1}s">
+          <div class="video-thumbnail" onclick="playVideo(this, '${extractVideoId(video.videoUrl)}')">
+            <img src="${video.thumbnail}" alt="${video.title}" loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/${extractVideoId(video.videoUrl)}/hqdefault.jpg'">
+            <div class="video-play-btn">
+              <i class="bi bi-play-fill"></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <span class="video-category">
+              <i class="bi bi-star-fill me-1"></i>${video.rating}/10
+            </span>
+            <h3 class="video-title">
+              <a href="/detalhe.html?id=${video.id}">${video.title}</a>
+            </h3>
+            <div class="video-meta">
+              <span><i class="bi bi-tag me-1"></i>${video.brand}</span>
+              <span><i class="bi bi-calendar me-1"></i>${video.date}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Trigger animations
+      setTimeout(() => {
+        document.querySelectorAll('.video-card').forEach(card => {
+          card.classList.add('visible');
+        });
+      }, 100);
+    }
+
+    function showSampleVideos() {
+      const sampleVideos = [
+        {
+          id: '1',
+          title: 'Avaliação Completa - BMW M3 Competition 2024',
+          thumbnail: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'avaliacao',
+          brand: 'BMW',
+          date: '15/12/2024',
+          rating: 9.5
+        },
+        {
+          id: '2',
+          title: 'Porsche 911 GT3 - Vale o Investimento?',
+          thumbnail: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'avaliacao',
+          brand: 'Porsche',
+          date: '10/12/2024',
+          rating: 9.8
+        },
+        {
+          id: '3',
+          title: 'Mercedes AMG GT vs BMW M4 - Qual é Melhor?',
+          thumbnail: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'comparativo',
+          brand: 'Mercedes',
+          date: '05/12/2024',
+          rating: 9.2
+        },
+        {
+          id: '4',
+          title: 'Audi RS6 Avant - A Perua Mais Brutal do Brasil',
+          thumbnail: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'testdrive',
+          brand: 'Audi',
+          date: '01/12/2024',
+          rating: 9.4
+        },
+        {
+          id: '5',
+          title: '5 Dicas para Comprar seu Primeiro Carro Premium',
+          thumbnail: 'https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'dicas',
+          brand: 'Dicas',
+          date: '25/11/2024',
+          rating: null
+        },
+        {
+          id: '6',
+          title: 'Lamborghini Huracán EVO - Sonho Realizado',
+          thumbnail: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600',
+          videoId: 'dQw4w9WgXcQ',
+          category: 'avaliacao',
+          brand: 'Lamborghini',
+          date: '20/11/2024',
+          rating: 9.9
+        }
+      ];
+
+      renderFeaturedVideo({
+        ...sampleVideos[0],
+        videoUrl: 'https://www.youtube.com/embed/' + sampleVideos[0].videoId,
+        model: 'M3',
+        year: 2024
+      });
+
+      const grid = document.getElementById('videoGrid');
+      grid.innerHTML = sampleVideos.map((video, index) => `
+        <div class="video-card fade-in-up" data-category="${video.category}" style="animation-delay: ${index * 0.1}s">
+          <div class="video-thumbnail" onclick="playVideo(this, '${video.videoId}')">
+            <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
+            <div class="video-play-btn">
+              <i class="bi bi-play-fill"></i>
+            </div>
+          </div>
+          <div class="video-info">
+            ${video.rating ? `<span class="video-category"><i class="bi bi-star-fill me-1"></i>${video.rating}/10</span>` : `<span class="video-category"><i class="bi bi-lightbulb me-1"></i>Dicas</span>`}
+            <h3 class="video-title">
+              <a href="#">${video.title}</a>
+            </h3>
+            <div class="video-meta">
+              <span><i class="bi bi-tag me-1"></i>${video.brand}</span>
+              <span><i class="bi bi-calendar me-1"></i>${video.date}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      setTimeout(() => {
+        document.querySelectorAll('.video-card').forEach(card => {
+          card.classList.add('visible');
+        });
+      }, 100);
+    }
+
+    function playVideo(element, videoId) {
+      element.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      `;
+    }
+
+    // Filter functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.dataset.category;
+        document.querySelectorAll('.video-card').forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Load videos on page load
+    loadVideos();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
