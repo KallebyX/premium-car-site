@@ -58,9 +58,19 @@ app.get('/admin', (req, res) => {
 
 // Endpoint para fornecer configuração pública do Supabase
 app.get('/api/config', (req, res) => {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return res.status(503).json({
+      error: 'Supabase configuration not available',
+      message: 'As variáveis de ambiente SUPABASE_URL e SUPABASE_ANON_KEY não estão configuradas'
+    });
+  }
+
   res.json({
-    supabaseUrl: process.env.SUPABASE_URL,
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY
+    supabaseUrl,
+    supabaseAnonKey
   });
 });
 
