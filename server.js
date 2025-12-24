@@ -62,9 +62,16 @@ app.get('/api/config', (req, res) => {
   const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
+    const missing = [];
+    if (!supabaseUrl) missing.push('SUPABASE_URL');
+    if (!supabaseAnonKey) missing.push('SUPABASE_ANON_KEY');
+
+    console.error('[/api/config] Missing environment variables:', missing.join(', '));
+
     return res.status(503).json({
       error: 'Supabase configuration not available',
-      message: 'As variáveis de ambiente SUPABASE_URL e SUPABASE_ANON_KEY não estão configuradas'
+      message: `Variáveis de ambiente não configuradas: ${missing.join(', ')}. Configure-as no painel do Vercel.`,
+      missing: missing
     });
   }
 
